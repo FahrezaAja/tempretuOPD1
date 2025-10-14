@@ -18,6 +18,13 @@ class SambutanController extends Controller
 
         return view('admin.sambutanAdmin', compact('katasambutan'));
     }
+    public function show()
+    {
+        // Ambil 1 data pertama, bukan semua
+        $katasambutan = Sambutan::first();
+
+        return view('umum.sambutan', compact('katasambutan'));
+    }
 
     /**
      * Simpan sambutan baru (hapus lama jika ada).

@@ -10,9 +10,7 @@ Route::get('/', function () {
 })->name('dashboard');
 
 //sambutan
-Route::get('/sambutan', function () {
-    return view('umum.sambutan');
-})->name('sambutan');
+Route::get('sambutan', [SambutanController::class, 'show'])->name('sambutan');
 
 //profil OPD
 Route::get('/profilOPD', function () {
