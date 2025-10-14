@@ -138,7 +138,8 @@
           <i class="fa-solid fa-chevron-down ml-2 text-xs"></i>
         </div>
         <div class="dropdown-menu">
-          <a href="/sambutan" class="dropdown-item">Sambutan Kepala Badan</a>
+          <a href="{{ route('sambutan') }}"
+                        class="{{ request()->routeIs('sambutan') ? 'menu-active' : '' }} dropdown-item">Sambutan Kepala Badan</a>
           <a href="/profilOPD" class="dropdown-item">Profil Badan</a>
           <a href="/tupoksi" class="dropdown-item">Tugas Pokok & Fungsi</a>
           <a href="/strukturOrganisasi" class="dropdown-item">Struktur Organisasi</a>

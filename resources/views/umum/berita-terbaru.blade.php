@@ -14,12 +14,12 @@
         {{-- ===================== DATA SEMENTARA ===================== --}}
         @php
             $berita = [
-                ['judul' => 'Lonjakan Kasus Cyberbullying di Platform Chat', 'kategori' => 'Cyberbullying', 'gambar' => 'https://source.unsplash.com/1200x800/?cyber,crime'],
-                ['judul' => 'Inovasi Baru dalam Analisis Bukti Digital', 'kategori' => 'Forensik Digital', 'gambar' => 'https://source.unsplash.com/1200x800/?digital,forensic'],
-                ['judul' => 'Forensik Digital dan Peran Penting AI', 'kategori' => 'Keamanan Siber', 'gambar' => 'https://source.unsplash.com/1200x800/?technology,security'],
-                ['judul' => 'Upaya Pencegahan Kebocoran Data Nasional', 'kategori' => 'Keamanan Siber', 'gambar' => 'https://source.unsplash.com/1200x800/?hacker,computer'],
-                ['judul' => 'DFRWS: Metodologi Forensik Digital Modern', 'kategori' => 'Forensik Digital', 'gambar' => 'https://source.unsplash.com/1200x800/?dfrws,conference'],
-                ['judul' => 'Kampanye Kesadaran Cyberbullying untuk Remaja', 'kategori' => 'Cyberbullying', 'gambar' => 'https://source.unsplash.com/1200x800/?teen,online'],
+                ['judul' => 'Lorem Ipsum', 'kategori' => 'Kategori', 'gambar' => 'https://source.unsplash.com/1200x800/?cyber,crime'],
+                ['judul' => 'Lorem Ipsum', 'kategori' => 'Kategori', 'gambar' => 'https://source.unsplash.com/1200x800/?digital,forensic'],
+                ['judul' => 'Lorem Ipsum', 'kategori' => 'Kategori', 'gambar' => 'https://source.unsplash.com/1200x800/?technology,security'],
+                ['judul' => 'Lorem Ipsum', 'kategori' => 'Kategori', 'gambar' => 'https://source.unsplash.com/1200x800/?hacker,computer'],
+                ['judul' => 'Lorem Ipsum', 'kategori' => 'Kategori', 'gambar' => 'https://source.unsplash.com/1200x800/?dfrws,conference'],
+                ['judul' => 'Lorem Ipsum', 'kategori' => 'Kategori', 'gambar' => 'https://source.unsplash.com/1200x800/?teen,online'],
             ];
 
             // Kategori utama dari halaman Profil OPD
