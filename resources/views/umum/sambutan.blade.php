@@ -36,12 +36,8 @@
         :class="show 
             ? 'opacity-100 translate-x-0' 
             : 'opacity-0 translate-x-20'">
-        
-        <p class="text-sm tracking-widest uppercase text-indigo-600 font-bold">
-            Sambutan Kepala Badan
-        </p>
 
-        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight text-indigo-700">
             Lorem Ipsum
         </h1>
 

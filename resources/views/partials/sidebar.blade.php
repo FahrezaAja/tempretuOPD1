@@ -16,6 +16,14 @@
                 </a>
             </li>
 
+            <!-- Sampul -->
+            <li>
+                <a href="{{ route('admin.dashboard') }}" class="flex items-center px-3 py-2 rounded hover:bg-gray-700 transition">
+                    <i class="fas fa-book-open mr-3 w-5 text-center"></i>
+                    Sampul
+                </a>
+            </li>
+
             <!-- Profil Dropdown -->
             <li x-data="{ open: false }">
                 <button @click="open = !open" class="flex justify-between items-center w-full px-3 py-2 rounded hover:bg-gray-700 transition focus:outline-none">
@@ -26,7 +34,7 @@
                     <i :class="{'fa-rotate-90': open}" class="fas fa-chevron-right transition-transform w-3 text-center"></i>
                 </button>
                 <ul x-show="open" x-transition class="mt-1 pl-8 space-y-1 text-sm text-gray-300">
-                    <li><a href="#" class="block px-2 py-1 rounded hover:bg-gray-700">Sambutan Kepala Badan</a></li>
+                    <li><a href="{{ route('admin.sambutanAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Sambutan Kepala Badan</a></li>
                     <li><a href="#" class="block px-2 py-1 rounded hover:bg-gray-700">Profil Badan</a></li>
                     <li><a href="#" class="block px-2 py-1 rounded hover:bg-gray-700">Tupoksi</a></li>
                     <li><a href="#" class="block px-2 py-1 rounded hover:bg-gray-700">Struktur Organisasi</a></li>

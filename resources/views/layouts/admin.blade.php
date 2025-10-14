@@ -34,7 +34,7 @@
              class="fixed inset-0 bg-black opacity-50 z-20 lg:hidden"></div>
 
         {{-- 🔹 Konten Halaman --}}
-        <main class="flex-1 p-6 lg:ml-64">
+        <main class="flex-1 p-6 ml-64">
             @yield('content')
         </main>
     </div>
