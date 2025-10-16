@@ -35,7 +35,7 @@
                 </button>
                 <ul x-show="open" x-transition class="mt-1 pl-8 space-y-1 text-sm text-gray-300">
                     <li><a href="{{ route('admin.sambutanAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Sambutan Kepala Badan</a></li>
-                    <li><a href="#" class="block px-2 py-1 rounded hover:bg-gray-700">Profil Badan</a></li>
+                    <li><a href="{{ route('admin.profilOPDAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Profil Badan</a></li>
                     <li><a href="#" class="block px-2 py-1 rounded hover:bg-gray-700">Tupoksi</a></li>
                     <li><a href="#" class="block px-2 py-1 rounded hover:bg-gray-700">Struktur Organisasi</a></li>
                 </ul>

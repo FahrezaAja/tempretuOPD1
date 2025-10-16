@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\SambutanController;
+use App\Http\Controllers\ProfilOPDController;
 
 //home
 Route::get('/', function () {
@@ -13,9 +14,7 @@ Route::get('/', function () {
 Route::get('sambutan', [SambutanController::class, 'show'])->name('sambutan');
 
 //profil OPD
-Route::get('/profilOPD', function () {
-    return view('umum.profilOPD');
-})->name('profilOPD');
+Route::get('profilOPD', [ProfilOPDController::class, 'show'])->name('profilOPD');
 
 //tupoksi
 Route::get('/tupoksi', function () {
@@ -112,6 +111,12 @@ Route::prefix('admin')->group(function () {
         Route::post('katasambutanAdmin', [SambutanController::class, 'store'])->name('katasambutan.store');
         Route::put('katasambutanAdmin/{id}', [SambutanController::class, 'update'])->name('katasambutan.update');
         Route::delete('katasambutanAdmin/{id}', [SambutanController::class, 'destroy'])->name('katasambutan.destroy');
+
+        //Profil OPD Admin
+        Route::get('profilOPDAdmin', [ProfilOPDController::class, 'index'])->name('admin.profilOPDAdmin');
+        Route::post('profilOPDAdmin', [ProfilOPDController::class, 'store'])->name('profilOPDAdmin.store');
+        Route::put('profilOPDAdmin/{id}', [ProfilOPDController::class, 'update'])->name('profilOPDAdmin.update');
+        Route::delete('profilOPDAdmin/{id}', [ProfilOPDController::class, 'destroy'])->name('profilOPDAdmin.destroy');
 
 
 

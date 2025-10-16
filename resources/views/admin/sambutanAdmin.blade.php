@@ -42,7 +42,7 @@
 
             <div>
                 <label class="block font-medium text-gray-700 mb-1">Deskripsi</label>
-                <textarea name="deskripsi" rows="6" required
+                <textarea id="description_edit" name="deskripsi" rows="6" required
                     class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">{{ old('deskripsi', $katasambutan->deskripsi) }}</textarea>
             </div>
 
@@ -108,7 +108,7 @@
 
             <div>
                 <label class="block font-medium text-gray-700 mb-1">Deskripsi</label>
-                <textarea name="deskripsi" rows="6" required
+                <textarea id="description_create"name="deskripsi" rows="6" required
                     class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none"></textarea>
             </div>
 
@@ -129,4 +129,19 @@
     @endif
 
 </div>
+
+<!-- CKEditor -->
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        if (document.getElementById("description_create")) {
+            CKEDITOR.replace("description_create", { height: 200 });
+        }
+
+        if (document.querySelector('[id="description_edit"]')) {
+            CKEDITOR.replace("description_edit", { height: 200 });
+        }
+    });
+</script>
+
 @endsection
