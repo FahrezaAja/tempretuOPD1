@@ -52,8 +52,8 @@
                 </button>
                 <ul x-show="open" x-transition class="mt-1 pl-8 space-y-1 text-sm text-gray-300">
                     <li><a href="{{ route('admin.sekretariatAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Sekretariat</a></li>
-                    <li><a href="#" class="block px-2 py-1 rounded hover:bg-gray-700">Bidang Politik</a></li>
-                    <li><a href="#" class="block px-2 py-1 rounded hover:bg-gray-700">Bidang Kesatuan Bangsa</a></li>
+                    <li><a href="{{ route('admin.bidangPolitikAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Bidang Politik</a></li>
+                    <li><a href="{{ route('admin.bidangKesatuanBangsaAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Bidang Kesatuan Bangsa</a></li>
                 </ul>
             </li>
 
