@@ -8,27 +8,22 @@ use Illuminate\Support\Facades\Storage;
 
 class SambutanController extends Controller
 {
-    /**
-     * Tampilkan halaman manajemen sambutan (hanya 1 data).
-     */
+
     public function index()
     {
-        // Ambil 1 data pertama, bukan semua
         $katasambutan = Sambutan::first();
 
         return view('admin.sambutanAdmin', compact('katasambutan'));
     }
     public function show()
     {
-        // Ambil 1 data pertama, bukan semua
+
         $katasambutan = Sambutan::first();
 
         return view('umum.sambutan', compact('katasambutan'));
     }
 
-    /**
-     * Simpan sambutan baru (hapus lama jika ada).
-     */
+
     public function store(Request $request)
     {
         $request->validate([
@@ -36,10 +31,10 @@ class SambutanController extends Controller
             'deskripsi' => 'required|string',
             'nama_opd' => 'required|string|max:255',
             'nama_kepala_badan' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10048',
         ]);
 
-        // Hapus data lama agar hanya satu sambutan yang tersimpan
+
         Sambutan::truncate();
 
         $imagePath = null;
@@ -58,9 +53,7 @@ class SambutanController extends Controller
         return redirect()->route('admin.sambutanAdmin')->with('success', 'Kata Sambutan berhasil ditambahkan.');
     }
 
-    /**
-     * Perbarui data sambutan.
-     */
+
     public function update(Request $request, string $id)
     {
         $katasambutan = Sambutan::findOrFail($id);
@@ -70,7 +63,7 @@ class SambutanController extends Controller
             'deskripsi' => 'required|string',
             'nama_opd' => 'required|string|max:255',
             'nama_kepala_badan' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10048',
         ]);
 
         $data = $request->only(['judul', 'deskripsi', 'nama_opd', 'nama_kepala_badan']);
@@ -87,9 +80,7 @@ class SambutanController extends Controller
         return redirect()->route('admin.sambutanAdmin')->with('success', 'Kata Sambutan berhasil diperbarui.');
     }
 
-    /**
-     * Hapus data sambutan.
-     */
+
     public function destroy(string $id)
     {
         $katasambutan = Sambutan::findOrFail($id);
