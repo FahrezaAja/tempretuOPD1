@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\SambutanController;
 use App\Http\Controllers\ProfilOPDController;
+use App\Http\Controllers\TupoksiController;
+use App\Http\Controllers\StrukturOrganisasiController;
+use App\Http\Controllers\SekretariatController;
 
 //home
 Route::get('/', function () {
@@ -17,19 +20,13 @@ Route::get('sambutan', [SambutanController::class, 'show'])->name('sambutan');
 Route::get('profilOPD', [ProfilOPDController::class, 'show'])->name('profilOPD');
 
 //tupoksi
-Route::get('/tupoksi', function () {
-    return view('umum.tupoksi');
-})->name('tupoksi');
+Route::get('tupoksi', [TupoksiController::class, 'show'])->name('tupoksi');
 
 //struktur organisasi
-Route::get('/strukturOrganisasi', function () {
-    return view('umum.struktur-organisasi');
-})->name('strukturOrganisasi');
+Route::get('struktur-organisasi', [StrukturOrganisasiController::class, 'show'])->name('struktur-organisasi');
 
 //sekretariat
-Route::get('/sekretariat', function () {
-    return view('umum.sekretariat');
-})->name('sekretariat');
+Route::get('sekretariat', [SekretariatController::class, 'show'])->name('sekretariat');
 
 //bidang politik
 Route::get('/bidangPolitik', function () {
@@ -118,6 +115,23 @@ Route::prefix('admin')->group(function () {
         Route::put('profilOPDAdmin/{id}', [ProfilOPDController::class, 'update'])->name('profilOPDAdmin.update');
         Route::delete('profilOPDAdmin/{id}', [ProfilOPDController::class, 'destroy'])->name('profilOPDAdmin.destroy');
 
+        //Tugas Pokok & Fungsi Admin
+        Route::get('tupoksiAdmin', [TupoksiController::class, 'index'])->name('admin.tupoksiAdmin');
+        Route::post('tupoksiAdmin', [TupoksiController::class, 'store'])->name('tupoksiAdmin.store');
+        Route::put('tupoksiAdmin/{id}', [TupoksiController::class, 'update'])->name('tupoksiAdmin.update');
+        Route::delete('tupoksiAdmin/{id}', [TupoksiController::class, 'destroy'])->name('tupoksiAdmin.destroy');
+        
+        //Struktur Organisasi Admin
+        Route::get('strukturOrganisasiAdmin', [StrukturOrganisasiController::class, 'index'])->name('admin.strukturOrganisasiAdmin');
+        Route::post('strukturOrganisasiAdmin', [StrukturOrganisasiController::class, 'store'])->name('strukturOrganisasiAdmin.store');
+        Route::put('strukturOrganisasiAdmin/{id}', [StrukturOrganisasiController::class, 'update'])->name('strukturOrganisasiAdmin.update');
+        Route::delete('strukturOrganisasiAdmin/{id}', [StrukturOrganisasiController::class, 'destroy'])->name('strukturOrganisasiAdmin.destroy');
+
+        //Sekretariat Admin
+        Route::get('sekretariatAdmin', [SekretariatController::class, 'index'])->name('admin.sekretariatAdmin');
+        Route::post('sekretariatAdmin', [SekretariatController::class, 'store'])->name('sekretariatAdmin.store');
+        Route::put('sekretariatAdmin/{id}', [SekretariatController::class, 'update'])->name('sekretariatAdmin.update');
+        Route::delete('sekretariatAdmin/{id}', [SekretariatController::class, 'destroy'])->name('sekretariatAdmin.destroy');
 
 
 

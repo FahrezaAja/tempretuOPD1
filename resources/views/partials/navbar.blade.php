@@ -142,7 +142,7 @@
                         class="{{ request()->routeIs('sambutan') ? 'menu-active' : '' }} dropdown-item">Sambutan Kepala Badan</a>
           <a href="/profilOPD" class="dropdown-item">Profil Badan</a>
           <a href="/tupoksi" class="dropdown-item">Tugas Pokok & Fungsi</a>
-          <a href="/strukturOrganisasi" class="dropdown-item">Struktur Organisasi</a>
+          <a href="/struktur-organisasi" class="dropdown-item">Struktur Organisasi</a>
         </div>
       </div>
 
