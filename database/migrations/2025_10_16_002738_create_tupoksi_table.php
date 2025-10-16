@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('tupoksi', function (Blueprint $table) {
             $table->id();
+            $table->text('tugas_pokok');
+            $table->text('fungsi');
             $table->timestamps();
         });
     }

@@ -37,13 +37,13 @@
             <div>
                 <label class="block font-medium text-gray-700 mb-1">Visi</label>
                 <textarea id="visi_edit" name="visi" rows="6" required
-                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">{{ old('deskripsi', $profilopd->visi) }}</textarea>
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">{{ old('visi', $profilopd->visi) }}</textarea>
             </div>
 
             <div>
                 <label class="block font-medium text-gray-700 mb-1">Misi</label>
                 <textarea id="misi_edit" name="misi" rows="6" required
-                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">{{ old('deskripsi', $profilopd->misi) }}</textarea>
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">{{ old('misi', $profilopd->misi) }}</textarea>
             </div>
 
             <div>
