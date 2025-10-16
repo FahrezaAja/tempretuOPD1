@@ -26,7 +26,7 @@
 
             <h2 class="text-2xl font-bold text-indigo-700 mb-4">Tugas Pokok Sekretariat</h2>
             <p class="text-gray-700 leading-relaxed text-lg">
-                Sekretariat memiliki tugas pokok untuk melaksanakan pelayanan administratif, penyusunan program, serta pengelolaan urusan umum dan keuangan dalam mendukung pelaksanaan tugas Dinas Komunikasi dan Informatika Provinsi Papua Selatan.
+                {!! $sekretariat->tugas_pokok ?? 'Belum ada data tugas pokok.' !!}
             </p>
         </div>
 
@@ -35,13 +35,7 @@
              :class="show ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'">
 
             <h2 class="text-2xl font-bold text-indigo-700 mb-4">Fungsi Sekretariat</h2>
-            <ul class="list-disc list-inside text-gray-700 space-y-3 text-lg leading-relaxed">
-                <li>Menyiapkan perumusan kebijakan teknis di bidang perencanaan, keuangan, dan kepegawaian.</li>
-                <li>Melaksanakan koordinasi dan pengawasan pelaksanaan program serta kegiatan administrasi umum.</li>
-                <li>Mengelola urusan tata usaha, perlengkapan, dan dokumentasi perkantoran.</li>
-                <li>Menyusun laporan kinerja dan pelaksanaan kegiatan dinas secara berkala.</li>
-                <li>Melaksanakan tugas lain yang diberikan oleh Kepala Dinas sesuai bidang tugasnya.</li>
-            </ul>
+            {!! $sekretariat->fungsi ?? 'Belum ada data fungsi.' !!}
         </div>
 
     </div>

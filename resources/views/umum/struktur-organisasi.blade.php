@@ -22,9 +22,17 @@
          :class="show ? 'opacity-100 scale-100' : 'opacity-0 scale-95'">
 
         <div class="rounded-[30px] overflow-hidden shadow-xl bg-white/90 backdrop-blur-md p-6 md:p-8 w-full max-w-[70rem]">
-            <img src="{{ asset('images/struktur-organisasi.jpg') }}" 
-                 alt="Struktur Organisasi"
-                 class="w-full h-auto object-contain rounded-[20px] transition-transform duration-700">
+            @if ($strukturorganisasi && $strukturorganisasi->image)
+                {{-- Gambar diambil dari database (disimpan di storage) --}}
+                <img src="{{ asset('storage/' . $strukturorganisasi->image) }}" 
+                     alt="Struktur Organisasi"
+                     class="w-full h-auto object-contain rounded-[20px] transition-transform duration-700">
+            @else
+                {{-- Fallback jika belum ada gambar --}}
+                <div class="text-center text-gray-600 py-20">
+                    <p class="text-xl">Belum ada data struktur organisasi.</p>
+                </div>
+            @endif
         </div>
     </div>
 
