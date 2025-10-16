@@ -1,4 +1,3 @@
-<!-- resources/views/layouts/admin.blade.php -->
 <!DOCTYPE html>
 <html lang="id">
 
@@ -11,49 +10,63 @@
     @vite('resources/css/app.css')
     <script defer src="//unpkg.com/alpinejs"></script>
 
-    {{-- 🔹 Anti Flicker --}}
     <style>
         [x-cloak] {
             display: none !important;
+        }
+
+        /* Efek transisi halaman */
+        .page-fade {
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        .page-fade.fade-active {
+            opacity: 1;
+        }
+
+        body {
+            overflow-x: hidden;
         }
     </style>
 </head>
 
 <body class="bg-gray-50 min-h-screen page-fade" x-data="{ sidebarOpen: false }">
 
-    {{-- 🔹 Sidebar --}}
-    <div class="flex">
-        <div :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
-             class="fixed z-30 inset-y-0 left-0 w-64 bg-gray-800 text-gray-100 transform transition-transform duration-300 lg:translate-x-0 lg:static lg:inset-0">
-            @include('partials.sidebar')
-        </div>
+    {{-- 🔹 Sidebar Tetap di Kiri --}}
+    <aside
+        class="fixed top-0 left-0 w-64 h-full bg-gray-800 text-gray-100 z-40 overflow-y-auto shadow-lg"
+    >
+        @include('partials.sidebar')
+    </aside>
 
-        {{-- Overlay untuk mobile --}}
-        <div @click="sidebarOpen = false"
-             :class="sidebarOpen ? 'block' : 'hidden'"
-             class="fixed inset-0 bg-black opacity-50 z-20 lg:hidden"></div>
+    {{-- 🔹 Overlay untuk mobile --}}
+    <div
+        @click="sidebarOpen = false"
+        :class="sidebarOpen ? 'block' : 'hidden'"
+        class="fixed inset-0 bg-black opacity-50 z-30 lg:hidden"
+    ></div>
 
-        {{-- 🔹 Konten Halaman --}}
-        <main class="flex-1 p-6 lg:ml-64">
+    {{-- 🔹 Konten utama --}}
+    <main class="ml-64 flex-1 p-6 transition-all duration-300">
+        <div class="max-w-7xl mx-auto">
             @yield('content')
-        </main>
-    </div>
+        </div>
+    </main>
 
-    {{-- 🔹 Script untuk Transisi Halaman --}}
     <script>
+        // Animasi transisi halaman
         const applyFade = () => {
-            document.body.classList.remove("fade-active"); // Reset
+            document.body.classList.remove("fade-active");
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     document.body.classList.add("fade-active");
                 });
             });
         };
-
         window.addEventListener("load", applyFade);
         document.addEventListener("alpine:initialized", applyFade);
     </script>
 
 </body>
-
 </html>
