@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Sekretariat;
-class SekretariatController extends Controller
+use App\Models\BidangPolitik;
+
+class BidangPolitikController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $sekretariat = Sekretariat::first();
+        $bidangpolitik = BidangPolitik::first();
 
-        return view('admin.sekretariatAdmin', compact('sekretariat'));
+        return view('admin.bidangPolitikAdmin', compact('bidangpolitik'));
     }
 
     /**
@@ -35,14 +36,14 @@ class SekretariatController extends Controller
         ]);
 
 
-        Sekretariat::truncate();
+        BidangPolitik::truncate();
 
-        Sekretariat::create([
+        BidangPolitik::create([
             'tugas_pokok' => $request->tugas_pokok,
             'fungsi' => $request->fungsi,
         ]);
 
-        return redirect()->route('admin.sekretariatAdmin')->with('success', 'Sekretariat berhasil ditambahkan.');
+        return redirect()->route('admin.bidangPolitikAdmin')->with('success', 'Bidang Politik berhasil ditambahkan.');
     }
 
     /**
@@ -50,9 +51,9 @@ class SekretariatController extends Controller
      */
     public function show()
     {
-        $sekretariat = Sekretariat::first();
+        $bidangpolitik = BidangPolitik::first();
 
-        return view('umum.sekretariat', compact('sekretariat'));
+        return view('umum.bidang-politik', compact('bidangpolitik'));
     }
 
     /**
@@ -68,7 +69,7 @@ class SekretariatController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $sekretariat = Sekretariat::findOrFail($id);
+        $bidangpolitik = BidangPolitik::findOrFail($id);
 
         $request->validate([
             'tugas_pokok' => 'required|string',
@@ -77,9 +78,9 @@ class SekretariatController extends Controller
 
         $data = $request->only(['tugas_pokok', 'fungsi']);
 
-        $sekretariat->update($data);
+        $bidangpolitik->update($data);
 
-        return redirect()->route('admin.sekretariatAdmin')->with('success', 'Sekretariat berhasil diperbarui.');
+        return redirect()->route('admin.bidangPolitikAdmin')->with('success', 'Bidang Politik berhasil diperbarui.');
     }
 
     /**
@@ -87,10 +88,10 @@ class SekretariatController extends Controller
      */
     public function destroy(string $id)
     {
-        $sekretariat = Sekretariat::findOrFail($id);
+        $bidangpolitik = BidangPolitik::findOrFail($id);
 
-        $sekretariat->delete();
+        $bidangpolitik->delete();
 
-        return redirect()->route('admin.sekretariatAdmin')->with('success', 'Sekretariat berhasil dihapus.');
+        return redirect()->route('admin.bidangPolitikAdmin')->with('success', 'Bidang Politik berhasil dihapus.');
     }
 }

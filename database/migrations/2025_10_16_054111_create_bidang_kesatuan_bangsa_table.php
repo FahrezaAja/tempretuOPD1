@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('bidang_politik', function (Blueprint $table) {
+        Schema::create('bidang_kesatuan_bangsa', function (Blueprint $table) {
             $table->id();
             $table->text('tugas_pokok');
             $table->text('fungsi');
@@ -23,6 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('bidang_politik');
+        Schema::dropIfExists('bidang_kesatuan_bangsa');
     }
 };

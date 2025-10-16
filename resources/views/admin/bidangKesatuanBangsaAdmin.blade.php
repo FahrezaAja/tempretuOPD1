@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
-@section('title', 'Manajemen Sekretariat')
+@section('title', 'Manajemen Bidang Kesatuan Bangsa')
 @section('content')
 <div class="max-w-6xl mx-auto p-6">
 
-    <h1 class="text-3xl font-bold mb-6 text-indigo-700">Kelola Sekretariat</h1>
+    <h1 class="text-3xl font-bold mb-6 text-indigo-700">Kelola Bidang Kesatuan Bangsa</h1>
 
     {{-- Notifikasi --}}
     @if(session('success'))
@@ -13,25 +13,25 @@
         </div>
     @endif
 
-    @if($sekretariat)
+    @if($bidangkesatuanbangsa)
     {{-- ================= UPDATE FORM ================= --}}
     <div class="bg-white rounded-xl shadow-lg p-6 mb-8 transition transform hover:scale-[1.01]">
-        <h2 class="text-xl font-semibold mb-4 text-gray-800">Update Sekretariat</h2>
+        <h2 class="text-xl font-semibold mb-4 text-gray-800">Update Bidang Kesatuan Bangsa</h2>
 
-        <form action="{{ route('sekretariatAdmin.update', $sekretariat->id) }}" method="POST" enctype="multipart/form-data" class="space-y-5">
+        <form action="{{ route('bidangKesatuanBangsaAdmin.update', $bidangkesatuanbangsa->id) }}" method="POST" enctype="multipart/form-data" class="space-y-5">
             @csrf
             @method('PUT')
 
             <div>
                 <label class="block font-medium text-gray-700 mb-1">Tugas Pokok</label>
                 <textarea id="tugaspokok_edit" name="tugas_pokok" rows="6" required
-                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">{{ old('tugas_pokok', $sekretariat->tugas_pokok) }}</textarea>
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">{{ old('tugas_pokok', $bidangkesatuanbangsa->tugas_pokok) }}</textarea>
             </div>
 
             <div>
                 <label class="block font-medium text-gray-700 mb-1">Fungsi</label>
                 <textarea id="fungsi_edit" name="fungsi" rows="6" required
-                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">{{ old('deskripsi', $sekretariat->fungsi) }}</textarea>
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">{{ old('deskripsi', $bidangkesatuanbangsa->fungsi) }}</textarea>
             </div>
 
             <div class="flex justify-end gap-4 pt-4 border-t mt-4">
@@ -45,10 +45,10 @@
 
     {{-- ================= DELETE FORM ================= --}}
     <div class="bg-red-50 rounded-xl shadow-lg p-6 transition transform hover:scale-[1.01]">
-        <h2 class="text-xl font-semibold mb-4 text-red-700">Hapus Sekretariat</h2>
-        <p class="mb-4 text-gray-700">Klik tombol di bawah untuk menghapus Sekretariat ini secara permanen.</p>
+        <h2 class="text-xl font-semibold mb-4 text-red-700">Hapus Bidang Kesatuan Bangsa</h2>
+        <p class="mb-4 text-gray-700">Klik tombol di bawah untuk menghapus Bidang Kesatuan Bangsa ini secara permanen.</p>
 
-        <form action="{{ route('sekretariatAdmin.destroy', $sekretariat->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus Sekretariat?');">
+        <form action="{{ route('bidangKesatuanBangsaAdmin.destroy', $bidangkesatuanbangsa->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus Bidang Kesatuan Bangsa?');">
             @csrf
             @method('DELETE')
             <button type="submit"
@@ -61,9 +61,9 @@
     @else
     {{-- ================= FORM TAMBAH ================= --}}
     <div class="bg-white rounded-xl shadow-lg p-6 transition transform hover:scale-[1.01]">
-        <h2 class="text-xl font-semibold mb-4 text-gray-800">Tambah Sekretariat Baru</h2>
+        <h2 class="text-xl font-semibold mb-4 text-gray-800">Tambah Bidang Kesatuan Bangsa Baru</h2>
 
-        <form action="{{ route('sekretariatAdmin.store') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
+        <form action="{{ route('bidangKesatuanBangsaAdmin.store') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
             @csrf
 
             <div>
@@ -81,7 +81,7 @@
             <div class="flex justify-end pt-4 border-t mt-4">
                 <button type="submit"
                     class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg shadow-md transition duration-200">
-                    Tambah Sekretariat
+                    Tambah Bidang Kesatuan Bangsa
                 </button>
             </div>
         </form>

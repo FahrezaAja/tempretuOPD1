@@ -7,6 +7,8 @@ use App\Http\Controllers\ProfilOPDController;
 use App\Http\Controllers\TupoksiController;
 use App\Http\Controllers\StrukturOrganisasiController;
 use App\Http\Controllers\SekretariatController;
+use App\Http\Controllers\BidangPolitikController;
+use App\Http\Controllers\BidangKesatuanBangsaController;
 
 //home
 Route::get('/', function () {
@@ -29,14 +31,10 @@ Route::get('struktur-organisasi', [StrukturOrganisasiController::class, 'show'])
 Route::get('sekretariat', [SekretariatController::class, 'show'])->name('sekretariat');
 
 //bidang politik
-Route::get('/bidangPolitik', function () {
-    return view('umum.bidang-politik');
-})->name('bidangPolitik');
+Route::get('bidang-politik', [BidangPolitikController::class, 'show'])->name('bidang-politik');
 
 //bidang kesatuan bangsa
-Route::get('/bidangKesatuanBangsa', function () {
-    return view('umum.bidang-kesatuan-bangsa');
-})->name('bidangKesatuanBangsa');
+Route::get('bidang-kesatuan-bangsa', [BidangKesatuanBangsaController::class, 'show'])->name('bidang-kesatuan-bangsa');
 
 //program kegiatan
 Route::get('/programKegiatan', function () {
@@ -133,7 +131,17 @@ Route::prefix('admin')->group(function () {
         Route::put('sekretariatAdmin/{id}', [SekretariatController::class, 'update'])->name('sekretariatAdmin.update');
         Route::delete('sekretariatAdmin/{id}', [SekretariatController::class, 'destroy'])->name('sekretariatAdmin.destroy');
 
+        //Bidang Politik Admin
+        Route::get('bidangPolitikAdmin', [BidangPolitikController::class, 'index'])->name('admin.bidangPolitikAdmin');
+        Route::post('bidangPolitikAdmin', [BidangPolitikController::class, 'store'])->name('bidangPolitikAdmin.store');
+        Route::put('bidangPolitikAdmin/{id}', [BidangPolitikController::class, 'update'])->name('bidangPolitikAdmin.update');
+        Route::delete('bidangPolitikAdmin/{id}', [BidangPolitikController::class, 'destroy'])->name('bidangPolitikAdmin.destroy');
 
+        //Bidang Kesatuan Bangsa Admin
+        Route::get('bidangKesatuanBangsaAdmin', [BidangKesatuanBangsaController::class, 'index'])->name('admin.bidangKesatuanBangsaAdmin');
+        Route::post('bidangKesatuanBangsaAdmin', [BidangKesatuanBangsaController::class, 'store'])->name('bidangKesatuanBangsaAdmin.store');
+        Route::put('bidangKesatuanBangsaAdmin/{id}', [BidangKesatuanBangsaController::class, 'update'])->name('bidangKesatuanBangsaAdmin.update');
+        Route::delete('bidangKesatuanBangsaAdmin/{id}', [BidangKesatuanBangsaController::class, 'destroy'])->name('bidangKesatuanBangsaAdmin.destroy');
 
     });
 

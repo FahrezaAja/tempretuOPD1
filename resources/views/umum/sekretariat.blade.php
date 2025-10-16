@@ -26,7 +26,7 @@
 
             <h2 class="text-2xl font-bold text-indigo-700 mb-4">Tugas Pokok Sekretariat</h2>
             <p class="text-gray-700 leading-relaxed text-lg">
-                {!! $sekretariat->tugas_pokok ?? 'Belum ada data tugas pokok.' !!}
+                {!! $sekretariat->tugas_pokok ?? 'Belum ada tugas pokok.' !!}
             </p>
         </div>
 
@@ -35,7 +35,7 @@
              :class="show ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'">
 
             <h2 class="text-2xl font-bold text-indigo-700 mb-4">Fungsi Sekretariat</h2>
-            {!! $sekretariat->fungsi ?? 'Belum ada data fungsi.' !!}
+            {!! $sekretariat->fungsi ?? 'Belum ada fungsi.' !!}
         </div>
 
     </div>
