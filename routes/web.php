@@ -9,6 +9,7 @@ use App\Http\Controllers\StrukturOrganisasiController;
 use App\Http\Controllers\SekretariatController;
 use App\Http\Controllers\BidangPolitikController;
 use App\Http\Controllers\BidangKesatuanBangsaController;
+use App\Http\Controllers\ProdukHukumController;
 
 //home
 Route::get('/', function () {
@@ -41,10 +42,10 @@ Route::get('/programKegiatan', function () {
     return view('umum.program-kegiatan');
 })->name('programKegiatan');
 
-//Produk Hukum
-Route::get('/produkHukum', function () {
-    return view('umum.produk-hukum');
-})->name('produkHukum');
+//produk hukum
+Route::get('/produk-hukum', [ProdukHukumController::class, 'show'])->name('produk-hukum');
+Route::get('/produk-hukum/download/{id}', [ProdukHukumController::class, 'download'])->name('produk-hukum.download');
+
 
 //galeri
 Route::get('/galeri', function () {
@@ -118,7 +119,7 @@ Route::prefix('admin')->group(function () {
         Route::post('tupoksiAdmin', [TupoksiController::class, 'store'])->name('tupoksiAdmin.store');
         Route::put('tupoksiAdmin/{id}', [TupoksiController::class, 'update'])->name('tupoksiAdmin.update');
         Route::delete('tupoksiAdmin/{id}', [TupoksiController::class, 'destroy'])->name('tupoksiAdmin.destroy');
-        
+
         //Struktur Organisasi Admin
         Route::get('strukturOrganisasiAdmin', [StrukturOrganisasiController::class, 'index'])->name('admin.strukturOrganisasiAdmin');
         Route::post('strukturOrganisasiAdmin', [StrukturOrganisasiController::class, 'store'])->name('strukturOrganisasiAdmin.store');
@@ -142,6 +143,13 @@ Route::prefix('admin')->group(function () {
         Route::post('bidangKesatuanBangsaAdmin', [BidangKesatuanBangsaController::class, 'store'])->name('bidangKesatuanBangsaAdmin.store');
         Route::put('bidangKesatuanBangsaAdmin/{id}', [BidangKesatuanBangsaController::class, 'update'])->name('bidangKesatuanBangsaAdmin.update');
         Route::delete('bidangKesatuanBangsaAdmin/{id}', [BidangKesatuanBangsaController::class, 'destroy'])->name('bidangKesatuanBangsaAdmin.destroy');
+
+        //Produk Hukum Admin
+        Route::get('produkHukumAdmin', [ProdukHukumController::class, 'index'])->name('admin.produkHukumAdmin');
+        Route::post('produkHukumAdmin', [ProdukHukumController::class, 'store'])->name('admin.produkHukumAdmin.store');
+        Route::put('produkHukumAdmin/{id}', [ProdukHukumController::class, 'update'])->name('admin.produkHukumAdmin.update');
+        Route::delete('produkHukumAdmin/{id}', [ProdukHukumController::class, 'destroy'])->name('admin.produkHukumAdmin.destroy');
+        Route::get('/produkHukumAdmin/download/{id}', [ProdukHukumController::class, 'download'])->name('admin.produkHukumAdmin.download');
 
     });
 

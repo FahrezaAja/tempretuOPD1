@@ -166,7 +166,7 @@
         </div>
         <div class="dropdown-menu">
           <a href="/programKegiatan" class="dropdown-item">Program Kegiatan</a>
-          <a href="/produkHukum" class="dropdown-item">Produk Hukum</a>
+          <a href="/produk-hukum" class="dropdown-item">Produk Hukum</a>
         </div>
       </div>
 
