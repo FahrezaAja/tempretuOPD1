@@ -49,10 +49,10 @@
             :style="'transform: translateX(' + textOffset + 'px);'">
             <div
                 class="absolute right-[-120px] top-1/2 transform -translate-y-1/2 
-                                            w-0 h-0 
-                                            border-t-[100px] border-t-transparent 
-                                            border-b-[100px] border-b-transparent 
-                                            border-l-[130px] border-l-black rounded-tr-[40px] drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
+                                                w-0 h-0 
+                                                border-t-[100px] border-t-transparent 
+                                                border-b-[100px] border-b-transparent 
+                                                border-l-[130px] border-l-black rounded-tr-[40px] drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
             </div>
 
             <p class="text-sm tracking-widest text-gray-400 uppercase font-bold">Kepala OPD</p>

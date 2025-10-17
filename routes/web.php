@@ -10,6 +10,7 @@ use App\Http\Controllers\SekretariatController;
 use App\Http\Controllers\BidangPolitikController;
 use App\Http\Controllers\BidangKesatuanBangsaController;
 use App\Http\Controllers\ProdukHukumController;
+use App\Http\Controllers\ProgramKegiatanController;
 
 //home
 Route::get('/', function () {
@@ -38,9 +39,8 @@ Route::get('bidang-politik', [BidangPolitikController::class, 'show'])->name('bi
 Route::get('bidang-kesatuan-bangsa', [BidangKesatuanBangsaController::class, 'show'])->name('bidang-kesatuan-bangsa');
 
 //program kegiatan
-Route::get('/programKegiatan', function () {
-    return view('umum.program-kegiatan');
-})->name('programKegiatan');
+Route::get('program-kegiatan', [ProgramKegiatanController::class, 'show'])->name('program-kegiatan');
+Route::get('/program-kegiatan/download/{id}', [ProgramKegiatanController::class, 'download'])->name('program-kegiatan.download');
 
 //produk hukum
 Route::get('/produk-hukum', [ProdukHukumController::class, 'show'])->name('produk-hukum');
@@ -150,6 +150,13 @@ Route::prefix('admin')->group(function () {
         Route::put('produkHukumAdmin/{id}', [ProdukHukumController::class, 'update'])->name('admin.produkHukumAdmin.update');
         Route::delete('produkHukumAdmin/{id}', [ProdukHukumController::class, 'destroy'])->name('admin.produkHukumAdmin.destroy');
         Route::get('/produkHukumAdmin/download/{id}', [ProdukHukumController::class, 'download'])->name('admin.produkHukumAdmin.download');
+
+        //program kegiatan
+        Route::get('programKegiatanAdmin', [ProgramKegiatanController::class, 'index'])->name('admin.programKegiatanAdmin');
+        Route::post('programKegiatanAdmin', [ProgramKegiatanController::class, 'store'])->name('admin.programKegiatanAdmin.store');
+        Route::put('programKegiatanAdmin/{id}', [ProgramKegiatanController::class, 'update'])->name('admin.programKegiatanAdmin.update');
+        Route::delete('programKegiatanAdmin/{id}', [ProgramKegiatanController::class, 'destroy'])->name('admin.programKegiatanAdmin.destroy');
+        Route::get('/programKegiatanAdmin/download/{id}', [ProgramKegiatanController::class, 'download'])->name('admin.programKegiatanAdmin.download');
 
     });
 

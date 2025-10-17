@@ -104,8 +104,15 @@
 
   /* ===== LOGO ANIMATION ===== */
   @keyframes glow {
-    0%, 100% { filter: drop-shadow(0 0 0 rgba(79, 70, 229, 0)); }
-    50% { filter: drop-shadow(0 0 8px rgba(79, 70, 229, 0.4)); }
+
+    0%,
+    100% {
+      filter: drop-shadow(0 0 0 rgba(79, 70, 229, 0));
+    }
+
+    50% {
+      filter: drop-shadow(0 0 8px rgba(79, 70, 229, 0.4));
+    }
   }
 
   .animate-logo-glow {
@@ -113,14 +120,12 @@
   }
 </style>
 
-<nav 
-  x-data="{ open: false, scrolled: false }"
+<nav x-data="{ open: false, scrolled: false }"
   x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 50)"
   :class="scrolled ? 'navbar-solid' : 'navbar-glass'"
-  class="fixed top-0 left-0 right-0 transition-all duration-700 z-50"
->
+  class="fixed top-0 left-0 right-0 transition-all duration-700 z-50">
   <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
-    
+
     {{-- === LOGO DI POJOK KIRI === --}}
     <a href="/" class="flex items-center space-x-3">
       <img src="{{ asset('images/logoPPS.png') }}" alt="Logo" class="h-12 w-auto animate-logo-glow">
@@ -165,7 +170,7 @@
           <i class="fa-solid fa-chevron-down ml-2 text-xs"></i>
         </div>
         <div class="dropdown-menu">
-          <a href="/programKegiatan" class="dropdown-item">Program Kegiatan</a>
+          <a href="/program-kegiatan" class="dropdown-item">Program Kegiatan</a>
           <a href="/produk-hukum" class="dropdown-item">Produk Hukum</a>
         </div>
       </div>
@@ -193,11 +198,7 @@
   </div>
 
   {{-- === MOBILE MENU === --}}
-  <div 
-    x-show="open" 
-    x-transition 
-    class="md:hidden bg-white/95 backdrop-blur-xl border-t border-gray-200 shadow-lg"
-  >
+  <div x-show="open" x-transition class="md:hidden bg-white/95 backdrop-blur-xl border-t border-gray-200 shadow-lg">
     <div class="px-6 py-4 space-y-3">
       <a href="/" class="mobile-link">Beranda</a>
 

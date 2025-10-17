@@ -79,7 +79,7 @@ class StrukturOrganisasiController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10048',
         ]);
 
-        $data = $request-> only(['image']);
+        $data = $request->only(['image']);
 
         if ($request->hasFile('image')) {
             if ($strukturorganisasi->image) {

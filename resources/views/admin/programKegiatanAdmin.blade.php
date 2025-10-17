@@ -1,12 +1,11 @@
 @extends('layouts.admin')
 
-@section('title', 'Manajemen Produk Hukum')
-@section('page-title', 'Manajemen Produk Hukum')
+@section('title', 'Manajemen Program Kegiatan')
 
 @section('content')
 
     <div class="container mx-auto px-4">
-        <h1 class="text-3xl font-bold mb-6 text-indigo-700">Kelola Produk Hukum</h1>
+        <h1 class="text-3xl font-bold mb-6 text-indigo-700">Kelola Program Kegiatan</h1>
 
         <!-- Tombol Tambah -->
         <button onclick="openModal('createModal')"
@@ -21,8 +20,6 @@
                     <tr>
                         <th class="px-4 py-3 border-b font-semibold text-left">ID</th>
                         <th class="px-4 py-3 border-b font-semibold text-left">Penulis</th>
-                        <th class="px-4 py-3 border-b font-semibold text-left">Nomor</th>
-                        <th class="px-4 py-3 border-b font-semibold text-left">Tahun</th>
                         <th class="px-4 py-3 border-b font-semibold text-left">Nama File</th>
                         <th class="px-4 py-3 border-b font-semibold text-left">Kategori</th>
                         <th class="px-4 py-3 border-b font-semibold text-center">Tanggal</th>
@@ -31,26 +28,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($produkHukum as $item)
+                    @foreach ($programKegiatan as $item)
                         <tr class="transition duration-200 odd:bg-gray-50 even:bg-white hover:bg-indigo-50 hover:shadow-sm">
                             <td class="px-4 py-3 border-b text-gray-700">{{ $loop->iteration }}</td>
                             <td class="px-4 py-3 border-b text-gray-700">
                                 @if($item->penulis)
                                     <div class="ck-content prose max-w-full">{{ $item->penulis }}</div>
-                                @else
-                                    <span class="text-gray-400">-</span>
-                                @endif
-                            </td>
-                            <td class="px-4 py-3 border-b text-gray-700">
-                                @if($item->nomor)
-                                    <div class="ck-content prose max-w-full">{{ $item->nomor }}</div>
-                                @else
-                                    <span class="text-gray-400">-</span>
-                                @endif
-                            </td>
-                            <td class="px-4 py-3 border-b text-gray-700">
-                                @if($item->tahun)
-                                    <div class="ck-content prose max-w-full">{{ $item->tahun }}</div>
                                 @else
                                     <span class="text-gray-400">-</span>
                                 @endif
@@ -83,7 +66,7 @@
                             </td>
                             <td class="px-4 py-3 border-b text-center">
                                 @if($item->file)
-                                    <a href="{{ route('admin.produkHukumAdmin.download', $item->id) }}"
+                                    <a href="{{ route('admin.programKegiatanAdmin.download', $item->id) }}"
                                         class="text-indigo-600 font-medium hover:text-indigo-800 hover:underline transition">
                                         Lihat File
                                     </a>
@@ -97,7 +80,7 @@
                                         class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm transition duration-200 shadow-sm">
                                         Edit
                                     </button>
-                                    <form action="{{ route('admin.produkHukumAdmin.destroy', $item->id) }}" method="POST"
+                                    <form action="{{ route('admin.programKegiatanAdmin.destroy', $item->id) }}" method="POST"
                                         class="inline delete-form">
                                         @csrf
                                         @method('DELETE')
@@ -122,7 +105,7 @@
                 <h5 class="font-semibold text-lg">Tambah Dokumen</h5>
                 <button onclick="closeModal('createModal')" class="text-white hover:text-gray-200 text-xl">&times;</button>
             </div>
-            <form action="{{ route('admin.produkHukumAdmin.store') }}" method="POST" enctype="multipart/form-data"
+            <form action="{{ route('admin.programKegiatanAdmin.store') }}" method="POST" enctype="multipart/form-data"
                 class="p-6">
                 @csrf
                 <div class="mb-4">
@@ -131,20 +114,6 @@
                     <input type="text" name="penulis" required
                         class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition duration-200"
                         placeholder="Masukkan penulis">
-                </div>
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Nomor <span
-                            class="text-red-500">*</span></label>
-                    <input type="number" name="nomor" required
-                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition duration-200"
-                        placeholder="Masukkan nomor">
-                </div>
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Tahun <span
-                            class="text-red-500">*</span></label>
-                    <input type="number" name="tahun" required
-                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition duration-200"
-                        placeholder="Masukkan tahun">
                 </div>
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-700 mb-1">Nama File <span
@@ -183,7 +152,7 @@
     </div>
 
     <!-- Modal Edit Dokumen -->
-    @foreach ($produkHukum as $item)
+    @foreach ($programKegiatan as $item)
         <div id="editModal{{ $item->id }}"
             class="hidden fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-50 p-4">
             <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
@@ -192,7 +161,7 @@
                     <button onclick="closeModal('editModal{{ $item->id }}')"
                         class="text-white hover:text-gray-200 text-xl">&times;</button>
                 </div>
-                <form action="{{ route('admin.produkHukumAdmin.update', $item->id) }}" method="POST"
+                <form action="{{ route('admin.programKegiatanAdmin.update', $item->id) }}" method="POST"
                     enctype="multipart/form-data" class="p-6">
                     @csrf
                     @method('PUT')
@@ -202,20 +171,6 @@
                         <input type="text" name="penulis" value="{{ $item->penulis }}" required
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition duration-200"
                             placeholder="Masukkan penulis">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Nomor <span
-                                class="text-red-500">*</span></label>
-                        <input type="number" name="nomor" value="{{ $item->nomor }}" required
-                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition duration-200"
-                            placeholder="Masukkan nomor">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Tahun <span
-                                class="text-red-500">*</span></label>
-                        <input type="number" name="tahun" value="{{ $item->tahun }}" required
-                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition duration-200"
-                            placeholder="Masukkan tahun">
                     </div>
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Nama File <span

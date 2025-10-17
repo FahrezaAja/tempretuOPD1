@@ -20,7 +20,7 @@
         .ck-content ul,
         .ck-content ul li {
             list-style-type: disc;
-            margin-left: 1.25rem; 
+            margin-left: 1.25rem;
         }
 
         .ck-content ol,
@@ -45,23 +45,23 @@
     @include('partials.footer')
 
     {{-- 🔹 Script untuk Transisi Halaman --}}
-<script>
-    const applyFade = () => {
-        document.body.classList.remove("fade-active"); // Reset
-        // Double requestAnimationFrame untuk memastikan transisi berjalan konsisten
-        requestAnimationFrame(() => {
+    <script>
+        const applyFade = () => {
+            document.body.classList.remove("fade-active"); // Reset
+            // Double requestAnimationFrame untuk memastikan transisi berjalan konsisten
             requestAnimationFrame(() => {
-                document.body.classList.add("fade-active");
+                requestAnimationFrame(() => {
+                    document.body.classList.add("fade-active");
+                });
             });
-        });
-    };
+        };
 
-    // Jalankan saat window load agar semua elemen sudah render
-    window.addEventListener("load", applyFade);
+        // Jalankan saat window load agar semua elemen sudah render
+        window.addEventListener("load", applyFade);
 
-    // Tangani Alpine.js re-init
-    document.addEventListener("alpine:initialized", applyFade);
-</script>
+        // Tangani Alpine.js re-init
+        document.addEventListener("alpine:initialized", applyFade);
+    </script>
 
 </body>
 

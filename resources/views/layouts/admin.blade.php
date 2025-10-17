@@ -34,18 +34,13 @@
 <body class="bg-gray-50 min-h-screen page-fade" x-data="{ sidebarOpen: false }">
 
     {{-- 🔹 Sidebar Tetap di Kiri --}}
-    <aside
-        class="fixed top-0 left-0 w-64 h-full bg-gray-800 text-gray-100 z-40 overflow-y-auto shadow-lg"
-    >
+    <aside class="fixed top-0 left-0 w-64 h-full bg-gray-800 text-gray-100 z-40 overflow-y-auto shadow-lg">
         @include('partials.sidebar')
     </aside>
 
     {{-- 🔹 Overlay untuk mobile --}}
-    <div
-        @click="sidebarOpen = false"
-        :class="sidebarOpen ? 'block' : 'hidden'"
-        class="fixed inset-0 bg-black opacity-50 z-30 lg:hidden"
-    ></div>
+    <div @click="sidebarOpen = false" :class="sidebarOpen ? 'block' : 'hidden'"
+        class="fixed inset-0 bg-black opacity-50 z-30 lg:hidden"></div>
 
     {{-- 🔹 Konten utama --}}
     <main class="ml-64 flex-1 p-6 transition-all duration-300">
@@ -69,4 +64,5 @@
     </script>
 
 </body>
+
 </html>
