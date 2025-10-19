@@ -142,15 +142,15 @@
             }
 
             // Efek interaktif pada form
-            const inputs = document.querySelectorAll('input');
-            inputs.forEach(input => {
-                input.addEventListener('focus', function () {
-                    this.parentElement.classList.add('ring-2', 'ring-indigo-200');
-                });
-                input.addEventListener('blur', function () {
-                    this.parentElement.classList.remove('ring-2', 'ring-indigo-200');
-                });
-            });
+            // const inputs = document.querySelectorAll('input');
+            // inputs.forEach(input => {
+            //     input.addEventListener('focus', function () {
+            //         this.parentElement.classList.add('ring-2', 'ring-indigo-200');
+            //     });
+            //     input.addEventListener('blur', function () {
+            //         this.parentElement.classList.remove('ring-2', 'ring-indigo-200');
+            //     });
+            // });
 
             // SweetAlert2 Handling
             @if(session('error'))

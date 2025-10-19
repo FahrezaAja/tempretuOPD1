@@ -11,6 +11,8 @@ use App\Http\Controllers\BidangPolitikController;
 use App\Http\Controllers\BidangKesatuanBangsaController;
 use App\Http\Controllers\ProdukHukumController;
 use App\Http\Controllers\ProgramKegiatanController;
+use App\Http\Controllers\KontakController;
+use App\Http\Controllers\KategoriController;
 
 //home
 Route::get('/', function () {
@@ -53,9 +55,7 @@ Route::get('/galeri', function () {
 })->name('galeri');
 
 //kontak
-Route::get('/kontak', function () {
-    return view('umum.kontak');
-})->name('kontak');
+Route::get('/kontak', [KontakController::class, 'show'])->name('kontak');
 
 //berita
 Route::get('berita-terbaru', function () {
@@ -63,9 +63,7 @@ Route::get('berita-terbaru', function () {
 })->name('berita-terbaru');
 
 //kategori
-Route::get('/kategori', function () {
-    return view('umum.kategori');
-})->name('kategori');
+Route::get('/kategori', [KategoriController::class, 'show'])->name('kategori');
 
 Route::get('/navbar', function () {
     return view('partials.navbar');
@@ -151,12 +149,24 @@ Route::prefix('admin')->group(function () {
         Route::delete('produkHukumAdmin/{id}', [ProdukHukumController::class, 'destroy'])->name('admin.produkHukumAdmin.destroy');
         Route::get('/produkHukumAdmin/download/{id}', [ProdukHukumController::class, 'download'])->name('admin.produkHukumAdmin.download');
 
-        //program kegiatan
+        //program kegiatan Admin
         Route::get('programKegiatanAdmin', [ProgramKegiatanController::class, 'index'])->name('admin.programKegiatanAdmin');
         Route::post('programKegiatanAdmin', [ProgramKegiatanController::class, 'store'])->name('admin.programKegiatanAdmin.store');
         Route::put('programKegiatanAdmin/{id}', [ProgramKegiatanController::class, 'update'])->name('admin.programKegiatanAdmin.update');
         Route::delete('programKegiatanAdmin/{id}', [ProgramKegiatanController::class, 'destroy'])->name('admin.programKegiatanAdmin.destroy');
         Route::get('/programKegiatanAdmin/download/{id}', [ProgramKegiatanController::class, 'download'])->name('admin.programKegiatanAdmin.download');
+
+        //kontak admin
+        Route::get('kontakAdmin', [KontakController::class, 'index'])->name('admin.kontakAdmin');
+        Route::post('kontakAdmin', [KontakController::class, 'store'])->name('admin.kontakAdmin.store');
+        Route::put('kontakAdmin/{id}', [KontakController::class, 'update'])->name('admin.kontakAdmin.update');
+        Route::delete('kontakAdmin/{id}', [KontakController::class, 'destroy'])->name('admin.kontakAdmin.destroy');
+
+        //kategori admin
+        Route::get('/kategoriAdmin', [KategoriController::class, 'index'])->name('admin.kategoriAdmin');
+        Route::post('/kategoriAdmin', [KategoriController::class, 'store'])->name('kategoriAdmin.store');
+        Route::put('/kategoriAdmin/{id}', [KategoriController::class, 'update'])->name('kategoriAdmin.update');
+        Route::delete('/kategoriAdmin/{id}', [KategoriController::class, 'destroy'])->name('kategoriAdmin.destroy');
 
     });
 
