@@ -13,6 +13,7 @@ use App\Http\Controllers\ProdukHukumController;
 use App\Http\Controllers\ProgramKegiatanController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\BeritaController;
 
 //home
 Route::get('/', function () {
@@ -58,9 +59,7 @@ Route::get('/galeri', function () {
 Route::get('/kontak', [KontakController::class, 'show'])->name('kontak');
 
 //berita
-Route::get('berita-terbaru', function () {
-    return view('umum.berita-terbaru');
-})->name('berita-terbaru');
+Route::get('/berita-terbaru', [BeritaController::class, 'show'])->name('berita-terbaru');
 
 //kategori
 Route::get('/kategori', [KategoriController::class, 'show'])->name('kategori');
@@ -167,6 +166,12 @@ Route::prefix('admin')->group(function () {
         Route::post('/kategoriAdmin', [KategoriController::class, 'store'])->name('kategoriAdmin.store');
         Route::put('/kategoriAdmin/{id}', [KategoriController::class, 'update'])->name('kategoriAdmin.update');
         Route::delete('/kategoriAdmin/{id}', [KategoriController::class, 'destroy'])->name('kategoriAdmin.destroy');
+
+        //berita admin
+        Route::get('/beritaAdmin', [BeritaController::class, 'index'])->name('admin.beritaAdmin');
+        Route::post('/beritaAdmin', [BeritaController::class, 'store'])->name('beritaAdmin.store');
+        Route::put('/beritaAdmin/{id}', [BeritaController::class, 'update'])->name('beritaAdmin.update');
+        Route::delete('/beritaAdmin/{id}', [BeritaController::class, 'destroy'])->name('beritaAdmin.destroy');
 
     });
 

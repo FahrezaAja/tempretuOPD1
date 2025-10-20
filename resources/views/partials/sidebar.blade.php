@@ -102,7 +102,7 @@
                         class="fas fa-chevron-right transition-transform w-3 text-center"></i>
                 </button>
                 <ul x-show="open" x-transition class="mt-1 pl-8 space-y-1 text-sm text-gray-300">
-                    <li><a href="{{ route('admin.programKegiatanAdmin') }}"
+                    <li><a href="{{ route('admin.beritaAdmin') }}"
                             class="block px-2 py-1 rounded hover:bg-gray-700">Berita Terbaru</a></li>
                     <li><a href="{{ route('admin.kategoriAdmin') }}"
                             class="block px-2 py-1 rounded hover:bg-gray-700">Kategori</a></li>
