@@ -14,6 +14,7 @@ use App\Http\Controllers\ProgramKegiatanController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\GaleriVideoController;
 
 //home
 Route::get('/', function () {
@@ -173,6 +174,8 @@ Route::prefix('admin')->group(function () {
         Route::put('/beritaAdmin/{id}', [BeritaController::class, 'update'])->name('beritaAdmin.update');
         Route::delete('/beritaAdmin/{id}', [BeritaController::class, 'destroy'])->name('beritaAdmin.destroy');
 
-    });
+        //galeri video admin
+        Route::match(['get', 'post'], 'videos', [GaleriVideoController::class, 'index'])->name('admin.galeriVideoAdmin');
+        Route::delete('videos/{video}', [GaleriVideoController::class, 'destroy'])->name('galeriVideoAdmin.destroy'); });
 
 });
