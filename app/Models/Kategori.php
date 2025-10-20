@@ -9,8 +9,8 @@ use Illuminate\Support\Str;
 class Kategori extends Model
 {
     use HasFactory;
+
     protected $table = "kategori";
-    
 
     protected $fillable = ['nama', 'slug', 'icon'];
 
@@ -23,5 +23,11 @@ class Kategori extends Model
         static::updating(function ($kategori) {
             $kategori->slug = Str::slug($kategori->nama);
         });
+    }
+
+    // ✅ Tambahkan ini:
+    public function berita()
+    {
+        return $this->hasMany(Berita::class, 'kategori_id');
     }
 }
