@@ -15,6 +15,7 @@ class BeritaController extends Controller
         $kategori = Kategori::all();
         return view('admin.beritaAdmin', compact('berita', 'kategori'));
     }
+
     public function show(Request $request)
     {
         // Ambil parameter kategori (jika user klik kategori tertentu)
@@ -46,7 +47,7 @@ class BeritaController extends Controller
             'foto_berita.*' => 'nullable|image|max:2048',
             'tanggal' => 'required|date',
             'kategori_id' => 'required|exists:kategori,id',
-            'unggulan' => 'nullable|boolean',
+            'unggulan' => 'sometimes', // perbaikan untuk checkbox
         ]);
 
         $fotoSampulPath = $request->hasFile('foto_sampul')
@@ -66,7 +67,7 @@ class BeritaController extends Controller
             'foto_sampul' => $fotoSampulPath,
             'foto_berita' => $fotoBeritaPath,
             'tanggal' => $request->tanggal,
-            'unggulan' => $request->unggulan ? true : false,
+            'unggulan' => $request->has('unggulan'), // true jika dicentang
             'kategori_id' => $request->kategori_id,
         ]);
 
@@ -83,9 +84,10 @@ class BeritaController extends Controller
             'foto_berita.*' => 'nullable|image|max:2048',
             'tanggal' => 'required|date',
             'kategori_id' => 'required|exists:kategori,id',
-            'unggulan' => 'nullable|boolean',
+            'unggulan' => 'sometimes', // perbaikan untuk checkbox
         ]);
 
+        // Update Foto Sampul
         if ($request->hasFile('foto_sampul')) {
             if ($berita->foto_sampul && Storage::disk('public')->exists($berita->foto_sampul)) {
                 Storage::disk('public')->delete($berita->foto_sampul);
@@ -93,6 +95,7 @@ class BeritaController extends Controller
             $berita->foto_sampul = $request->file('foto_sampul')->store('berita', 'public');
         }
 
+        // Update Foto Berita
         if ($request->hasFile('foto_berita')) {
             if ($berita->foto_berita) {
                 foreach ($berita->foto_berita as $foto) {
@@ -108,11 +111,12 @@ class BeritaController extends Controller
             $berita->foto_berita = $paths;
         }
 
+        // Update data berita
         $berita->update([
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
             'tanggal' => $request->tanggal,
-            'unggulan' => $request->unggulan ? true : false,
+            'unggulan' => $request->has('unggulan'), // true jika dicentang
             'kategori_id' => $request->kategori_id,
         ]);
 

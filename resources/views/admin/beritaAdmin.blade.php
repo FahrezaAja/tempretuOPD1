@@ -32,7 +32,8 @@
                             <td class="px-4 py-3 border-b font-medium text-gray-700">{{ $item->judul }}</td>
                             <td class="px-4 py-3 border-b">{{ $item->kategori->nama }}</td>
                             <td class="px-4 py-3 border-b text-center">
-                                {{ \Carbon\Carbon::parse($item->tanggal)->format('d/m/Y') }}</td>
+                                {{ \Carbon\Carbon::parse($item->tanggal)->format('d/m/Y') }}
+                            </td>
                             <td class="px-4 py-3 border-b text-center">
                                 @if($item->unggulan)
                                     <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">Ya</span>
@@ -72,7 +73,6 @@
                             class="hidden fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-50 p-6">
                             <div
                                 class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto transition-all transform scale-95 opacity-0 animate-fadeIn">
-
                                 <!-- Header Modal -->
                                 <div
                                     class="flex justify-between items-center py-4 border-b bg-indigo-600 text-white rounded-t-2xl px-8">
@@ -83,16 +83,13 @@
 
                                 <!-- Isi Modal -->
                                 <div class="p-8 space-y-5">
-
-                                    <!-- Judul -->
                                     <h2 class="text-2xl font-bold text-center text-gray-800 mt-2">{{ $item->judul }}</h2>
-                                    <!-- Foto Sampul -->
+
                                     @if($item->foto_sampul)
                                         <img src="{{ asset('storage/' . $item->foto_sampul) }}" alt="Foto Sampul"
                                             class="w-full h-64 object-cover rounded-lg shadow">
                                     @endif
 
-                                    <!-- Foto Berita Lain -->
                                     @if($item->foto_berita)
                                         <div class="grid grid-cols-3 gap-3">
                                             @foreach($item->foto_berita as $foto)
@@ -102,9 +99,6 @@
                                         </div>
                                     @endif
 
-
-
-                                    <!-- Info Bar (Tanggal, Kategori, Status) -->
                                     <div class="space-y-1 text-sm text-gray-700 mt-2 leading-tight">
                                         <p><span class="font-semibold text-gray-800">Tanggal:</span>
                                             {{ \Carbon\Carbon::parse($item->tanggal)->format('d F Y') }}</p>
@@ -121,9 +115,8 @@
 
                                     <hr class="border-gray-300 my-4">
 
-                                    <!-- Deskripsi -->
                                     <div class="prose max-w-none text-gray-800 leading-relaxed">
-                                        {!! nl2br(e($item->deskripsi)) !!}
+                                        {!! $item->deskripsi !!}
                                     </div>
                                 </div>
                             </div>
@@ -155,7 +148,7 @@
 
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi</label>
-                                        <textarea name="deskripsi" rows="5" required
+                                        <textarea id="description_edit{{ $item->id }}" name="deskripsi" rows="5" required
                                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">{{ $item->deskripsi }}</textarea>
                                     </div>
 
@@ -173,7 +166,8 @@
 
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal</label>
-                                        <input type="date" name="tanggal" value="{{ $item->tanggal }}" required
+                                        <input type="date" name="tanggal"
+                                            value="{{ \Carbon\Carbon::parse($item->tanggal)->format('Y-m-d') }}" required
                                             class="border border-gray-300 rounded-lg px-4 py-2 w-full focus:ring-2 focus:ring-indigo-500 outline-none">
                                     </div>
 
@@ -241,7 +235,6 @@
             <form action="{{ route('beritaAdmin.store') }}" method="POST" enctype="multipart/form-data"
                 class="py-8 space-y-6">
                 @csrf
-
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Judul</label>
                     <input type="text" name="judul" required
@@ -250,7 +243,7 @@
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi</label>
-                    <textarea name="deskripsi" rows="5" required
+                    <textarea id="description_create" name="deskripsi" rows="5" required
                         class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none"></textarea>
                 </div>
 
@@ -271,12 +264,14 @@
                         class="border border-gray-300 rounded-lg px-4 py-2 w-full focus:ring-2 focus:ring-indigo-500 outline-none">
                 </div>
 
+                <!-- Foto Sampul -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Foto Sampul</label>
                     <input type="file" name="foto_sampul" accept="image/*"
                         class="w-full border border-gray-300 rounded-lg px-4 py-2">
                 </div>
 
+                <!-- Foto Berita -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Foto Berita (Beberapa Gambar)</label>
                     <input type="file" name="foto_berita[]" multiple accept="image/*"
@@ -306,7 +301,6 @@
             modal.classList.remove('hidden');
             modal.querySelector('div').classList.add('scale-100', 'opacity-100');
         }
-
         function closeModal(id) {
             const modal = document.getElementById(id);
             modal.classList.add('hidden');
@@ -331,4 +325,19 @@
             animation: fadeIn 0.2s ease-out forwards;
         }
     </style>
+
+    <!-- CKEditor -->
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (document.getElementById("description_create")) {
+                CKEDITOR.replace("description_create", { height: 200 });
+            }
+            @foreach($berita as $item)
+                if (document.getElementById("description_edit{{ $item->id }}")) {
+                    CKEDITOR.replace("description_edit{{ $item->id }}", { height: 200 });
+                }
+            @endforeach
+    });
+    </script>
 @endsection

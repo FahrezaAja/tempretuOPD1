@@ -95,7 +95,7 @@
                 <button @click="open = !open"
                     class="flex justify-between items-center w-full px-3 py-2 rounded hover:bg-gray-700 transition focus:outline-none">
                     <span class="flex items-center">
-                        <i class="fas fa-file-alt mr-3 w-5 text-center"></i>
+                        <i class="fas fa-newspaper mr-3 w-5 text-center"></i>
                         Berita
                     </span>
                     <i :class="{'fa-rotate-90': open}"
@@ -121,8 +121,8 @@
                         class="fas fa-chevron-right transition-transform w-3 text-center"></i>
                 </button>
                 <ul x-show="open" x-transition class="mt-1 pl-8 space-y-1 text-sm text-gray-300">
-                    <li><a href="#" class="block px-2 py-1 rounded hover:bg-gray-700">Galeri Video</a></li>
-                    <li><a href="#" class="block px-2 py-1 rounded hover:bg-gray-700">Galeri Foto</a></li>
+                    <li><a href="{{ route('admin.galeriVideoAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Galeri Video</a></li>
+                    <li><a href="{{ route('admin.galeriFotoAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Galeri Foto</a></li>
                 </ul>
             </li>
 
