@@ -117,8 +117,8 @@
         </div>
 
         <div class="relative w-full overflow-hidden">
-            <div class="flex transition-transform duration-[1200ms] ease-linear"
-                :style="'transform: translateX(' + offset + 'px); transition-duration:' + (smooth ? '1200ms' : '0ms')">
+            <div class="flex transition-transform duration-[1000ms] ease-in-out"
+                :style="'transform: translateX(' + offset + 'px); transition-duration:' + (smooth ? '1000ms' : '0ms')">
                 <template x-for="(news, index) in newsList" :key="index">
                     <div
                         class="min-w-[350px] max-w-[350px] mx-3 bg-white rounded-3xl overflow-hidden shadow-lg cursor-pointer hover:shadow-2xl transition-transform duration-500">
@@ -224,8 +224,6 @@
                         class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-5">
                         <h3 class="text-lg font-semibold text-white" x-text="item.title"></h3>
                     </div>
-
-                    {{-- Hapus deskripsi dari sini --}}
                 </div>
             </template>
 
@@ -257,7 +255,7 @@
                     <span x-text="selectedDate"></span>
                 </div>
 
-                {{-- DESKRIPSI HANYA DI MODAL --}}
+                {{-- DESKRIPSI --}}
                 <div
                     class="font-normal p-6 text-gray-700 text-base leading-relaxed max-h-48 overflow-y-auto whitespace-pre-line break-words border-t border-gray-100">
                     <p x-html="selectedDescription"></p>
@@ -274,11 +272,12 @@
             </div>
         </div>
     </section>
+
     {{-- ================= SCRIPT ALPINE.JS ================= --}}
     <script>
         document.addEventListener('alpine:init', () => {
 
-            // === HERO VIDEO PARALLAX ===
+            // === HERO PARALLAX ===
             Alpine.data('heroParallax', () => ({
                 textOffset: 0,
                 imageOffset: 0,
@@ -311,7 +310,7 @@
                 }
             }));
 
-            // === NEWS CAROUSEL ===
+            // === NEWS CAROUSEL (SMOOTH LOOP) ===
             Alpine.data('newsCarousel', () => ({
                 originalNews: @json($berita->take(5)),
                 newsList: [],
@@ -319,7 +318,6 @@
                 slideWidth: 0,
                 currentIndex: 0,
                 animating: false,
-                visibleCount: 3,
                 interval: null,
                 smooth: true,
                 openModal: false,
@@ -337,9 +335,7 @@
 
                 startAutoSlide() {
                     this.interval = setInterval(() => {
-                        if (!this.openModal) {
-                            this.nextSlide();
-                        }
+                        if (!this.openModal) this.nextSlide();
                     }, 3000);
                 },
 
@@ -349,12 +345,13 @@
                     this.smooth = true;
                     this.currentIndex++;
                     this.offset = -this.slideWidth * this.currentIndex;
+
+                    // TRANSISI LEMBUT TANPA PATAH
                     setTimeout(() => {
                         if (this.currentIndex >= this.originalNews.length * 2) {
                             this.smooth = false;
                             this.currentIndex = this.originalNews.length;
                             this.offset = -this.slideWidth * this.currentIndex;
-                            this.$nextTick(() => setTimeout(() => this.smooth = true, 20));
                         }
                         this.animating = false;
                     }, 1000);
@@ -363,44 +360,34 @@
                 openNewsModal(news) {
                     this.selectedNews = news;
                     this.openModal = true;
+                    clearInterval(this.interval);
                 },
 
                 closeNewsModal() {
                     this.openModal = false;
-                    setTimeout(() => {
-                        this.selectedNews = null;
-                    }, 300);
+                    this.selectedNews = null;
+                    this.startAutoSlide();
                 }
             }));
 
-            // === GALLERY MODAL ===
+            // === GALERI ===
             Alpine.data('galleryModal', () => ({
+                galleryList: @json($galeri->take(9)),
                 isOpen: false,
-                selectedTitle: '',
                 selectedImage: '',
-                selectedDate: '',
                 selectedDescription: '',
-                galleryList: @json($galeri),
+                selectedDate: '',
 
                 openModal(item) {
-                    this.selectedTitle = item.title ?? '';
-                    this.selectedImage = item.image ?? '';
-                    this.selectedDate = item.date ?? '';
-                    this.selectedDescription = item.description ?? '';
+                    this.selectedImage = item.image;
+                    this.selectedDescription = item.deskripsi;
+                    this.selectedDate = item.tanggal;
                     this.isOpen = true;
                 },
-
                 closeModal() {
                     this.isOpen = false;
-                    setTimeout(() => {
-                        this.selectedTitle = '';
-                        this.selectedImage = '';
-                        this.selectedDate = '';
-                        this.selectedDescription = '';
-                    }, 300);
                 }
             }));
-
         });
     </script>
 
