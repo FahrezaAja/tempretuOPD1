@@ -2,63 +2,72 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GaleriFoto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class GaleriFotoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $galeri = GaleriFoto::latest()->get();
+        return view('admin.galeriFotoAdmin', compact('galeri'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'deskripsi' => 'nullable|string',
+            'tanggal' => 'nullable|date',
+        ]);
+
+        $path = $request->file('image')->store('galeri-foto', 'public');
+
+        GaleriFoto::create([
+            'deskripsi' => $request->deskripsi,
+            'image' => $path,
+            'tanggal' => $request->tanggal,
+        ]);
+
+        return redirect()->back()->with('success', 'Foto berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $galeri = GaleriFoto::findOrFail($id);
+
+        $request->validate([
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'deskripsi' => 'nullable|string',
+            'tanggal' => 'nullable|date',
+        ]);
+
+        if ($request->hasFile('image')) {
+            if ($galeri->image && Storage::disk('public')->exists($galeri->image)) {
+                Storage::disk('public')->delete($galeri->image);
+            }
+            $path = $request->file('image')->store('galeri-foto', 'public');
+            $galeri->image = $path;
+        }
+
+        $galeri->deskripsi = $request->deskripsi;
+        $galeri->tanggal = $request->tanggal;
+        $galeri->save();
+
+        return redirect()->back()->with('success', 'Foto berhasil diupdate.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function destroy($id)
     {
-        //
-    }
+        $galeri = GaleriFoto::findOrFail($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        if ($galeri->image && Storage::disk('public')->exists($galeri->image)) {
+            Storage::disk('public')->delete($galeri->image);
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $galeri->delete();
+
+        return redirect()->back()->with('success', 'Foto berhasil dihapus.');
     }
 }

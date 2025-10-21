@@ -15,6 +15,8 @@ use App\Http\Controllers\KontakController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\GaleriVideoController;
+use App\Http\Controllers\GaleriFotoController;
+use App\Http\Controllers\GaleriUmumController;
 
 //home
 Route::get('/', function () {
@@ -52,9 +54,7 @@ Route::get('/produk-hukum/download/{id}', [ProdukHukumController::class, 'downlo
 
 
 //galeri
-Route::get('/galeri', function () {
-    return view('umum.galeri');
-})->name('galeri');
+Route::get('/galeri', [GaleriUmumController::class, 'index'])->name('galeri');
 
 //kontak
 Route::get('/kontak', [KontakController::class, 'show'])->name('kontak');
@@ -177,5 +177,11 @@ Route::prefix('admin')->group(function () {
         //galeri video admin
         Route::match(['get', 'post'], 'videos', [GaleriVideoController::class, 'index'])->name('admin.galeriVideoAdmin');
         Route::delete('videos/{video}', [GaleriVideoController::class, 'destroy'])->name('galeriVideoAdmin.destroy'); });
+
+        //galeri foto admin
+        Route::get('galeri/foto', [GaleriFotoController::class, 'index'])->name('admin.galeriFotoAdmin');
+        Route::post('galeri/foto', [GaleriFotoController::class, 'store'])->name('admin.galeriFotoAdmin.store');
+        Route::put('galeri/foto/{id}', [GaleriFotoController::class, 'update'])->name('admin.galeriFotoAdmin.update');
+        Route::delete('galeri/foto/{id}', [GaleriFotoController::class, 'destroy'])->name('admin.galeriFotoAdmin.destroy');
 
 });

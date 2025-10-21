@@ -97,7 +97,7 @@
                                 <hr class="border-gray-300">
 
                                 <div class="prose max-w-none text-gray-800 leading-relaxed">
-                                    {!! nl2br(e($item->deskripsi)) !!}
+                                    {!! $item->deskripsi !!}
                                 </div>
                             </div>
                         </div>

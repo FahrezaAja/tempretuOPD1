@@ -122,7 +122,7 @@
                 </button>
                 <ul x-show="open" x-transition class="mt-1 pl-8 space-y-1 text-sm text-gray-300">
                     <li><a href="{{ route('admin.galeriVideoAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Galeri Video</a></li>
-                    <li><a href="#" class="block px-2 py-1 rounded hover:bg-gray-700">Galeri Foto</a></li>
+                    <li><a href="{{ route('admin.galeriFotoAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Galeri Foto</a></li>
                 </ul>
             </li>
 
