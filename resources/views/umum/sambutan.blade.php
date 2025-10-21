@@ -41,7 +41,7 @@
             </p>
 
             <div class="pt-4">
-                <p class="font-bold text-lg text-indigo-700">{{ $katasambutan->nama_opd }}</p>
+                <p class="font-bold text-lg text-indigo-700">KEPALA {{ $katasambutan->nama_opd }}</p>
                 <p class="text-sm text-gray-500">{{ $katasambutan->nama_kepala_badan }}</p>
             </div>
         </div>

@@ -20,7 +20,7 @@
 
             <!-- Sampul -->
             <li>
-                <a href="{{ route('admin.dashboard') }}"
+                <a href="{{ route('admin.sampulAdmin') }}"
                     class="flex items-center px-3 py-2 rounded hover:bg-gray-700 transition">
                     <i class="fas fa-book-open mr-3 w-5 text-center"></i>
                     Sampul
