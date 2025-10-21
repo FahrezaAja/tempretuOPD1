@@ -30,7 +30,6 @@ class HomeController extends Controller
 
         $galeri = GaleriFoto::latest()->take(6)->get()->map(function ($item) {
             return [
-                'title' => $item->deskripsi ?? 'Foto Galeri',
                 'image' => $item->image ? asset('storage/' . $item->image) : asset('images/default-image.jpg'),
                 'description' => $item->deskripsi ?? '',
                 'date' => $item->tanggal ? \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') : '-',

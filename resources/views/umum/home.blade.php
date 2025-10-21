@@ -66,10 +66,10 @@
 
             <div
                 class="absolute right-[-120px] top-1/2 transform -translate-y-1/2 
-                                    w-0 h-0 
-                                    border-t-[100px] border-t-transparent 
-                                    border-b-[100px] border-b-transparent 
-                                    border-l-[130px] border-l-black rounded-tr-[40px] drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
+                                        w-0 h-0 
+                                        border-t-[100px] border-t-transparent 
+                                        border-b-[100px] border-b-transparent 
+                                        border-l-[130px] border-l-black rounded-tr-[40px] drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
             </div>
 
             <p class="text-sm tracking-widest text-gray-400 uppercase font-bold">
@@ -196,7 +196,7 @@
                     <hr class="border-gray-300">
 
                     {{-- Deskripsi --}}
-                    <div class="prose max-w-none text-gray-800 leading-relaxed" x-html="selectedNews.deskripsi"></div>
+                    <div class="font-normal max-w-none text-gray-800 leading-relaxed" x-html="selectedNews.deskripsi"></div>
 
                 </div>
             </div>
@@ -219,13 +219,16 @@
                     <img :src="item.image" :alt="item.title"
                         class="w-full h-[300px] object-cover transition-transform duration-700 group-hover:scale-110">
 
-                    {{-- JUDUL SAJA --}}
+                    {{-- Hanya Judul --}}
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-5">
                         <h3 class="text-lg font-semibold text-white" x-text="item.title"></h3>
                     </div>
+
+                    {{-- Hapus deskripsi dari sini --}}
                 </div>
             </template>
+
         </div>
 
         {{-- MODAL GALERI --}}
@@ -256,8 +259,8 @@
 
                 {{-- DESKRIPSI HANYA DI MODAL --}}
                 <div
-                    class="p-6 text-gray-700 text-base leading-relaxed max-h-48 overflow-y-auto whitespace-pre-line break-words border-t border-gray-100">
-                    <p x-text="selectedDescription"></p>
+                    class="font-normal p-6 text-gray-700 text-base leading-relaxed max-h-48 overflow-y-auto whitespace-pre-line break-words border-t border-gray-100">
+                    <p x-html="selectedDescription"></p>
                 </div>
 
                 {{-- TOMBOL TUTUP --}}
