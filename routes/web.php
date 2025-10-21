@@ -17,11 +17,13 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\GaleriVideoController;
 use App\Http\Controllers\GaleriFotoController;
 use App\Http\Controllers\GaleriUmumController;
+use App\Http\Controllers\SampulController;
+use App\Http\Controllers\HomeController;
+
 
 //home
-Route::get('/', function () {
-    return view('umum.home');
-})->name('dashboard');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
 
 //sambutan
 Route::get('sambutan', [SambutanController::class, 'show'])->name('sambutan');
@@ -51,7 +53,6 @@ Route::get('/program-kegiatan/download/{id}', [ProgramKegiatanController::class,
 //produk hukum
 Route::get('/produk-hukum', [ProdukHukumController::class, 'show'])->name('produk-hukum');
 Route::get('/produk-hukum/download/{id}', [ProdukHukumController::class, 'download'])->name('produk-hukum.download');
-
 
 //galeri
 Route::get('/galeri', [GaleriUmumController::class, 'index'])->name('galeri');
@@ -176,12 +177,19 @@ Route::prefix('admin')->group(function () {
 
         //galeri video admin
         Route::match(['get', 'post'], 'videos', [GaleriVideoController::class, 'index'])->name('admin.galeriVideoAdmin');
-        Route::delete('videos/{video}', [GaleriVideoController::class, 'destroy'])->name('galeriVideoAdmin.destroy'); });
+        Route::delete('videos/{video}', [GaleriVideoController::class, 'destroy'])->name('galeriVideoAdmin.destroy');
+    });
 
-        //galeri foto admin
-        Route::get('galeri/foto', [GaleriFotoController::class, 'index'])->name('admin.galeriFotoAdmin');
-        Route::post('galeri/foto', [GaleriFotoController::class, 'store'])->name('admin.galeriFotoAdmin.store');
-        Route::put('galeri/foto/{id}', [GaleriFotoController::class, 'update'])->name('admin.galeriFotoAdmin.update');
-        Route::delete('galeri/foto/{id}', [GaleriFotoController::class, 'destroy'])->name('admin.galeriFotoAdmin.destroy');
+    //galeri foto admin
+    Route::get('galeri/foto', [GaleriFotoController::class, 'index'])->name('admin.galeriFotoAdmin');
+    Route::post('galeri/foto', [GaleriFotoController::class, 'store'])->name('admin.galeriFotoAdmin.store');
+    Route::put('galeri/foto/{id}', [GaleriFotoController::class, 'update'])->name('admin.galeriFotoAdmin.update');
+    Route::delete('galeri/foto/{id}', [GaleriFotoController::class, 'destroy'])->name('admin.galeriFotoAdmin.destroy');
+
+    //sampul admin
+    Route::get('/sampulAdmin', [SampulController::class, 'index'])->name('admin.sampulAdmin');
+    Route::post('/sampulAdmin', [SampulController::class, 'store'])->name('admin.sampulAdmin.store');
+    Route::put('/sampulAdmin/{id}', [SampulController::class, 'update'])->name('admin.sampulAdmin.update');
+    Route::delete('/sampulAdmin/{id}', [SampulController::class, 'destroy'])->name('admin.sampulAdmin.destroy');
 
 });
