@@ -13,7 +13,6 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
 
-  /* ===== LINK STYLES ===== */
   .nav-link {
     position: relative;
     color: #333;
@@ -40,7 +39,6 @@
     width: 100%;
   }
 
-  /* ===== DROPDOWN STYLING ===== */
   .dropdown-menu {
     position: absolute;
     top: 100%;
@@ -77,7 +75,6 @@
     color: #4f46e5;
   }
 
-  /* ===== MOBILE MENU ===== */
   .mobile-link {
     display: block;
     padding: 10px 0;
@@ -102,14 +99,10 @@
     color: #4f46e5;
   }
 
-  /* ===== LOGO ANIMATION ===== */
   @keyframes glow {
-
-    0%,
-    100% {
+    0%, 100% {
       filter: drop-shadow(0 0 0 rgba(79, 70, 229, 0));
     }
-
     50% {
       filter: drop-shadow(0 0 8px rgba(79, 70, 229, 0.4));
     }
@@ -124,19 +117,27 @@
   x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 50)"
   :class="scrolled ? 'navbar-solid' : 'navbar-glass'"
   class="fixed top-0 left-0 right-0 transition-all duration-700 z-50">
+  
   <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
 
-    {{-- === LOGO DI POJOK KIRI === --}}
+    {{-- === LOGO DINAMIS === --}}
     <a href="/" class="flex items-center space-x-3">
-      <img src="{{ asset('images/logoPPS.png') }}" alt="Logo" class="h-12 w-auto animate-logo-glow">
-      <span class="text-xl font-bold text-gray-800 tracking-wide">Kominfo Papua Selatan</span>
+      <img 
+        src="{{ $logo && $logo->media && file_exists(public_path('storage/' . $logo->media)) 
+          ? asset('storage/' . $logo->media) 
+          : asset('images/logoPPS.png') }}"
+        alt="{{ $sampul->nama_opd ?? 'Logo Instansi' }}"
+        class="h-12 w-auto animate-logo-glow">
+
+      <span class="text-xl font-bold text-gray-800 tracking-wide">
+        {{ $sampul->nama_opd ?? 'Kominfo Papua Selatan' }}
+      </span>
     </a>
 
     {{-- === DESKTOP MENU === --}}
     <div class="hidden md:flex items-center space-x-10">
       <a href="/" class="nav-link">Beranda</a>
 
-      {{-- PROFIL --}}
       <div class="relative group">
         <div class="flex items-center nav-link cursor-pointer">
           <span>Profil</span>
@@ -150,7 +151,6 @@
         </div>
       </div>
 
-      {{-- UNIT KERJA --}}
       <div class="relative group">
         <div class="flex items-center nav-link cursor-pointer">
           <span>Unit Kerja</span>
@@ -163,7 +163,6 @@
         </div>
       </div>
 
-      {{-- DOKUMEN --}}
       <div class="relative group">
         <div class="flex items-center nav-link cursor-pointer">
           <span>Dokumen</span>
@@ -175,7 +174,6 @@
         </div>
       </div>
 
-      {{-- BERITA --}}
       <div class="relative group">
         <div class="flex items-center nav-link cursor-pointer">
           <span>Berita</span>
@@ -201,7 +199,6 @@
   <div x-show="open" x-transition class="md:hidden bg-white/95 backdrop-blur-xl border-t border-gray-200 shadow-lg">
     <div class="px-6 py-4 space-y-3">
       <a href="/" class="mobile-link">Beranda</a>
-
       {{-- PROFIL --}}
       <div x-data="{ dropdownOpen: false }">
         <button @click="dropdownOpen = !dropdownOpen" class="w-full flex justify-between items-center mobile-link">
@@ -213,43 +210,6 @@
           <a href="/profilOPD" class="mobile-sub">Profil Badan</a>
           <a href="/tupoksi" class="mobile-sub">Tugas Pokok & Fungsi</a>
           <a href="/strukturOrganisasi" class="mobile-sub">Struktur Organisasi</a>
-        </div>
-      </div>
-
-      {{-- UNIT KERJA --}}
-      <div x-data="{ dropdownOpen: false }">
-        <button @click="dropdownOpen = !dropdownOpen" class="w-full flex justify-between items-center mobile-link">
-          Unit Kerja
-          <i :class="dropdownOpen ? 'fa-solid fa-chevron-up text-sm' : 'fa-solid fa-chevron-down text-sm'"></i>
-        </button>
-        <div x-show="dropdownOpen" x-transition class="pl-4 mt-2 space-y-1">
-          <a href="/sekretariat" class="mobile-sub">Sekretariat</a>
-          <a href="/bidangPolitik" class="mobile-sub">Bidang Politik</a>
-          <a href="/unit3" class="mobile-sub">Bidang Kesatuan Bangsa</a>
-        </div>
-      </div>
-
-      {{-- DOKUMEN --}}
-      <div x-data="{ dropdownOpen: false }">
-        <button @click="dropdownOpen = !dropdownOpen" class="w-full flex justify-between items-center mobile-link">
-          Dokumen
-          <i :class="dropdownOpen ? 'fa-solid fa-chevron-up text-sm' : 'fa-solid fa-chevron-down text-sm'"></i>
-        </button>
-        <div x-show="dropdownOpen" x-transition class="pl-4 mt-2 space-y-1">
-          <a href="/dokumen1" class="mobile-sub">Program Kegiatan</a>
-          <a href="/dokumen2" class="mobile-sub">Produk Hukum</a>
-        </div>
-      </div>
-
-      {{-- BERITA --}}
-      <div x-data="{ dropdownOpen: false }">
-        <button @click="dropdownOpen = !dropdownOpen" class="w-full flex justify-between items-center mobile-link">
-          Berita
-          <i :class="dropdownOpen ? 'fa-solid fa-chevron-up text-sm' : 'fa-solid fa-chevron-down text-sm'"></i>
-        </button>
-        <div x-show="dropdownOpen" x-transition class="pl-4 mt-2 space-y-1">
-          <a href="/berita-terbaru" class="mobile-sub">Berita Terbaru</a>
-          <a href="/kategori-berita" class="mobile-sub">Kategori</a>
         </div>
       </div>
 
