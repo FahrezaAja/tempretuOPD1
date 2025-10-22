@@ -21,6 +21,7 @@ use App\Http\Controllers\SampulController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AplikasiController;
 use App\Http\Controllers\LogoController;
+use App\Http\Controllers\SosmedController;
 
 
 
@@ -182,5 +183,11 @@ Route::prefix('admin')->group(function () {
         Route::post('logoAdmin', [LogoController::class, 'store'])->name('logoAdmin.store');
         Route::put('logoAdmin/{id}', [LogoController::class, 'update'])->name('logoAdmin.update');
         Route::delete('logoAdmin/{id}', [LogoController::class, 'destroy'])->name('logoAdmin.destroy');
+
+        //sosmed admin
+        Route::get('/sosmedAdmin', [SosmedController::class, 'index'])->name('admin.sosmedAdmin');
+        Route::post('/sosmedAdmin', [SosmedController::class, 'store'])->name('admin.sosmedAdmin.store');
+        Route::put('/sosmedAdmin/{sosmed}', [SosmedController::class, 'update'])->name('admin.sosmedAdmin.update');
+        Route::delete('/sosmedAdmin/{sosmed}', [SosmedController::class, 'destroy'])->name('admin.sosmedAdmin.destroy');
     });
 });

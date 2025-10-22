@@ -42,7 +42,7 @@
                     class="flex justify-between items-center w-full px-3 py-2 rounded hover:bg-gray-700 transition focus:outline-none">
                     <span class="flex items-center">
                         <i class="fas fa-user mr-3 w-5 text-center"></i>
-                        Profil
+                        Profil OPD
                     </span>
                     <i :class="{'fa-rotate-90': open}"
                         class="fas fa-chevron-right transition-transform w-3 text-center"></i>
@@ -151,7 +151,7 @@
                             class="block px-2 py-1 rounded hover:bg-gray-700">Kontak</a></li>
                     <li><a href="{{ route('admin.aplikasiAdmin') }}"
                             class="block px-2 py-1 rounded hover:bg-gray-700">Aplikasi</a></li>
-                    <li><a href="{{ route('admin.bidangKesatuanBangsaAdmin') }}"
+                    <li><a href="{{ route('admin.sosmedAdmin') }}"
                             class="block px-2 py-1 rounded hover:bg-gray-700">Sosial Media</a></li>
                 </ul>
             </li>
