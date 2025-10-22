@@ -22,6 +22,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AplikasiController;
 use App\Http\Controllers\LogoController;
 use App\Http\Controllers\SosmedController;
+use App\Http\Controllers\DashboardController;
 
 
 
@@ -78,9 +79,9 @@ Route::prefix('admin')->group(function () {
     Route::post('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
     Route::middleware(['admin'])->group(function () {
-        Route::get('dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard');
+        //dashboard admin
+
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
         // Sambutan Kepala Badan Admin
         Route::get('sambutanAdmin', [SambutanController::class, 'index'])->name('admin.sambutanAdmin');
