@@ -24,23 +24,23 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      */
     public function boot(): void
-{
-    // Hanya untuk partial footer agar tidak perlu menambah di tiap controller
-    View::composer('partials.footer', function ($view) {
-        $view->with([
-            'aplikasi' => Aplikasi::all(),
-            'kontak' => Kontak::first(),
-            'logo' => Logo::first(),
-            'sampul' => Sampul::first(),
-            'sosmed' => Sosmed::first(),
-        ]);
-    });
+    {
+        // Hanya untuk partial footer agar tidak perlu menambah di tiap controller
+        View::composer('partials.footer', function ($view) {
+            $view->with([
+                'aplikasi' => Aplikasi::all(),
+                'kontak' => Kontak::first(),
+                'logo' => Logo::first(),
+                'sampul' => Sampul::first(),
+                'sosmed' => Sosmed::first(),
+            ]);
+        });
 
-    view()->composer('*', function ($view) {
-        $view->with([
-            'logo' => Logo::first(),
-            'sampul' => Sampul::first(),
-        ]);
-    });
-}
+        view()->composer('*', function ($view) {
+            $view->with([
+                'logo' => Logo::first(),
+                'sampul' => Sampul::first(),
+            ]);
+        });
+    }
 }

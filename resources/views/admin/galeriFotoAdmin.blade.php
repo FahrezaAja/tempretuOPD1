@@ -185,7 +185,7 @@
                     CKEDITOR.replace("description_edit{{ $item->id }}", { height: 200 });
                 }
             @endforeach
-            });
+                    });
     </script>
 
 @endsection

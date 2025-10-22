@@ -40,7 +40,8 @@ class Berita extends Model
 
     public function getFotoBeritaUrlAttribute()
     {
-        if (!$this->foto_berita) return [];
+        if (!$this->foto_berita)
+            return [];
         return collect($this->foto_berita)->map(fn($foto) => asset('storage/' . $foto));
     }
 }

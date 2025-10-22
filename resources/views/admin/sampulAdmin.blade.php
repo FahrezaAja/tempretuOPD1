@@ -18,7 +18,8 @@
             <div class="bg-white rounded-xl shadow-lg p-6 mb-8 transition transform hover:scale-[1.01]">
                 <h2 class="text-xl font-semibold mb-4 text-gray-800">Update Sampul OPD</h2>
 
-                <form action="{{ route('admin.sampulAdmin.update', $sampul->id) }}" method="POST" enctype="multipart/form-data" class="space-y-5">
+                <form action="{{ route('admin.sampulAdmin.update', $sampul->id) }}" method="POST" enctype="multipart/form-data"
+                    class="space-y-5">
                     @csrf
                     @method('PUT')
 
@@ -55,10 +56,10 @@
                                     $ext = pathinfo($sampul->media, PATHINFO_EXTENSION);
                                 @endphp
 
-                                @if(in_array(strtolower($ext), ['jpg','jpeg','png','gif','webp']))
+                                @if(in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'gif', 'webp']))
                                     <img src="{{ asset('storage/' . $sampul->media) }}" alt="Media Sampul"
                                         class="w-80 h-48 object-cover rounded-lg shadow-md border">
-                                @elseif(in_array(strtolower($ext), ['mp4','mov','avi']))
+                                @elseif(in_array(strtolower($ext), ['mp4', 'mov', 'avi']))
                                     <video controls class="w-80 h-48 rounded-lg shadow-md border">
                                         <source src="{{ asset('storage/' . $sampul->media) }}" type="video/{{ $ext }}">
                                     </video>
@@ -97,7 +98,8 @@
             <div class="bg-white rounded-xl shadow-lg p-6 transition transform hover:scale-[1.01]">
                 <h2 class="text-xl font-semibold mb-4 text-gray-800">Tambah Sampul OPD Baru</h2>
 
-                <form action="{{ route('admin.sampulAdmin.store') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
+                <form action="{{ route('admin.sampulAdmin.store') }}" method="POST" enctype="multipart/form-data"
+                    class="space-y-5">
                     @csrf
 
                     <div>
