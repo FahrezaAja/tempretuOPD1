@@ -3,7 +3,11 @@
 
     {{-- 🔹 Header Sidebar dengan Logo --}}
     <div class="px-6 py-4 flex items-center justify-start border-b border-gray-700">
-        <img src="{{ asset('images/logoPPS.png') }}" alt="Logo" class="h-13 w-10 mr-3 object-cover">
+        <a href="/" class="flex items-center space-x-3">
+      <img src="{{ $logo && $logo->image && file_exists(public_path('storage/' . $logo->image))
+  ? asset('storage/' . $logo->image)
+  : asset('images/logoPPS.png') }}" alt="{{ $sampul->nama_opd ?? 'Logo Instansi' }}"
+        class="h-12 w-auto object-contain flex-shrink-0">
         <h1 class="text-xl font-bold">Admin Panel</h1>
     </div>
 

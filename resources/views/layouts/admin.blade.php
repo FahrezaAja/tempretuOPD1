@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="{{ asset('images/logoPPS.png') }}">
+    <link rel="icon" type="image/png" href="{{ $logo && $logo->image && file_exists(public_path('storage/' . $logo->image))
+    ? asset('storage/' . $logo->image)
+    : asset('images/logoPPS.png') }}">
     <title>@yield('title', 'Admin Panel')</title>
 
     @vite('resources/css/app.css')
