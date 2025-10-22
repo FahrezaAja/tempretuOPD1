@@ -202,6 +202,6 @@
                     editPicker{{ $item->id }}.appendChild(btn);
                 });
             @endforeach
-        });
+            });
     </script>
 @endsection

@@ -159,7 +159,8 @@
                                             <option value="">-- Pilih Kategori --</option>
                                             @foreach($kategori as $k)
                                                 <option value="{{ $k->id }}" {{ $item->kategori_id == $k->id ? 'selected' : '' }}>
-                                                    {{ $k->nama }}</option>
+                                                    {{ $k->nama }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -338,6 +339,6 @@
                     CKEDITOR.replace("description_edit{{ $item->id }}", { height: 200 });
                 }
             @endforeach
-    });
+        });
     </script>
 @endsection

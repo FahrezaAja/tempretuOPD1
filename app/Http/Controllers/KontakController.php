@@ -28,9 +28,9 @@ class KontakController extends Controller
             'email' => 'required|email|max:255',
         ]);
 
-        Kontak::create($request->only('maps_iframe','alamat','telepon','email'));
+        Kontak::create($request->only('maps_iframe', 'alamat', 'telepon', 'email'));
 
-        return redirect()->route('admin.kontakAdmin')->with('success','Kontak berhasil disimpan.');
+        return redirect()->route('admin.kontakAdmin')->with('success', 'Kontak berhasil disimpan.');
     }
 
     /**
@@ -46,9 +46,9 @@ class KontakController extends Controller
         ]);
 
         $kontak = Kontak::findOrFail($id);
-        $kontak->update($request->only('maps_iframe','alamat','telepon','email'));
+        $kontak->update($request->only('maps_iframe', 'alamat', 'telepon', 'email'));
 
-        return redirect()->route('admin.kontakAdmin')->with('success','Kontak berhasil diperbarui.');
+        return redirect()->route('admin.kontakAdmin')->with('success', 'Kontak berhasil diperbarui.');
     }
 
     /**
@@ -68,6 +68,6 @@ class KontakController extends Controller
         $kontak = Kontak::findOrFail($id);
         $kontak->delete();
 
-        return redirect()->route('admin.kontakAdmin')->with('success','Kontak berhasil dihapus.');
+        return redirect()->route('admin.kontakAdmin')->with('success', 'Kontak berhasil dihapus.');
     }
 }

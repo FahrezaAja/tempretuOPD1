@@ -13,7 +13,8 @@ class KategoriController extends Controller
         return view('admin.kategoriAdmin', compact('kategori'));
     }
 
-    public function show(){
+    public function show()
+    {
         $kategori = Kategori::latest()->get();
         return view('umum.kategori', compact('kategori'));
     }

@@ -4,11 +4,11 @@
     {{-- 🔹 Header Sidebar dengan Logo --}}
     <div class="px-6 py-4 flex items-center justify-start border-b border-gray-700">
         <a href="/" class="flex items-center space-x-3">
-      <img src="{{ $logo && $logo->image && file_exists(public_path('storage/' . $logo->image))
-  ? asset('storage/' . $logo->image)
-  : asset('images/logoPPS.png') }}" alt="{{ $sampul->nama_opd ?? 'Logo Instansi' }}"
-        class="h-12 w-auto object-contain flex-shrink-0">
-        <h1 class="text-xl font-bold">Admin Panel</h1>
+            <img src="{{ $logo && $logo->image && file_exists(public_path('storage/' . $logo->image))
+    ? asset('storage/' . $logo->image)
+    : asset('images/logoPPS.png') }}" alt="{{ $sampul->nama_opd ?? 'Logo Instansi' }}"
+                class="h-12 w-auto object-contain flex-shrink-0">
+            <h1 class="text-xl font-bold">Admin Panel</h1>
     </div>
 
     {{-- 🔹 Navigasi --}}
@@ -54,10 +54,14 @@
                         class="fas fa-chevron-right transition-transform w-3 text-center"></i>
                 </button>
                 <ul x-show="open" x-transition class="mt-1 pl-8 space-y-1 text-sm text-gray-300">
-                    <li><a href="{{ route('admin.sambutanAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Sambutan Kepala Badan</a></li>
-                    <li><a href="{{ route('admin.profilOPDAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Profil Badan</a></li>
-                    <li><a href="{{ route('admin.tupoksiAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Tupoksi</a></li>
-                    <li><a href="{{ route('admin.strukturOrganisasiAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Struktur Organisasi</a></li>
+                    <li><a href="{{ route('admin.sambutanAdmin') }}"
+                            class="block px-2 py-1 rounded hover:bg-gray-700">Sambutan Kepala Badan</a></li>
+                    <li><a href="{{ route('admin.profilOPDAdmin') }}"
+                            class="block px-2 py-1 rounded hover:bg-gray-700">Profil Badan</a></li>
+                    <li><a href="{{ route('admin.tupoksiAdmin') }}"
+                            class="block px-2 py-1 rounded hover:bg-gray-700">Tupoksi</a></li>
+                    <li><a href="{{ route('admin.strukturOrganisasiAdmin') }}"
+                            class="block px-2 py-1 rounded hover:bg-gray-700">Struktur Organisasi</a></li>
                 </ul>
             </li>
 
@@ -73,9 +77,12 @@
                         class="fas fa-chevron-right transition-transform w-3 text-center"></i>
                 </button>
                 <ul x-show="open" x-transition class="mt-1 pl-8 space-y-1 text-sm text-gray-300">
-                    <li><a href="{{ route('admin.sekretariatAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Sekretariat</a></li>
-                    <li><a href="{{ route('admin.bidangPolitikAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Bidang Politik</a></li>
-                    <li><a href="{{ route('admin.bidangKesatuanBangsaAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Bidang Kesatuan Bangsa</a></li>
+                    <li><a href="{{ route('admin.sekretariatAdmin') }}"
+                            class="block px-2 py-1 rounded hover:bg-gray-700">Sekretariat</a></li>
+                    <li><a href="{{ route('admin.bidangPolitikAdmin') }}"
+                            class="block px-2 py-1 rounded hover:bg-gray-700">Bidang Politik</a></li>
+                    <li><a href="{{ route('admin.bidangKesatuanBangsaAdmin') }}"
+                            class="block px-2 py-1 rounded hover:bg-gray-700">Bidang Kesatuan Bangsa</a></li>
                 </ul>
             </li>
 
@@ -87,11 +94,14 @@
                         <i class="fas fa-file-alt mr-3 w-5 text-center"></i>
                         Dokumen
                     </span>
-                    <i :class="{'fa-rotate-90': open}" class="fas fa-chevron-right transition-transform w-3 text-center"></i>
+                    <i :class="{'fa-rotate-90': open}"
+                        class="fas fa-chevron-right transition-transform w-3 text-center"></i>
                 </button>
                 <ul x-show="open" x-transition class="mt-1 pl-8 space-y-1 text-sm text-gray-300">
-                    <li><a href="{{ route('admin.programKegiatanAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Program Kegiatan</a></li>
-                    <li><a href="{{ route('admin.produkHukumAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Produk Hukum</a></li>
+                    <li><a href="{{ route('admin.programKegiatanAdmin') }}"
+                            class="block px-2 py-1 rounded hover:bg-gray-700">Program Kegiatan</a></li>
+                    <li><a href="{{ route('admin.produkHukumAdmin') }}"
+                            class="block px-2 py-1 rounded hover:bg-gray-700">Produk Hukum</a></li>
                 </ul>
             </li>
 
@@ -103,11 +113,14 @@
                         <i class="fas fa-newspaper mr-3 w-5 text-center"></i>
                         Berita
                     </span>
-                    <i :class="{'fa-rotate-90': open}" class="fas fa-chevron-right transition-transform w-3 text-center"></i>
+                    <i :class="{'fa-rotate-90': open}"
+                        class="fas fa-chevron-right transition-transform w-3 text-center"></i>
                 </button>
                 <ul x-show="open" x-transition class="mt-1 pl-8 space-y-1 text-sm text-gray-300">
-                    <li><a href="{{ route('admin.beritaAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Berita Terbaru</a></li>
-                    <li><a href="{{ route('admin.kategoriAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Kategori</a></li>
+                    <li><a href="{{ route('admin.beritaAdmin') }}"
+                            class="block px-2 py-1 rounded hover:bg-gray-700">Berita Terbaru</a></li>
+                    <li><a href="{{ route('admin.kategoriAdmin') }}"
+                            class="block px-2 py-1 rounded hover:bg-gray-700">Kategori</a></li>
                 </ul>
             </li>
 
@@ -119,11 +132,14 @@
                         <i class="fas fa-photo-video mr-3 w-5 text-center"></i>
                         Galeri
                     </span>
-                    <i :class="{'fa-rotate-90': open}" class="fas fa-chevron-right transition-transform w-3 text-center"></i>
+                    <i :class="{'fa-rotate-90': open}"
+                        class="fas fa-chevron-right transition-transform w-3 text-center"></i>
                 </button>
                 <ul x-show="open" x-transition class="mt-1 pl-8 space-y-1 text-sm text-gray-300">
-                    <li><a href="{{ route('admin.galeriVideoAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Galeri Video</a></li>
-                    <li><a href="{{ route('admin.galeriFotoAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Galeri Foto</a></li>
+                    <li><a href="{{ route('admin.galeriVideoAdmin') }}"
+                            class="block px-2 py-1 rounded hover:bg-gray-700">Galeri Video</a></li>
+                    <li><a href="{{ route('admin.galeriFotoAdmin') }}"
+                            class="block px-2 py-1 rounded hover:bg-gray-700">Galeri Foto</a></li>
                 </ul>
             </li>
 
@@ -135,12 +151,16 @@
                         <i class="fas fa-phone mr-3 w-5 text-center"></i>
                         Informasi
                     </span>
-                    <i :class="{'fa-rotate-90': open}" class="fas fa-chevron-right transition-transform w-3 text-center"></i>
+                    <i :class="{'fa-rotate-90': open}"
+                        class="fas fa-chevron-right transition-transform w-3 text-center"></i>
                 </button>
                 <ul x-show="open" x-transition class="mt-1 pl-8 space-y-1 text-sm text-gray-300">
-                    <li><a href="{{ route('admin.kontakAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Kontak</a></li>
-                    <li><a href="{{ route('admin.aplikasiAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Aplikasi</a></li>
-                    <li><a href="{{ route('admin.sosmedAdmin') }}" class="block px-2 py-1 rounded hover:bg-gray-700">Sosial Media</a></li>
+                    <li><a href="{{ route('admin.kontakAdmin') }}"
+                            class="block px-2 py-1 rounded hover:bg-gray-700">Kontak</a></li>
+                    <li><a href="{{ route('admin.aplikasiAdmin') }}"
+                            class="block px-2 py-1 rounded hover:bg-gray-700">Aplikasi</a></li>
+                    <li><a href="{{ route('admin.sosmedAdmin') }}"
+                            class="block px-2 py-1 rounded hover:bg-gray-700">Sosial Media</a></li>
                 </ul>
             </li>
 

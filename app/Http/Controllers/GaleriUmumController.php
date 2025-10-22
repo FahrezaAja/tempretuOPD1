@@ -11,7 +11,7 @@ class GaleriUmumController extends Controller
     {
         // Ambil 6 video dan 6 foto per halaman, urut terbaru
         $videos = GaleriVideo::latest()->paginate(6);
-        $fotos  = GaleriFoto::latest()->paginate(6);
+        $fotos = GaleriFoto::latest()->paginate(6);
 
         return view('umum.galeri', compact('videos', 'fotos'));
     }

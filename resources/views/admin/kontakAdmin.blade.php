@@ -27,7 +27,8 @@
                         <textarea name="maps_iframe" rows="5" required
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none"
                             placeholder="Tempelkan kode iframe Google Maps di sini">{{ old('maps_iframe', $kontak->maps_iframe) }}</textarea>
-                        <p class="text-sm text-gray-500 mt-1">Salin kode <code>&lt;iframe&gt;</code> dari Google Maps dan tempel di sini.</p>
+                        <p class="text-sm text-gray-500 mt-1">Salin kode <code>&lt;iframe&gt;</code> dari Google Maps dan tempel
+                            di sini.</p>
 
                         @if($kontak->maps_iframe)
                             <div>
@@ -92,7 +93,8 @@
                         <textarea name="maps_iframe" rows="5" required
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none"
                             placeholder="Tempelkan kode iframe Google Maps di sini">{{ old('maps_iframe') }}</textarea>
-                        <p class="text-sm text-gray-500 mt-1">Salin kode <code>&lt;iframe&gt;</code> dari Google Maps dan tempel di sini.</p>
+                        <p class="text-sm text-gray-500 mt-1">Salin kode <code>&lt;iframe&gt;</code> dari Google Maps dan tempel
+                            di sini.</p>
                     </div>
 
                     <div>

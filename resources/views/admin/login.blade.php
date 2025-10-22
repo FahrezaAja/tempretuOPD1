@@ -12,14 +12,14 @@
     {{-- Font Awesome dan Google Fonts --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
+        rel="stylesheet">
 
     {{-- SweetAlert2 --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="bg-indigo-50 font-poppins min-h-screen flex items-center justify-center p-4"
-      style="background-image: linear-gradient(to bottom right, rgba(67,56,202,0.1), rgba(165,180,252,0.2));">
+    style="background-image: linear-gradient(to bottom right, rgba(67,56,202,0.1), rgba(165,180,252,0.2));">
 
     <div
         class="flex flex-col md:flex-row w-full max-w-4xl bg-white rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:shadow-indigo-300">
@@ -55,8 +55,8 @@
                             <i class="fas fa-user text-indigo-400"></i>
                         </div>
                         <input type="text" name="username" placeholder="Masukkan username"
-                               class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200 outline-none"
-                               required value="{{ old('username') }}">
+                            class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200 outline-none"
+                            required value="{{ old('username') }}">
                     </div>
                     @error('username')
                         <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
@@ -71,11 +71,11 @@
                             <i class="fas fa-lock text-indigo-400"></i>
                         </div>
                         <input type="password" name="password" id="password" placeholder="Masukkan password"
-                               class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200 outline-none"
-                               required>
+                            class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200 outline-none"
+                            required>
                         <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
                             <button type="button" id="togglePassword"
-                                    class="text-gray-400 hover:text-indigo-600 focus:outline-none">
+                                class="text-gray-400 hover:text-indigo-600 focus:outline-none">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
@@ -87,7 +87,7 @@
 
                 <!-- Tombol Login -->
                 <button type="submit"
-                        class="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-md hover:shadow-lg">
+                    class="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-md hover:shadow-lg">
                     <i class="fas fa-sign-in-alt mr-2"></i> Login
                 </button>
             </form>
