@@ -18,6 +18,15 @@
                 </a>
             </li>
 
+            <!-- Logo -->
+            <li>
+                <a href="{{ route('admin.logoAdmin') }}"
+                    class="flex items-center px-3 py-2 rounded hover:bg-gray-700 transition">
+                    <i class="fas fa-image mr-3 w-5 text-center"></i>
+                    Logo
+                </a>
+            </li>
+
             <!-- Sampul -->
             <li>
                 <a href="{{ route('admin.sampulAdmin') }}"
@@ -126,13 +135,25 @@
                 </ul>
             </li>
 
-            <!-- Kontak -->
-            <li>
-                <a href="{{ route('admin.kontakAdmin') }}"
-                    class="flex items-center px-3 py-2 rounded hover:bg-gray-700 transition">
-                    <i class="fas fa-envelope mr-3 w-5 text-center"></i>
-                    Kontak
-                </a>
+                        <!-- Informasi Dropdown -->
+            <li x-data="{ open: false }">
+                <button @click="open = !open"
+                    class="flex justify-between items-center w-full px-3 py-2 rounded hover:bg-gray-700 transition focus:outline-none">
+                    <span class="flex items-center">
+                        <i class="fas fa-phone mr-3 w-5 text-center"></i>
+                        Informasi
+                    </span>
+                    <i :class="{'fa-rotate-90': open}"
+                        class="fas fa-chevron-right transition-transform w-3 text-center"></i>
+                </button>
+                <ul x-show="open" x-transition class="mt-1 pl-8 space-y-1 text-sm text-gray-300">
+                    <li><a href="{{ route('admin.kontakAdmin') }}"
+                            class="block px-2 py-1 rounded hover:bg-gray-700">Kontak</a></li>
+                    <li><a href="{{ route('admin.aplikasiAdmin') }}"
+                            class="block px-2 py-1 rounded hover:bg-gray-700">Aplikasi</a></li>
+                    <li><a href="{{ route('admin.bidangKesatuanBangsaAdmin') }}"
+                            class="block px-2 py-1 rounded hover:bg-gray-700">Sosial Media</a></li>
+                </ul>
             </li>
 
         </ul>

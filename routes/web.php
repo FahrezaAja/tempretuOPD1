@@ -19,6 +19,9 @@ use App\Http\Controllers\GaleriFotoController;
 use App\Http\Controllers\GaleriUmumController;
 use App\Http\Controllers\SampulController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AplikasiController;
+use App\Http\Controllers\LogoController;
+
 
 
 //home
@@ -66,29 +69,6 @@ Route::get('/berita-terbaru', [BeritaController::class, 'show'])->name('berita-t
 //kategori
 Route::get('/kategori', [KategoriController::class, 'show'])->name('kategori');
 
-Route::get('/navbar', function () {
-    return view('partials.navbar');
-})->name('navbar');
-
-Route::get('/address', function () {
-    return 'Address Book Page';
-})->name('address');
-
-Route::get('/components', function () {
-    return 'Components Page';
-})->name('components');
-
-Route::get('/calendar', function () {
-    return 'Calendar Page';
-})->name('calendar');
-
-Route::get('/charts', function () {
-    return 'Charts Page';
-})->name('charts');
-
-Route::get('/documents', function () {
-    return 'Documents Page';
-})->name('documents');
 
 Route::prefix('admin')->group(function () {
     Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
@@ -178,18 +158,29 @@ Route::prefix('admin')->group(function () {
         //galeri video admin
         Route::match(['get', 'post'], 'videos', [GaleriVideoController::class, 'index'])->name('admin.galeriVideoAdmin');
         Route::delete('videos/{video}', [GaleriVideoController::class, 'destroy'])->name('galeriVideoAdmin.destroy');
+
+        //galeri foto admin
+        Route::get('galeri/foto', [GaleriFotoController::class, 'index'])->name('admin.galeriFotoAdmin');
+        Route::post('galeri/foto', [GaleriFotoController::class, 'store'])->name('admin.galeriFotoAdmin.store');
+        Route::put('galeri/foto/{id}', [GaleriFotoController::class, 'update'])->name('admin.galeriFotoAdmin.update');
+        Route::delete('galeri/foto/{id}', [GaleriFotoController::class, 'destroy'])->name('admin.galeriFotoAdmin.destroy');
+
+        //sampul admin
+        Route::get('/sampulAdmin', [SampulController::class, 'index'])->name('admin.sampulAdmin');
+        Route::post('/sampulAdmin', [SampulController::class, 'store'])->name('admin.sampulAdmin.store');
+        Route::put('/sampulAdmin/{id}', [SampulController::class, 'update'])->name('admin.sampulAdmin.update');
+        Route::delete('/sampulAdmin/{id}', [SampulController::class, 'destroy'])->name('admin.sampulAdmin.destroy');
+
+        //aplikasi admin
+        Route::get('/aplikasiAdmin', [AplikasiController::class, 'index'])->name('admin.aplikasiAdmin');
+        Route::post('/aplikasiAdmin/store', [AplikasiController::class, 'store'])->name('admin.aplikasiAdmin.store');
+        Route::put('/aplikasiAdmin/{id}/update', [AplikasiController::class, 'update'])->name('admin.aplikasiAdmin.update');
+        Route::delete('/aplikasi/{id}/delete', [AplikasiController::class, 'destroy'])->name('admin.aplikasiAdmin.destroy');
+
+        //logo admin
+        Route::get('logoAdmin', [LogoController::class, 'index'])->name('admin.logoAdmin');
+        Route::post('logoAdmin', [LogoController::class, 'store'])->name('logoAdmin.store');
+        Route::put('logoAdmin/{id}', [LogoController::class, 'update'])->name('logoAdmin.update');
+        Route::delete('logoAdmin/{id}', [LogoController::class, 'destroy'])->name('logoAdmin.destroy');
     });
-
-    //galeri foto admin
-    Route::get('galeri/foto', [GaleriFotoController::class, 'index'])->name('admin.galeriFotoAdmin');
-    Route::post('galeri/foto', [GaleriFotoController::class, 'store'])->name('admin.galeriFotoAdmin.store');
-    Route::put('galeri/foto/{id}', [GaleriFotoController::class, 'update'])->name('admin.galeriFotoAdmin.update');
-    Route::delete('galeri/foto/{id}', [GaleriFotoController::class, 'destroy'])->name('admin.galeriFotoAdmin.destroy');
-
-    //sampul admin
-    Route::get('/sampulAdmin', [SampulController::class, 'index'])->name('admin.sampulAdmin');
-    Route::post('/sampulAdmin', [SampulController::class, 'store'])->name('admin.sampulAdmin.store');
-    Route::put('/sampulAdmin/{id}', [SampulController::class, 'update'])->name('admin.sampulAdmin.update');
-    Route::delete('/sampulAdmin/{id}', [SampulController::class, 'destroy'])->name('admin.sampulAdmin.destroy');
-
 });
