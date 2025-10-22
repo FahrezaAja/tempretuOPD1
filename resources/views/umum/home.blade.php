@@ -1,407 +1,386 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard')
+@section('title', 'Beranda')
 
 @section('content')
 
-    {{-- ================= HERO SECTION (FLEXIBLE VIDEO/IMAGE) ================= --}}
-    <section x-data="heroParallax()" x-init="init()"
-        class="relative h-screen flex items-center justify-center overflow-hidden">
+{{-- ================= HERO SECTION (FLEXIBLE VIDEO/IMAGE) ================= --}}
+<section x-data="heroParallax()" x-init="init()"
+    class="relative h-screen flex items-center justify-center overflow-hidden">
 
-        {{-- Background Video atau Gambar --}}
-        @if($sampul && $sampul->media && file_exists(public_path('storage/' . $sampul->media)))
-            @php
-                $ext = pathinfo($sampul->media, PATHINFO_EXTENSION);
-            @endphp
+    {{-- Background Video atau Gambar --}}
+    @if($sampul && $sampul->media && file_exists(public_path('storage/' . $sampul->media)))
+        @php
+            $ext = pathinfo($sampul->media, PATHINFO_EXTENSION);
+        @endphp
 
-            @if(in_array(strtolower($ext), ['mp4', 'mov', 'avi']))
-                <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover brightness-75">
-                    <source src="{{ asset('storage/' . $sampul->media) }}" type="video/mp4">
-                    Browser kamu tidak mendukung video tag.
-                </video>
-            @else
-                <img src="{{ asset('storage/' . $sampul->media) }}"
-                    class="absolute inset-0 w-full h-full object-cover brightness-75" alt="Hero Background">
-            @endif
-        @else
+        @if(in_array(strtolower($ext), ['mp4','mov','avi']))
             <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover brightness-75">
-                <source src="{{ asset('videos/hero.mp4') }}" type="video/mp4">
+                <source src="{{ asset('storage/' . $sampul->media) }}" type="video/mp4">
                 Browser kamu tidak mendukung video tag.
             </video>
+        @else
+            <img src="{{ asset('storage/' . $sampul->media) }}"
+                class="absolute inset-0 w-full h-full object-cover brightness-75" alt="Hero Background">
         @endif
+    @else
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover brightness-75">
+            <source src="{{ asset('videos/hero.mp4') }}" type="video/mp4">
+            Browser kamu tidak mendukung video tag.
+        </video>
+    @endif
 
-        {{-- Overlay Gelap --}}
-        <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-transparent"></div>
+    {{-- Overlay Gelap --}}
+    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-transparent"></div>
 
-        {{-- Hero Content --}}
-        <div
-            class="relative z-30 flex flex-col-reverse md:flex-row items-center justify-between w-full px-6 sm:px-10 lg:px-24 text-white">
-            <div class="max-w-xl text-left space-y-6 mt-10 md:mt-0" :style="'transform: translateX(' + textOffset + 'px);'">
-                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
-                    <span class="text-indigo-400">{{ $sampul ? $sampul->nama_opd : 'Nama OPD' }}</span><br>
-                </h1>
-                <p class="text-gray-200 text-lg">
-                    {!! $sampul ? $sampul->deskripsi : 'Deskripsi default untuk hero section.' !!}
-                </p>
-            </div>
-
-            <div class="relative flex justify-center items-center" :style="'transform: translateX(' + imageOffset + 'px);'">
-                <div class="absolute inset-0 bg-indigo-500/20 blur-[100px] rounded-full scale-125"></div>
-                <div class="relative z-10 overflow-hidden rounded-[40px] shadow-2xl">
-                    <img src="{{ $sampul && $sampul->foto_pemimpin && file_exists(public_path('storage/' . $sampul->foto_pemimpin)) ? asset('storage/' . $sampul->foto_pemimpin) : asset('images/depan-kanan-orang.jpg') }}"
-                        alt="Ilustrasi Forensik"
-                        class="object-contain w-[280px] md:w-[350px] lg:w-[420px] transition-transform duration-700 ease-in-out hover:scale-[1.03]">
-                </div>
+    {{-- Hero Content --}}
+    <div class="relative z-30 flex flex-col-reverse md:flex-row items-center justify-between w-full px-6 sm:px-10 lg:px-24 text-white">
+        <div class="max-w-xl text-left space-y-6 mt-10 md:mt-0" :style="'transform: translateX(' + textOffset + 'px);'">
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+                <span class="text-indigo-400">{{ $sampul ? $sampul->nama_opd : 'Nama OPD' }}</span><br>
+            </h1>
+            <div class="text-gray-200 text-lg leading-relaxed text-justify break-words whitespace-pre-line w-full max-w-full overflow-hidden"
+                style="word-break: break-word; white-space: pre-wrap;">
+                {!! $sampul->deskripsi ?? 'Deskripsi default untuk hero section.' !!}
             </div>
         </div>
-    </section>
 
-    {{-- ================= SECTION 2 ================= --}}
-    <section x-data="sectionTwoParallax()"
-        class="relative w-full flex flex-col md:flex-row items-center justify-between overflow-hidden bg-gray-100 py-20 px-6 md:px-0">
-
-        {{-- KOTAK TEKS --}}
-        <div class="relative w-full md:w-1/2 bg-black text-white py-16 px-8 md:px-12 flex flex-col justify-center rounded-r-[80px] z-10 shadow-2xl"
-            :style="'transform: translateX(' + textOffset + 'px);'">
-
-            <div
-                class="absolute right-[-120px] top-1/2 transform -translate-y-1/2 
-                                        w-0 h-0 
-                                        border-t-[100px] border-t-transparent 
-                                        border-b-[100px] border-b-transparent 
-                                        border-l-[130px] border-l-black rounded-tr-[40px] drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
-            </div>
-
-            <p class="text-sm tracking-widest text-gray-400 uppercase font-bold">
-                KEPALA {{ $sambutan ? $sambutan->nama_opd : 'Nama Kepala OPD' }}
-            </p>
-            <p class="text-sm tracking-widest text-gray-400 uppercase font-semibold">
-                {{ $sambutan ? $sambutan->nama_kepala_badan : 'Nama Kepala OPD' }}
-            </p>
-
-            <h2 class="text-4xl md:text-5xl font-extrabold leading-tight mt-4">
-                {{ $sambutan ? $sambutan->judul : 'Profesionalisme & Integritas' }}
-            </h2>
-
-            <p class="text-gray-300 text-base leading-relaxed mt-6 max-w-md">
-                @if($sambutan)
-                    {!! \Illuminate\Support\Str::limit($sambutan->deskripsi, 200, '...') !!}
-                @else
-                    Deskripsi default sambutan kepala OPD.
-                @endif
-            </p>
-
-            <a href="/sambutan"
-                class="inline-block mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition-all duration-300">
-                Baca Selengkapnya
-            </a>
-        </div>
-
-        {{-- GAMBAR --}}
-        <div class="relative w-full md:w-1/2 flex justify-center items-center mt-16 md:mt-0 z-20 px-4"
-            :style="'transform: translateX(' + imageOffset + 'px);'">
-            <div class="absolute inset-0 blur-[100px] rounded-full scale-125"></div>
+        <div class="relative flex justify-center items-center" :style="'transform: translateX(' + imageOffset + 'px);'">
+            <div class="absolute inset-0 bg-indigo-500/20 blur-[100px] rounded-full scale-125"></div>
             <div class="relative z-10 overflow-hidden rounded-[40px] shadow-2xl">
-                <img src="{{ $sambutan && $sambutan->image ? asset('storage/' . $sambutan->image) : asset('images/depan-kanan-orang.jpg') }}"
+                <img src="{{ $sampul && $sampul->foto_pemimpin && file_exists(public_path('storage/' . $sampul->foto_pemimpin)) ? asset('storage/' . $sampul->foto_pemimpin) : asset('images/depan-kanan-orang.jpg') }}"
                     alt="Ilustrasi Forensik"
                     class="object-contain w-[280px] md:w-[350px] lg:w-[420px] transition-transform duration-700 ease-in-out hover:scale-[1.03]">
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    {{-- ================= BERITA TERBARU ================= --}}
-    <section x-data="newsCarousel()"
-        class="relative bg-gradient-to-b from-black via-gray-900 to-black py-24 px-6 lg:px-20 text-white overflow-hidden">
-        <div class="text-center mb-16">
-            <h2 class="text-5xl font-extrabold mb-4 tracking-tight">Berita Terbaru</h2>
+{{-- ================= SECTION 2 ================= --}}
+<section x-data="sectionTwoParallax()"
+    class="relative w-full flex flex-col md:flex-row items-center justify-between overflow-hidden bg-gray-100 py-20 px-6 md:px-0">
+
+    {{-- KOTAK TEKS --}}
+    <div class="relative w-full md:w-1/2 bg-black text-white py-16 px-8 md:px-12 flex flex-col justify-center rounded-r-[80px] z-10 shadow-2xl"
+        :style="'transform: translateX(' + textOffset + 'px);'">
+
+        <div class="absolute right-[-120px] top-1/2 transform -translate-y-1/2 
+                    w-0 h-0 border-t-[100px] border-t-transparent 
+                    border-b-[100px] border-b-transparent 
+                    border-l-[130px] border-l-black rounded-tr-[40px] drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
         </div>
 
-        <div class="relative w-full overflow-hidden">
-            <div class="flex transition-transform duration-[1200ms] ease-linear"
-                :style="'transform: translateX(' + offset + 'px); transition-duration:' + (smooth ? '1200ms' : '0ms')">
-                <template x-for="(news, index) in newsList" :key="index">
-                    <div
-                        class="min-w-[350px] max-w-[350px] mx-3 bg-white rounded-3xl overflow-hidden shadow-lg cursor-pointer hover:shadow-2xl transition-transform duration-500">
-                        <div class="relative overflow-hidden">
-                            <img :src="news.image" alt=""
-                                class="w-full h-56 object-cover transition-transform duration-500 hover:scale-105">
-                            <template x-if="news.unggulan">
-                                <span
-                                    class="absolute top-4 left-4 bg-yellow-400 text-white px-3 py-1 text-xs font-semibold rounded-full shadow-md">
-                                    ⭐ Unggulan
-                                </span>
-                            </template>
-                        </div>
+        <p class="text-sm tracking-widest text-gray-400 uppercase font-bold">
+            KEPALA {{ $sambutan ? $sambutan->nama_opd : 'Nama Kepala OPD' }}
+        </p>
+        <p class="text-sm tracking-widest text-gray-400 uppercase font-semibold">
+            {{ $sambutan ? $sambutan->nama_kepala_badan : 'Nama Kepala OPD' }}
+        </p>
 
-                        <div class="p-5 space-y-3">
-                            <h3 class="text-xl font-bold text-gray-800 hover:text-indigo-600 transition duration-300 line-clamp-2"
-                                x-text="news.title"></h3>
+        <h2 class="text-4xl md:text-5xl font-extrabold leading-tight mt-4">
+            {{ $sambutan ? $sambutan->judul : 'Profesionalisme & Integritas' }}
+        </h2>
 
-                            <div class="flex items-center text-sm text-gray-500 space-x-2">
-                                <i class="fa-regular fa-calendar"></i>
-                                <span x-text="news.tanggal"></span>
-                                <span>•</span>
-                                <span class="text-indigo-600 font-medium" x-text="news.kategori"></span>
-                            </div>
+        <p class="text-gray-300 text-base leading-relaxed mt-6 max-w-md">
+            @if($sambutan)
+                {!! \Illuminate\Support\Str::limit($sambutan->deskripsi, 200, '...') !!}
+            @else
+                Deskripsi default sambutan kepala OPD.
+            @endif
+        </p>
 
-                            <div class="pt-3">
-                                <button class="text-indigo-600 font-semibold hover:underline"
-                                    @click.stop="openNewsModal(news)">
-                                    Baca Selengkapnya →
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </template>
-            </div>
+        <a href="/sambutan"
+            class="inline-block mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition-all duration-300">
+            Baca Selengkapnya
+        </a>
+    </div>
+
+    {{-- GAMBAR --}}
+    <div class="relative w-full md:w-1/2 flex justify-center items-center mt-16 md:mt-0 z-20 px-4"
+        :style="'transform: translateX(' + imageOffset + 'px);'">
+        <div class="absolute inset-0 blur-[100px] rounded-full scale-125"></div>
+        <div class="relative z-10 overflow-hidden rounded-[40px] shadow-2xl">
+            <img src="{{ $sambutan && $sambutan->image ? asset('storage/' . $sambutan->image) : asset('images/depan-kanan-orang.jpg') }}"
+                alt="Ilustrasi Forensik"
+                class="object-contain w-[280px] md:w-[350px] lg:w-[420px] transition-transform duration-700 ease-in-out hover:scale-[1.03]">
         </div>
+    </div>
+</section>
 
-        {{-- ================= MODAL DETAIL BERITA ================= --}}
-        <div x-show="openModal" x-transition.opacity x-cloak
-            class="fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-50 p-6"
-            @click.self="closeNewsModal()">
-            <div x-show="selectedNews" x-transition:enter="transition ease-out duration-300"
-                x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
-                x-transition:leave-end="opacity-0 scale-95"
-                class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+{{-- ================= BERITA TERBARU ================= --}}
+<section x-data="newsCarousel()"
+    class="relative bg-gradient-to-b from-black via-gray-900 to-black py-24 px-6 lg:px-20 text-white overflow-hidden">
+    <div class="text-center mb-16">
+        <h2 class="text-5xl font-extrabold mb-4 tracking-tight">Berita Terbaru</h2>
+    </div>
 
-                <!-- Header Modal -->
-                <div class="flex justify-between items-center py-4 border-b bg-indigo-600 text-white rounded-t-2xl px-8">
-                    <h5 class="font-semibold text-lg" x-text="selectedNews.title"></h5>
-                    <button @click="closeNewsModal()" class="text-white text-2xl">&times;</button>
-                </div>
-
-                <!-- Isi Modal -->
-                <div class="p-8 space-y-6">
-                    {{-- Foto Sampul --}}
-                    <img :src="selectedNews.image" alt="Foto Sampul" class="w-full h-64 object-cover rounded-lg shadow">
-
-                    {{-- Foto Tambahan --}}
-                    <template x-if="selectedNews.foto_berita && selectedNews.foto_berita.length > 0">
-                        <div class="grid grid-cols-3 gap-3 mt-4">
-                            <template x-for="foto in selectedNews.foto_berita" :key="foto">
-                                <img :src="foto" alt="Foto Berita"
-                                    class="w-full h-32 object-cover rounded border border-gray-200">
-                            </template>
-                        </div>
-                    </template>
-
-                    {{-- Informasi Tanggal & Kategori --}}
-                    <div class="flex flex-wrap gap-4 text-sm text-gray-600 mt-3 items-center">
-                        <span><strong>Tanggal:</strong> <span x-text="selectedNews.tanggal"></span></span>
-                        <span><strong>Kategori:</strong> <span x-text="selectedNews.kategori"></span></span>
+    <div class="relative w-full overflow-hidden">
+        <div class="flex transition-transform duration-[1000ms] ease-in-out"
+            :style="'transform: translateX(' + offset + 'px); transition-duration:' + (smooth ? '1000ms' : '0ms')">
+            <template x-for="(news, index) in newsList" :key="index">
+                <div
+                    class="min-w-[350px] max-w-[350px] mx-3 bg-white rounded-3xl overflow-hidden shadow-lg cursor-pointer hover:shadow-2xl transition-transform duration-500">
+                    <div class="relative overflow-hidden">
+                        <img :src="news.image" alt=""
+                            class="w-full h-56 object-cover transition-transform duration-500 hover:scale-105">
+                        <template x-if="news.unggulan">
+                            <span
+                                class="absolute top-4 left-4 bg-yellow-400 text-white px-3 py-1 text-xs font-semibold rounded-full shadow-md">
+                                ⭐ Unggulan
+                            </span>
+                        </template>
                     </div>
 
-                    <hr class="border-gray-300">
+                    <div class="p-5 space-y-3">
+                        <h3 class="text-xl font-bold text-gray-800 hover:text-indigo-600 transition duration-300 line-clamp-2"
+                            x-text="news.title"></h3>
 
-                    {{-- Deskripsi --}}
-                    <div class="font-normal max-w-none text-gray-800 leading-relaxed" x-html="selectedNews.deskripsi"></div>
+                        <div class="flex items-center text-sm text-gray-500 space-x-2">
+                            <i class="fa-regular fa-calendar"></i>
+                            <span x-text="news.tanggal"></span>
+                            <span>•</span>
+                            <span class="text-indigo-600 font-medium" x-text="news.kategori"></span>
+                        </div>
 
-                </div>
-            </div>
-        </div>
-    </section>
-
-    {{-- ================= GALERI FOTO TERBARU ================= --}}
-    <section x-data="galleryModal()" class="relative bg-white py-28 px-6 lg:px-20 overflow-hidden text-gray-800">
-        <div class="text-center mb-20">
-            <h2 class="text-5xl font-extrabold mb-4 tracking-tight">Galeri</h2>
-        </div>
-
-        {{-- GRID GALERI --}}
-        <div class="grid grid-cols-12 gap-6 md:gap-8">
-            <template x-for="(item, index) in galleryList" :key="index">
-                <div class="col-span-12 md:col-span-4 relative overflow-hidden rounded-[30px] shadow-xl group cursor-pointer"
-                    @click="openModal(item)">
-
-                    {{-- GAMBAR --}}
-                    <img :src="item.image" :alt="item.title"
-                        class="w-full h-[300px] object-cover transition-transform duration-700 group-hover:scale-110">
-
-                    {{-- Hanya Judul --}}
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-5">
-                        <h3 class="text-lg font-semibold text-white" x-text="item.title"></h3>
+                        <div class="pt-3">
+                            <button class="text-indigo-600 font-semibold hover:underline"
+                                @click.stop="openNewsModal(news)">
+                                Baca Selengkapnya →
+                            </button>
+                        </div>
                     </div>
-
-                    {{-- Hapus deskripsi dari sini --}}
                 </div>
             </template>
-
         </div>
+    </div>
 
-        {{-- MODAL GALERI --}}
-        <div x-show="isOpen" x-transition.opacity x-cloak
-            class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" @click.self="closeModal()">
-            <div x-show="selectedImage" x-transition.scale
-                class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full overflow-hidden flex flex-col relative">
+    {{-- ================= MODAL DETAIL BERITA ================= --}}
+    <div x-show="openModal" x-transition.opacity.duration.300ms x-cloak
+        class="fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-50 p-6"
+        @click.self="closeNewsModal()">
 
-                {{-- Tombol X --}}
-                <button @click="closeModal()"
-                    class="absolute top-3 right-3 text-gray-600 hover:text-red-500 bg-white/80 rounded-full p-2 shadow-md transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
+        <div x-show="selectedNews"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 scale-95"
+            x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 scale-100"
+            x-transition:leave-end="opacity-0 scale-95"
+            @click.stop
+            class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
 
-                {{-- FOTO --}}
-                <div class="w-full h-[450px] overflow-hidden bg-gray-100 flex items-center justify-center">
-                    <img :src="selectedImage" alt="Foto" class="max-w-full max-h-full object-contain">
+            <!-- Header Modal -->
+            <div class="flex justify-between items-center py-4 border-b bg-indigo-600 text-white rounded-t-2xl px-8">
+                <h5 class="font-semibold text-lg" x-text="selectedNews.title"></h5>
+                <button @click.stop="closeNewsModal()" class="text-white text-2xl">&times;</button>
+            </div>
+
+            <!-- Isi Modal -->
+            <div class="p-8 space-y-6">
+                <img :src="selectedNews.image" alt="Foto Sampul" class="w-full h-64 object-cover rounded-lg shadow">
+
+                <template x-if="selectedNews.foto_berita && selectedNews.foto_berita.length > 0">
+                    <div class="grid grid-cols-3 gap-3 mt-4">
+                        <template x-for="foto in selectedNews.foto_berita" :key="foto">
+                            <img :src="foto" alt="Foto Berita"
+                                class="w-full h-32 object-cover rounded border border-gray-200">
+                        </template>
+                    </div>
+                </template>
+
+                <div class="flex flex-wrap gap-4 text-sm text-gray-600 mt-3 items-center">
+                    <span><strong>Tanggal:</strong> <span x-text="selectedNews.tanggal"></span></span>
+                    <span><strong>Kategori:</strong> <span x-text="selectedNews.kategori"></span></span>
                 </div>
 
-                {{-- TANGGAL --}}
-                <div class="px-6 pt-4 text-sm text-gray-500 font-medium border-t border-gray-200 flex items-center gap-2">
-                    <i class="fas fa-calendar"></i>
-                    <span x-text="selectedDate"></span>
-                </div>
+                <hr class="border-gray-300">
 
-                {{-- DESKRIPSI HANYA DI MODAL --}}
-                <div
-                    class="font-normal p-6 text-gray-700 text-base leading-relaxed max-h-48 overflow-y-auto whitespace-pre-line break-words border-t border-gray-100">
-                    <p x-html="selectedDescription"></p>
-                </div>
-
-                {{-- TOMBOL TUTUP --}}
-                <div class="p-6 flex justify-end border-t border-gray-100">
-                    <button @click="closeModal()"
-                        class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-md transition-all">
-                        Tutup
-                    </button>
-                </div>
-
+                <div class="font-normal max-w-none text-gray-800 leading-relaxed" x-html="selectedNews.deskripsi"></div>
             </div>
         </div>
-    </section>
-    {{-- ================= SCRIPT ALPINE.JS ================= --}}
-    <script>
-        document.addEventListener('alpine:init', () => {
+    </div>
+</section>
 
-            // === HERO VIDEO PARALLAX ===
-            Alpine.data('heroParallax', () => ({
-                textOffset: 0,
-                imageOffset: 0,
-                init() {
-                    window.addEventListener('scroll', () => {
-                        const scrollPos = window.scrollY;
-                        const limit = Math.min(scrollPos, 1000);
-                        this.textOffset = -limit * 0.85;
-                        this.imageOffset = limit * 0.85;
-                    });
+{{-- ================= GALERI FOTO TERBARU ================= --}}
+<section x-data="galleryModal()" class="relative bg-white py-28 px-6 lg:px-20 overflow-hidden text-gray-800">
+    <div class="text-center mb-20">
+        <h2 class="text-5xl font-extrabold mb-4 tracking-tight">Galeri</h2>
+    </div>
+
+    {{-- GRID GALERI --}}
+    <div class="grid grid-cols-12 gap-6 md:gap-8">
+        <template x-for="(item, index) in galleryList" :key="index">
+            <div class="col-span-12 md:col-span-4 relative overflow-hidden rounded-[30px] shadow-xl group cursor-pointer"
+                @click="openModal(item)">
+
+                <img :src="item.image" :alt="item.title"
+                    class="w-full h-[300px] object-cover transition-transform duration-700 group-hover:scale-110">
+
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-5">
+                    <h3 class="text-lg font-semibold text-white" x-text="item.title"></h3>
+                </div>
+            </div>
+        </template>
+    </div>
+
+    {{-- MODAL GALERI --}}
+    <div x-show="isOpen" x-transition.opacity.duration.300ms x-cloak
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+        @click.self="closeModal()">
+
+        <div x-transition.scale.duration.300ms
+            class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full overflow-hidden flex flex-col relative"
+            @click.stop>
+
+            {{-- Tombol X --}}
+            <button @click.stop="closeModal()"
+                class="absolute top-3 right-3 text-gray-600 hover:text-red-500 bg-white/80 rounded-full p-2 shadow-md transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            {{-- FOTO --}}
+            <div class="w-full h-[450px] overflow-hidden bg-gray-100 flex items-center justify-center">
+                <img :src="selectedImage" alt="Foto" class="max-w-full max-h-full object-contain">
+            </div>
+
+            {{-- TANGGAL --}}
+            <div class="px-6 pt-4 text-sm text-gray-500 font-medium border-t border-gray-200 flex items-center gap-2">
+                <i class="fas fa-calendar"></i>
+                <span x-text="selectedDate"></span>
+            </div>
+
+            {{-- DESKRIPSI --}}
+            <div class="font-normal p-6 text-gray-700 text-base leading-relaxed max-h-48 overflow-y-auto whitespace-pre-line break-words border-t border-gray-100">
+                <p x-html="selectedDescription"></p>
+            </div>
+
+            {{-- TOMBOL TUTUP --}}
+        </div>
+    </div>
+</section>
+
+{{-- ================= SCRIPT ALPINE.JS ================= --}}
+<script>
+document.addEventListener('alpine:init', () => {
+
+    // HERO PARALLAX
+    Alpine.data('heroParallax', () => ({
+        textOffset: 0,
+        imageOffset: 0,
+        init() {
+            window.addEventListener('scroll', () => {
+                const scrollPos = window.scrollY;
+                const limit = Math.min(scrollPos, 1000);
+                this.textOffset = -limit * 0.85;
+                this.imageOffset = limit * 0.85;
+            });
+        }
+    }));
+
+    // SECTION 2 PARALLAX
+    Alpine.data('sectionTwoParallax', () => ({
+        textOffset: -300,
+        imageOffset: 300,
+        init() {
+            const section = this.$el;
+            window.addEventListener('scroll', () => {
+                const rect = section.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                if(rect.top < windowHeight && rect.bottom > 0){
+                    let progress = 1 - (rect.top / windowHeight);
+                    progress = Math.min(Math.max(progress, 0), 1);
+                    this.textOffset = -300 * (1 - progress);
+                    this.imageOffset = 300 * (1 - progress);
                 }
-            }));
+            });
+        }
+    }));
 
-            // === SECTION 2 PARALLAX ===
-            Alpine.data('sectionTwoParallax', () => ({
-                textOffset: -300,
-                imageOffset: 300,
-                init() {
-                    const section = this.$el;
-                    window.addEventListener('scroll', () => {
-                        const rect = section.getBoundingClientRect();
-                        const windowHeight = window.innerHeight;
-                        if (rect.top < windowHeight && rect.bottom > 0) {
-                            let progress = 1 - (rect.top / windowHeight);
-                            progress = Math.min(Math.max(progress, 0), 1);
-                            this.textOffset = -300 * (1 - progress);
-                            this.imageOffset = 300 * (1 - progress);
-                        }
-                    });
-                }
-            }));
+    // NEWS CAROUSEL
+    Alpine.data('newsCarousel', () => ({
+        originalNews: @json($berita->take(5)),
+        newsList: [],
+        offset: 0,
+        slideWidth: 0,
+        currentIndex: 0,
+        animating: false,
+        interval: null,
+        smooth: true,
+        openModal: false,
+        selectedNews: null,
+        closeTimeout: null,
 
-            // === NEWS CAROUSEL ===
-            Alpine.data('newsCarousel', () => ({
-                originalNews: @json($berita->take(5)),
-                newsList: [],
-                offset: 0,
-                slideWidth: 0,
-                currentIndex: 0,
-                animating: false,
-                visibleCount: 3,
-                interval: null,
-                smooth: true,
-                openModal: false,
-                selectedNews: null,
+        init() {
+            this.newsList = [...this.originalNews, ...this.originalNews, ...this.originalNews];
+            this.currentIndex = this.originalNews.length;
+            this.$nextTick(() => {
+                this.slideWidth = this.$el.querySelector('.flex > div').offsetWidth + 24;
+                this.offset = -this.slideWidth * this.currentIndex;
+                this.startAutoSlide();
+            });
+        },
 
-                init() {
-                    this.newsList = [...this.originalNews, ...this.originalNews, ...this.originalNews];
+        startAutoSlide() {
+            this.interval = setInterval(() => {
+                if(!this.openModal) this.nextSlide();
+            }, 3000);
+        },
+
+        nextSlide() {
+            if(this.animating) return;
+            this.animating = true;
+            this.smooth = true;
+            this.currentIndex++;
+            this.offset = -this.slideWidth * this.currentIndex;
+
+            setTimeout(() => {
+                if(this.currentIndex >= this.originalNews.length * 2){
+                    this.smooth = false;
                     this.currentIndex = this.originalNews.length;
-                    this.$nextTick(() => {
-                        this.slideWidth = this.$el.querySelector('.flex > div').offsetWidth + 24;
-                        this.offset = -this.slideWidth * this.currentIndex;
-                        this.startAutoSlide();
-                    });
-                },
-
-                startAutoSlide() {
-                    this.interval = setInterval(() => {
-                        if (!this.openModal) {
-                            this.nextSlide();
-                        }
-                    }, 3000);
-                },
-
-                nextSlide() {
-                    if (this.animating) return;
-                    this.animating = true;
-                    this.smooth = true;
-                    this.currentIndex++;
                     this.offset = -this.slideWidth * this.currentIndex;
-                    setTimeout(() => {
-                        if (this.currentIndex >= this.originalNews.length * 2) {
-                            this.smooth = false;
-                            this.currentIndex = this.originalNews.length;
-                            this.offset = -this.slideWidth * this.currentIndex;
-                            this.$nextTick(() => setTimeout(() => this.smooth = true, 20));
-                        }
-                        this.animating = false;
-                    }, 1000);
-                },
-
-                openNewsModal(news) {
-                    this.selectedNews = news;
-                    this.openModal = true;
-                },
-
-                closeNewsModal() {
-                    this.openModal = false;
-                    setTimeout(() => {
-                        this.selectedNews = null;
-                    }, 300);
                 }
-            }));
+                this.animating = false;
+            }, 1000);
+        },
 
-            // === GALLERY MODAL ===
-            Alpine.data('galleryModal', () => ({
-                isOpen: false,
-                selectedTitle: '',
-                selectedImage: '',
-                selectedDate: '',
-                selectedDescription: '',
-                galleryList: @json($galeri),
+        openNewsModal(news){
+            clearTimeout(this.closeTimeout);
+            this.selectedNews = news;
+            this.openModal = true;
+            clearInterval(this.interval);
+        },
 
-                openModal(item) {
-                    this.selectedTitle = item.title ?? '';
-                    this.selectedImage = item.image ?? '';
-                    this.selectedDate = item.date ?? '';
-                    this.selectedDescription = item.description ?? '';
-                    this.isOpen = true;
-                },
+        closeNewsModal(){
+            this.openModal = false;
+            this.closeTimeout = setTimeout(()=>{
+                this.selectedNews = null;
+                this.startAutoSlide();
+            },250);
+        }
+    }));
 
-                closeModal() {
-                    this.isOpen = false;
-                    setTimeout(() => {
-                        this.selectedTitle = '';
-                        this.selectedImage = '';
-                        this.selectedDate = '';
-                        this.selectedDescription = '';
-                    }, 300);
-                }
-            }));
+    // GALERI
+    Alpine.data('galleryModal', () => ({
+        galleryList: @json($galeri->take(9)),
+        isOpen: false,
+        selectedImage: '',
+        selectedDescription: '',
+        selectedDate: '',
 
-        });
-    </script>
+        openModal(item){
+            this.selectedImage = item.image;
+            this.selectedDescription = item.deskripsi;
+            this.selectedDate = item.tanggal;
+            this.isOpen = true;
+        },
+        closeModal(){
+            this.isOpen = false;
+        }
+    }));
+});
+</script>
 
 @endsection
