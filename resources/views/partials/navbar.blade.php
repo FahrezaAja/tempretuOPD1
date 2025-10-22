@@ -100,9 +100,12 @@
   }
 
   @keyframes glow {
-    0%, 100% {
+
+    0%,
+    100% {
       filter: drop-shadow(0 0 0 rgba(79, 70, 229, 0));
     }
+
     50% {
       filter: drop-shadow(0 0 8px rgba(79, 70, 229, 0.4));
     }
@@ -117,17 +120,15 @@
   x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 50)"
   :class="scrolled ? 'navbar-solid' : 'navbar-glass'"
   class="fixed top-0 left-0 right-0 transition-all duration-700 z-50">
-  
+
   <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
 
     {{-- === LOGO DINAMIS === --}}
     <a href="/" class="flex items-center space-x-3">
-      <img 
-        src="{{ $logo && $logo->media && file_exists(public_path('storage/' . $logo->media)) 
-          ? asset('storage/' . $logo->media) 
-          : asset('images/logoPPS.png') }}"
-        alt="{{ $sampul->nama_opd ?? 'Logo Instansi' }}"
-        class="h-12 w-auto animate-logo-glow">
+      <img src="{{ $logo && $logo->image && file_exists(public_path('storage/' . $logo->image))
+  ? asset('storage/' . $logo->image)
+  : asset('images/logoPPS.png') }}" alt="{{ $sampul->nama_instansi ?? 'Logo Instansi' }}"
+        class="h-12 w-auto object-contain flex-shrink-0">
 
       <span class="text-xl font-bold text-gray-800 tracking-wide">
         {{ $sampul->nama_opd ?? 'Kominfo Papua Selatan' }}
