@@ -6,12 +6,12 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AdminMiddleware
+class SuperMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
         // Cek login dan role admin
-         if (in_array(Auth::user()->role, ['admin'])) {
+         if (in_array(Auth::user()->role, ['super'])) {
             return $next($request);
          }
 

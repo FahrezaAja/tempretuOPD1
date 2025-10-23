@@ -11,15 +11,17 @@ use App\Models\User;
 
 class AdminAuthController extends Controller
 {
+    /**
+     * Menampilkan form login untuk admin & super admin.
+     */
     public function showLoginForm()
     {
         return view('admin.login');
     }
 
     /**
-     * Proses login awal: cek username/password,
-     * kalau benar dan role = admin -> generate & kirim OTP,
-     * lalu redirect ke halaman OTP (belum di-authenticate penuh).
+     * Proses login awal: verifikasi username & password,
+     * generate OTP jika valid.
      */
     public function login(Request $request)
     {
@@ -28,43 +30,39 @@ class AdminAuthController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        // Coba akses dengan Auth::attempt untuk verifikasi kredensial
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
-            // Pastikan role admin
-            if ($user->role !== 'admin') {
+            // ✅ Cek role valid (admin atau super)
+            if (!in_array($user->role, ['admin', 'super'])) {
                 Auth::logout();
-                return back()->withErrors(['username' => 'Akun ini bukan admin.']);
+                return back()->withErrors(['username' => 'Akun ini bukan admin atau super admin.']);
             }
 
-            // Cek apakah user kena rate-limit (>=5 send dalam waktu singkat)
+            // Rate limit OTP
             if ($user->otp_last_sent_at && $user->otp_attempts >= 5) {
                 $diff = Carbon::now()->diffInSeconds($user->otp_last_sent_at);
                 if ($diff < 30) {
                     Auth::logout();
-                    return back()->withErrors(['username' => 'Terlalu banyak percobaan OTP. Coba lagi dalam 30 detik.']);
+                    return back()->withErrors(['username' => 'Terlalu banyak permintaan OTP. Tunggu 30 detik.']);
                 } else {
-                    // reset counter jika lebih dari 30 detik sudah lewat
                     $user->otp_attempts = 0;
                 }
             }
 
-            // Generate OTP 6-digit
+            // Generate OTP
             $otp = rand(100000, 999999);
 
-            // Simpan OTP (plain 6 digit sesuai permintaan; kalau mau lebih aman, hash)
             $user->otp_code = $otp;
-            $user->otp_expires_at = Carbon::now()->addMinutes(5); // kadaluarsa 5 menit
+            $user->otp_expires_at = Carbon::now()->addMinutes(5);
             $user->otp_attempts = $user->otp_attempts + 1;
             $user->otp_last_sent_at = Carbon::now();
             $user->save();
 
-            // Kirim OTP ke email (gmail)
+            // Kirim email OTP
             try {
                 Mail::to($user->gmail)->send(new OtpMail($otp));
             } catch (\Exception $e) {
-                // jika gagal kirim email, rollback OTP fields (opsional)
                 $user->otp_code = null;
                 $user->otp_expires_at = null;
                 $user->otp_attempts = max(0, $user->otp_attempts - 1);
@@ -75,10 +73,7 @@ class AdminAuthController extends Controller
                 return back()->withErrors(['username' => 'Gagal mengirim OTP ke email. Periksa konfigurasi mail.']);
             }
 
-            // logout sementara (karena Auth::attempt sudah berhasil sebelumnya)
             Auth::logout();
-
-            // simpan ID user di session untuk proses OTP
             session(['otp_user_id' => $user->id]);
 
             return redirect()->route('admin.otp.form')->with('success', 'Kode OTP telah dikirim ke email Anda.');
@@ -87,6 +82,66 @@ class AdminAuthController extends Controller
         return back()->withErrors(['username' => 'Username atau password salah.']);
     }
 
+    /**
+     * Form OTP
+     */
+    public function showOtpForm()
+    {
+        return view('admin.otp');
+    }
+
+    /**
+     * Verifikasi OTP dan arahkan ke dashboard sesuai role.
+     */
+    public function verifyOtp(Request $request)
+    {
+        $request->validate([
+            'otp_code' => ['required', 'digits:6'],
+        ]);
+
+        $userId = session('otp_user_id');
+        if (!$userId) {
+            return redirect()->route('admin.login')->withErrors(['otp_code' => 'Session OTP tidak valid.']);
+        }
+
+        $user = User::find($userId);
+        if (!$user) {
+            return redirect()->route('admin.login')->withErrors(['otp_code' => 'User tidak ditemukan.']);
+        }
+
+        if ($user->otp_code !== $request->otp_code) {
+            return back()->withErrors(['otp_code' => 'Kode OTP salah.']);
+        }
+
+        if (Carbon::now()->greaterThan($user->otp_expires_at)) {
+            return back()->withErrors(['otp_code' => 'Kode OTP sudah kedaluwarsa.']);
+        }
+
+        // ✅ OTP valid
+        $user->otp_code = null;
+        $user->otp_expires_at = null;
+        $user->otp_attempts = 0;
+        $user->save();
+
+        Auth::login($user);
+        session()->forget('otp_user_id');
+
+        // 🔹 Arahkan ke dashboard sesuai role
+        if ($user->role === 'super') {
+            return redirect()->route('super.dashboard')->with('success', 'Selamat datang Super Admin!');
+        }
+
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard')->with('success', 'Selamat datang Admin!');
+        }
+
+        Auth::logout();
+        return redirect()->route('admin.login')->withErrors(['msg' => 'Role tidak dikenali.']);
+    }
+
+    /**
+     * Logout
+     */
     public function logout(Request $request)
     {
         Auth::logout();
