@@ -23,6 +23,7 @@ use App\Http\Controllers\AplikasiController;
 use App\Http\Controllers\LogoController;
 use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OtpController;
 
 
 
@@ -73,11 +74,15 @@ Route::get('/kategori', [KategoriController::class, 'show'])->name('kategori');
 
 
 Route::prefix('admin')->group(function () {
+    //login dan logout
     Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
     Route::post('login', [AdminAuthController::class, 'login'])->name('admin.login.submit');
-
     Route::post('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
+    // OTP
+    Route::get('otp', [OtpController::class, 'showForm'])->name('admin.otp.form');
+    Route::post('otp/verify', [OtpController::class, 'verify'])->name('admin.otp.verify');
+    Route::post('otp/resend', [OtpController::class, 'resend'])->name('admin.otp.resend');
     Route::middleware(['admin'])->group(function () {
         //dashboard admin
 

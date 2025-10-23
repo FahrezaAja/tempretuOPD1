@@ -1,23 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin</title>
-
-    {{-- Hilangkan CDN Tailwind, ganti dengan directive Laravel --}}
     @vite('resources/css/app.css')
-
-    {{-- Font Awesome dan Google Fonts --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-
-    {{-- SweetAlert2 --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-
 <body class="bg-indigo-50 font-poppins min-h-screen flex items-center justify-center p-4"
     style="background-image: linear-gradient(to bottom right, rgba(67,56,202,0.1), rgba(165,180,252,0.2));">
 
@@ -171,5 +161,4 @@
         });
     </script>
 </body>
-
 </html>
