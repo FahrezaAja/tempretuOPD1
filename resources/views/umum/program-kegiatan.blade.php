@@ -110,11 +110,6 @@
                             <p class="text-gray-700 mb-1"><span class="font-semibold">Tanggal:</span> <span
                                     x-text="doc.tanggal"></span></p>
 
-                            {{-- ✅ Tambahan: tampilkan nama file di bawah informasi --}}
-                            <p class="text-gray-700 mt-2 text-sm">
-                                <span class="font-semibold text-indigo-700">Nama File:</span>
-                                <span x-text="doc.nama_file"></span>
-                            </p>
                         </div>
 
                         <div class="mt-4">

@@ -23,6 +23,8 @@ use App\Http\Controllers\AplikasiController;
 use App\Http\Controllers\LogoController;
 use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OtpController;
+use App\Http\Controllers\SuperAdminController;
 
 
 
@@ -73,10 +75,15 @@ Route::get('/kategori', [KategoriController::class, 'show'])->name('kategori');
 
 
 Route::prefix('admin')->group(function () {
+    //login dan logout
     Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
     Route::post('login', [AdminAuthController::class, 'login'])->name('admin.login.submit');
-
     Route::post('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+
+    // OTP
+    Route::get('otp', [OtpController::class, 'showForm'])->name('admin.otp.form');
+    Route::post('otp/verify', [OtpController::class, 'verify'])->name('admin.otp.verify');
+    Route::post('otp/resend', [OtpController::class, 'resend'])->name('admin.otp.resend');
 
     Route::middleware(['admin'])->group(function () {
         //dashboard admin
@@ -191,4 +198,20 @@ Route::prefix('admin')->group(function () {
         Route::put('/sosmedAdmin/{sosmed}', [SosmedController::class, 'update'])->name('admin.sosmedAdmin.update');
         Route::delete('/sosmedAdmin/{sosmed}', [SosmedController::class, 'destroy'])->name('admin.sosmedAdmin.destroy');
     });
+
+    Route::prefix('super')->middleware(['super'])->group(function () {
+        Route::get('/dashboard', [SuperAdminController::class, 'index'])->name('super.dashboard');
+        Route::get('/create-admin', [SuperAdminController::class, 'create'])->name('super.admin.create');
+        Route::post('/create-admin', [SuperAdminController::class, 'store'])->name('super.admin.store');
+        Route::get('/manage-admins/edit/{id}', [SuperAdminController::class, 'edit'])->name('super.admin.edit');
+        Route::put('/manage-admins/{id}', [SuperAdminController::class, 'update'])->name('super.admin.update');
+        Route::delete('/delete-admin', [SuperAdminController::class, 'destroy'])->name('super.admin.destroy');
+
+    });
+
+    Route::post('/super/logout', function () {
+        Auth::logout();
+        return redirect('/admin/login');
+    })->name('super.logout');
+
 });
