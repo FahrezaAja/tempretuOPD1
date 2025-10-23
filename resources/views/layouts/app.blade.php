@@ -4,15 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {{-- Favicon Dinamis --}}
     <link rel="icon" type="image/png" href="{{ $logo && $logo->image && file_exists(public_path('storage/' . $logo->image))
-    ? asset('storage/' . $logo->image)
-    : asset('images/logoPPS.png') }}">
-
-
+        ? asset('storage/' . $logo->image)
+        : asset('images/logoPPS.png') }}">
 
     <title>@yield('title')</title>
 
+    {{-- Tailwind / CSS --}}
     @vite('resources/css/app.css')
+    
+    {{-- Alpine.js --}}
     <script defer src="//unpkg.com/alpinejs"></script>
 
     {{-- 🔹 Anti Flicker --}}
@@ -20,8 +23,7 @@
         [x-cloak] {
             display: none !important;
         }
-    </style>
-    <style>
+
         .ck-content ul,
         .ck-content ul li {
             list-style-type: disc;
@@ -33,10 +35,44 @@
             list-style-type: decimal;
             margin-left: 1.25rem;
         }
+
+        /* 🔹 Loader Styles */
+        .loader {
+            border-top-color: #3490dc; /* Sesuaikan warna */
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #loader {
+            display: none;
+        }
+
+        #loader.active {
+            display: flex;
+        }
+
+        /* 🔹 Page Fade Transisi */
+        .page-fade {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .fade-active {
+            opacity: 1;
+        }
     </style>
 </head>
 
 <body class="bg-gray-50 min-h-screen page-fade">
+
+    {{-- 🔹 Loader Global --}}
+    <div id="loader" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
+        <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-16 w-16"></div>
+    </div>
 
     {{-- 🔹 Navbar --}}
     @include('partials.navbar')
@@ -49,25 +85,48 @@
     {{-- 🔹 Footer --}}
     @include('partials.footer')
 
-    {{-- 🔹 Script untuk Transisi Halaman --}}
+    {{-- 🔹 Script Loader & Page Fade --}}
     <script>
-        const applyFade = () => {
-            document.body.classList.remove("fade-active"); // Reset
-            // Double requestAnimationFrame untuk memastikan transisi berjalan konsisten
-            requestAnimationFrame(() => {
+        document.addEventListener('DOMContentLoaded', function() {
+            const loader = document.getElementById('loader');
+
+            // 🔹 Page fade
+            const applyFade = () => {
+                document.body.classList.remove("fade-active");
                 requestAnimationFrame(() => {
-                    document.body.classList.add("fade-active");
+                    requestAnimationFrame(() => {
+                        document.body.classList.add("fade-active");
+                    });
+                });
+            };
+            window.addEventListener("load", applyFade);
+            document.addEventListener("alpine:initialized", applyFade);
+
+            // 🔹 Loader hanya untuk navigasi internal (tidak untuk download atau target _blank)
+            document.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = link.getAttribute('href');
+                    const isDownload = link.hasAttribute('download') || link.getAttribute('target') === '_blank';
+
+                    if(href && !href.startsWith('#') && !isDownload) {
+                        loader.classList.add('active');
+                    }
                 });
             });
-        };
 
-        // Jalankan saat window load agar semua elemen sudah render
-        window.addEventListener("load", applyFade);
+            // 🔹 Loader saat submit form
+            document.querySelectorAll('form').forEach(form => {
+                form.addEventListener('submit', function() {
+                    loader.classList.add('active');
+                });
+            });
 
-        // Tangani Alpine.js re-init
-        document.addEventListener("alpine:initialized", applyFade);
+            // 🔹 Loader otomatis hilang setelah halaman load (fallback)
+            window.addEventListener('pageshow', function() {
+                loader.classList.remove('active');
+            });
+        });
     </script>
 
 </body>
-
 </html>
