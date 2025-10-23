@@ -25,10 +25,11 @@
         </div>
 
         <!-- Tombol tambah admin -->
-        <a href="{{ route('super.admin.create') }}"
+        <a href="{{ route('super.admin.store') }}"
             class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
-            + Tambah Admin
+            Tambah Admin
         </a>
+
 
         <!-- Pesan sukses -->
         @if(session('success'))

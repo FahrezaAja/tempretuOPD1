@@ -201,12 +201,20 @@ Route::prefix('admin')->group(function () {
 
     Route::prefix('super')->middleware(['super'])->group(function () {
         Route::get('/dashboard', [SuperAdminController::class, 'index'])->name('super.dashboard');
-        Route::get('/create-admin', [SuperAdminController::class, 'create'])->name('super.admin.create');
+
+        // Form tambah admin (langsung Blade)
+        Route::view('/create-admin', 'super.form-admin')->name('super.admin.create');
+
+        // Form edit admin (langsung Blade dengan admin parameter)
+        Route::get('/manage-admins/edit/{id}', function ($id) {
+            $admin = \App\Models\User::findOrFail($id);
+            return view('super.form-admin', compact('admin'));
+        })->name('super.admin.edit');
+
+        // Store & Update & Delete
         Route::post('/create-admin', [SuperAdminController::class, 'store'])->name('super.admin.store');
-        Route::get('/manage-admins/edit/{id}', [SuperAdminController::class, 'edit'])->name('super.admin.edit');
         Route::put('/manage-admins/{id}', [SuperAdminController::class, 'update'])->name('super.admin.update');
         Route::delete('/delete-admin', [SuperAdminController::class, 'destroy'])->name('super.admin.destroy');
-
     });
 
     Route::post('/super/logout', function () {
