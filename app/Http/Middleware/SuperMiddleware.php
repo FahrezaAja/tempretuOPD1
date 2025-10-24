@@ -10,12 +10,21 @@ class SuperMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        // Cek login dan role admin
-         if (in_array(Auth::user()->role, ['super'])) {
-            return $next($request);
-         }
 
-        // Redirect ke admin login jika belum login atau bukan admin
-        return redirect()->route('admin.login')->with('error', 'Hanya admin yang boleh masuk.');
+        if (!Auth::check()) {
+            return redirect()->route('admin.login')
+                ->withErrors(['login' => 'Silakan login terlebih dahulu.']);
+        }
+
+
+        if (Auth::user()->role === 'super') {
+            return $next($request);
+        }
+
+
+        Auth::logout();
+
+        return redirect()->route('admin.login')
+            ->withErrors(['role' => 'Akses ditolak. Khusus Super Admin!']);
     }
 }
