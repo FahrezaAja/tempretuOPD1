@@ -23,8 +23,7 @@
             @endif
         @else
             <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover brightness-75">
-                <source src="{{ asset('videos/hero.mp4') }}" type="video/mp4">
-                Browser kamu tidak mendukung video tag.
+                Belum ada Sampul
             </video>
         @endif
 
