@@ -321,66 +321,80 @@ document.addEventListener('alpine:init', () => {
 
     // NEWS CAROUSEL
     Alpine.data('newsCarousel', () => ({
-        originalNews: @json($berita->take(5)),
-        newsList: [],
-        offset: 0,
-        slideWidth: 0,
-        currentIndex: 0,
-        animating: false,
-        interval: null,
-        smooth: true,
-        openModal: false,
-        selectedNews: null,
-        closeTimeout: null,
-
-        init() {
-            this.newsList = [...this.originalNews, ...this.originalNews, ...this.originalNews];
-            this.currentIndex = this.originalNews.length;
-            this.$nextTick(() => {
-                this.slideWidth = this.$el.querySelector('.flex > div').offsetWidth + 24;
-                this.offset = -this.slideWidth * this.currentIndex;
-                this.startAutoSlide();
-            });
-        },
-
-        startAutoSlide() {
-            this.interval = setInterval(() => {
-                if (!this.openModal) this.nextSlide();
-            }, 3000);
-        },
-
-        nextSlide() {
-            if (this.animating) return;
-            this.animating = true;
-            this.smooth = true;
-            this.currentIndex++;
-            this.offset = -this.slideWidth * this.currentIndex;
-
-            setTimeout(() => {
-                if (this.currentIndex >= this.originalNews.length * 2) {
-                    this.smooth = false;
-                    this.currentIndex = this.originalNews.length;
-                    this.offset = -this.slideWidth * this.currentIndex;
-                }
-                this.animating = false;
-            }, 1000);
-        },
-
-        openNewsModal(news) {
-            clearTimeout(this.closeTimeout);
-            this.selectedNews = news;
-            this.openModal = true;
-            clearInterval(this.interval);
-        },
-
-        closeNewsModal() {
-            this.openModal = false;
-            this.closeTimeout = setTimeout(() => {
-                this.selectedNews = null;
-                this.startAutoSlide();
-            }, 250);
+    originalNews: (() => {
+        let data = @json($berita->take(5));
+        // jika kurang dari 5, duplikasi data supaya minimal 5, tanpa mengubah logika loop
+        if(data.length < 5){
+            let temp = [...data];
+            while(temp.length < 5){
+                temp = temp.concat(data);
+            }
+            return temp;
         }
-    }));
+        return data;
+    })(),
+    newsList: [],
+    offset: 0,
+    slideWidth: 0,
+    currentIndex: 0,
+    animating: false,
+    interval: null,
+    smooth: true,
+    openModal: false,
+    selectedNews: null,
+    closeTimeout: null,
+
+    init() {
+        // tetap gunakan logika lama untuk newsList
+        this.newsList = [...this.originalNews, ...this.originalNews, ...this.originalNews];
+        this.currentIndex = this.originalNews.length;
+        this.$nextTick(() => {
+            this.slideWidth = this.$el.querySelector('.flex > div').offsetWidth + 24;
+            this.offset = -this.slideWidth * this.currentIndex;
+            this.startAutoSlide();
+        });
+    },
+
+    startAutoSlide() {
+        this.interval = setInterval(() => {
+            if (!this.openModal) this.nextSlide();
+        }, 3000);
+    },
+
+    // **JANGAN DIUBAH**: nextSlide tetap sama
+    nextSlide() {
+        if (this.animating) return;
+        this.animating = true;
+        this.smooth = true;
+        this.currentIndex++;
+        this.offset = -this.slideWidth * this.currentIndex;
+
+        setTimeout(() => {
+            if (this.currentIndex >= this.originalNews.length * 2) {
+                this.smooth = false;
+                this.currentIndex = this.originalNews.length;
+                this.offset = -this.slideWidth * this.currentIndex;
+            }
+            this.animating = false;
+        }, 1000);
+    },
+
+    openNewsModal(news) {
+        clearTimeout(this.closeTimeout);
+        this.selectedNews = news;
+        this.openModal = true;
+        clearInterval(this.interval);
+    },
+
+    closeNewsModal() {
+        this.openModal = false;
+        this.closeTimeout = setTimeout(() => {
+            this.selectedNews = null;
+            this.startAutoSlide();
+        }, 250);
+    }
+}));
+
 
     // GALERI
     Alpine.data('galleryModal', () => ({
