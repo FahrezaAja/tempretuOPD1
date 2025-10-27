@@ -24,13 +24,13 @@
                     @method('PUT')
 
                     <div>
-                        <label class="block font-medium text-gray-700 mb-1">Nama OPD</label>
+                        <label class="block font-medium text-gray-700 mb-1">Nama OPD (singkatan)</label>
                         <input type="text" name="nama_opd" value="{{ old('nama_opd', $sampul->nama_opd) }}" required
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">
                     </div>
 
                     <div>
-                        <label class="block font-medium text-gray-700 mb-1">Deskripsi</label>
+                        <label class="block font-medium text-gray-700 mb-1">Deskripsi (Nama Instansi Lengkap dan deskripsi)</label>
                         <textarea id="deskripsi_edit" name="deskripsi" rows="6" required
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">{{ old('deskripsi', $sampul->deskripsi) }}</textarea>
                     </div>
@@ -103,13 +103,13 @@
                     @csrf
 
                     <div>
-                        <label class="block font-medium text-gray-700 mb-1">Nama OPD</label>
+                        <label class="block font-medium text-gray-700 mb-1">Nama OPD (singkatan)</label>
                         <input type="text" name="nama_opd" required
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">
                     </div>
 
                     <div>
-                        <label class="block font-medium text-gray-700 mb-1">Deskripsi</label>
+                        <label class="block font-medium text-gray-700 mb-1">Deskripsi (nama instansi lengkap dan deskripsi)</label>
                         <textarea id="deskripsi_create" name="deskripsi" rows="6" required
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none"></textarea>
                     </div>

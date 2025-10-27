@@ -84,7 +84,7 @@
 
             <div class="mt-6 text-center">
                 <p class="text-gray-500 text-sm">
-                    &copy; {{ date('Y') }} KOMINFO Papua Selatan. All rights reserved.
+                    &copy; {{ date('Y') }} Kominfo Papua Selatan. All rights reserved.
                 </p>
             </div>
         </div>

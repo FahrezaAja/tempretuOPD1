@@ -52,7 +52,8 @@
         </div>
 
         {{-- ===================== VISI MISI SECTION ===================== --}}
-        <div class="relative bg-indigo-700 text-white py-20 px-8 md:px-24 rounded-t-[60px] mt-10 shadow-inner">
+        <div class="relative bg-indigo-700 text-white py-16 px-6 md:px-20 rounded-3xl md:rounded-[40px] shadow-lg">
+
             <div class="text-center mb-12">
                 <h2 class="text-4xl font-extrabold mb-4 transition-all duration-1000"
                     :class="show ? 'opacity-100 scale-100' : 'opacity-0 scale-90'">
@@ -60,44 +61,44 @@
                 </h2>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-10 mt-12">
+            <div class="grid md:grid-cols-2 gap-8">
 
                 {{-- VISI --}}
-                <div class="bg-white/10 backdrop-blur-lg p-8 rounded-[30px] shadow-xl transition-all duration-1000 ease-out transform hover:scale-[1.03]"
+                <div class="bg-indigo-600 text-white p-8 rounded-2xl shadow-lg transition-all duration-700 transform hover:scale-[1.03]"
                     :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
-                    <h3 class="text-2xl font-bold mb-4 text-white">Visi</h3>
+                    <h3 class="text-2xl font-bold mb-4">Visi</h3>
                     @if(!empty($profilopd->visi))
-                        <p class="text-indigo-100 text-lg leading-relaxed">
+                        <p class="text-lg leading-relaxed">
                             {!! $profilopd->visi !!}
                         </p>
                     @else
-                        <p class="text-indigo-200 italic">Visi belum diinputkan.</p>
+                        <p class="italic text-indigo-200">Visi belum diinputkan.</p>
                     @endif
                 </div>
 
                 {{-- MISI --}}
-                <div class="bg-white/10 backdrop-blur-lg p-8 rounded-[30px] shadow-xl transition-all duration-1000 ease-out transform delay-200 hover:scale-[1.03]"
+                <div class="bg-indigo-600 text-white p-8 rounded-2xl shadow-lg transition-all duration-700 transform delay-200 hover:scale-[1.03]"
                     :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
-                    <h3 class="text-2xl font-bold mb-4 text-white">Misi</h3>
+                    <h3 class="text-2xl font-bold mb-4">Misi</h3>
                     @if(!empty($profilopd->misi))
                         @php
-                            // Jika admin menulis misi dalam bentuk paragraf, kita ubah jadi poin otomatis
                             $misiList = preg_split("/\r\n|\n|\r/", $profilopd->misi);
                         @endphp
-                        <ul class="list-disc list-inside text-indigo-100 space-y-3 text-lg">
+                        <ul class="list-disc list-inside space-y-2 text-lg">
                             @foreach($misiList as $misi)
                                 @if(trim($misi) !== '')
-                                    {!! $misi !!}
+                                    <li>{!! $misi !!}</li>
                                 @endif
                             @endforeach
                         </ul>
                     @else
-                        <p class="text-indigo-200 italic">Misi belum diinputkan.</p>
+                        <p class="italic text-indigo-200">Misi belum diinputkan.</p>
                     @endif
                 </div>
 
             </div>
         </div>
+
 
     </section>
 

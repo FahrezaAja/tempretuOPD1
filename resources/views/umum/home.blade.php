@@ -67,9 +67,9 @@
 
             <div
                 class="absolute right-[-120px] top-1/2 transform -translate-y-1/2 
-                                        w-0 h-0 border-t-[100px] border-t-transparent 
-                                        border-b-[100px] border-b-transparent 
-                                        border-l-[130px] border-l-black rounded-tr-[40px] drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
+                                                w-0 h-0 border-t-[100px] border-t-transparent 
+                                                border-b-[100px] border-b-transparent 
+                                                border-l-[130px] border-l-black rounded-tr-[40px] drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
             </div>
 
             <p class="text-sm tracking-widest text-gray-400 uppercase font-bold">
@@ -255,7 +255,6 @@
                     <p x-html="selectedDescription"></p>
                 </div>
 
-                {{-- TOMBOL TUTUP --}}
             </div>
         </div>
     </section>
@@ -268,32 +267,61 @@
             Alpine.data('heroParallax', () => ({
                 textOffset: 0,
                 imageOffset: 0,
+                targetTextOffset: 0,
+                targetImageOffset: 0,
                 init() {
+                    const lerp = (start, end, amt) => start + (end - start) * amt;
+
                     window.addEventListener('scroll', () => {
                         const scrollPos = window.scrollY;
                         const limit = Math.min(scrollPos, 1000);
-                        this.textOffset = -limit * 0.85;
-                        this.imageOffset = limit * 0.85;
+                        const isMobile = window.innerWidth < 768;
+                        this.targetTextOffset = -limit * (isMobile ? 0.4 : 0.85);
+                        this.targetImageOffset = limit * (isMobile ? 0.4 : 0.85);
+
                     });
+
+                    const animate = () => {
+                        this.textOffset = lerp(this.textOffset, this.targetTextOffset, 0.1);
+                        this.imageOffset = lerp(this.imageOffset, this.targetImageOffset, 0.1);
+                        requestAnimationFrame(animate);
+                    };
+                    animate();
                 }
             }));
 
             // SECTION 2 PARALLAX
             Alpine.data('sectionTwoParallax', () => ({
-                textOffset: -300,
-                imageOffset: 300,
+                textOffset: -100,
+                imageOffset: 100,
+                targetTextOffset: -100,
+                targetImageOffset: 100,
                 init() {
+                    const lerp = (start, end, amt) => start + (end - start) * amt;
                     const section = this.$el;
+
                     window.addEventListener('scroll', () => {
                         const rect = section.getBoundingClientRect();
                         const windowHeight = window.innerHeight;
                         if (rect.top < windowHeight && rect.bottom > 0) {
                             let progress = 1 - (rect.top / windowHeight);
                             progress = Math.min(Math.max(progress, 0), 1);
-                            this.textOffset = -300 * (1 - progress);
-                            this.imageOffset = 300 * (1 - progress);
+
+                            const isMobile = window.innerWidth < 768;
+                            const textMultiplier = isMobile ? 0.3 : 1;
+                            const imageMultiplier = isMobile ? 0.3 : 1;
+                            this.targetTextOffset = -300 * (1 - progress) * textMultiplier;
+                            this.targetImageOffset = 300 * (1 - progress) * imageMultiplier;
+
                         }
                     });
+
+                    const animate = () => {
+                        this.textOffset = lerp(this.textOffset, this.targetTextOffset, 0.1);
+                        this.imageOffset = lerp(this.imageOffset, this.targetImageOffset, 0.1);
+                        requestAnimationFrame(animate);
+                    };
+                    animate();
                 }
             }));
 
