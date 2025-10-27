@@ -85,7 +85,7 @@
             </p>
 
             <h2 class="text-4xl md:text-5xl font-extrabold leading-tight mt-4">
-                {{ $sambutan ? $sambutan->judul : 'Profesionalisme & Integritas' }}
+                {{ $sambutan ? $sambutan->judul : 'Kata Sambutan' }}
             </h2>
 
             <p class="text-gray-300 text-base leading-relaxed mt-6 max-w-md">
