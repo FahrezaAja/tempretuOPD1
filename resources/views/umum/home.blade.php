@@ -34,26 +34,22 @@
         <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-transparent"></div>
 
         {{-- Hero Content --}}
+        {{-- NOTE: foto_pemimpin telah dihapus. Pada mobile, teks akan center dan fade-in saat pertama kali muncul --}}
         <div
             class="relative z-30 flex flex-col-reverse md:flex-row items-center justify-between w-full px-6 sm:px-10 lg:px-24 text-white">
-            <div class="max-w-xl text-left space-y-6 mt-10 md:mt-0" :style="'transform: translateX(' + textOffset + 'px);'">
+            <div
+                class="max-w-xl text-left space-y-6 mt-10 md:mt-0 hero-text"
+                :style="!isMobile ? ('transform: translateX(' + textOffset + 'px);') : ''">
                 <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
                     <span class="text-indigo-400">{{ $sampul ? $sampul->nama_opd : 'Nama OPD' }}</span><br>
                 </h1>
-                <div class="text-gray-200 text-lg leading-relaxed text-justify break-words whitespace-pre-line w-full max-w-full overflow-hidden"
+                <div class="text-gray-200 text-lg leading-relaxed text-justify md:text-justify break-words whitespace-pre-line w-full max-w-full overflow-hidden"
                     style="word-break: break-word; white-space: pre-wrap;">
                     {!! $sampul->deskripsi ?? 'Deskripsi default untuk hero section.' !!}
                 </div>
             </div>
 
-            <div class="relative flex justify-center items-center" :style="'transform: translateX(' + imageOffset + 'px);'">
-                <div class="absolute inset-0 bg-indigo-500/20 blur-[100px] rounded-full scale-125"></div>
-                <div class="relative z-10 overflow-hidden rounded-[40px] shadow-2xl">
-                    <img src="{{ $sampul && $sampul->foto_pemimpin && file_exists(public_path('storage/' . $sampul->foto_pemimpin)) ? asset('storage/' . $sampul->foto_pemimpin) : asset('images/depan-kanan-orang.jpg') }}"
-                        alt="Ilustrasi Forensik"
-                        class="object-contain w-[280px] md:w-[350px] lg:w-[420px] transition-transform duration-700 ease-in-out hover:scale-[1.03]">
-                </div>
-            </div>
+            {{-- note: foto_pemimpin intentionally removed as requested --}}
         </div>
     </section>
 
@@ -62,14 +58,14 @@
         class="relative w-full flex flex-col md:flex-row items-center justify-between overflow-hidden bg-gray-100 py-20 px-6 md:px-0">
 
         {{-- KOTAK TEKS --}}
-        <div class="relative w-full md:w-1/2 bg-black text-white py-16 px-8 md:px-12 flex flex-col justify-center rounded-r-[80px] z-10 shadow-2xl"
-            :style="'transform: translateX(' + textOffset + 'px);'">
+        <div class="relative w-full md:w-1/2 bg-black text-white py-16 px-8 md:px-12 flex flex-col justify-center rounded-r-[80px] z-10 shadow-2xl s2-text"
+            :style="!isMobile ? ('transform: translateX(' + textOffset + 'px);') : ''">
 
             <div
                 class="absolute right-[-120px] top-1/2 transform -translate-y-1/2 
                                         w-0 h-0 border-t-[100px] border-t-transparent 
                                         border-b-[100px] border-b-transparent 
-                                        border-l-[130px] border-l-black rounded-tr-[40px] drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
+                                        border-l-[130px] border-l-black rounded-tr-[40px] drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)] hidden md:block">
             </div>
 
             <p class="text-sm tracking-widest text-gray-400 uppercase font-bold">
@@ -98,8 +94,8 @@
         </div>
 
         {{-- GAMBAR --}}
-        <div class="relative w-full md:w-1/2 flex justify-center items-center mt-16 md:mt-0 z-20 px-4"
-            :style="'transform: translateX(' + imageOffset + 'px);'">
+        <div class="relative w-full md:w-1/2 flex justify-center items-center mt-16 md:mt-0 z-20 px-4 s2-image"
+            :style="!isMobile ? ('transform: translateX(' + imageOffset + 'px);') : ''">
             <div class="absolute inset-0 blur-[100px] rounded-full scale-125"></div>
             <div class="relative z-10 overflow-hidden rounded-[40px] shadow-2xl">
                 <img src="{{ $sambutan && $sambutan->image ? asset('storage/' . $sambutan->image) : asset('images/depan-kanan-orang.jpg') }}"
@@ -156,7 +152,7 @@
             </div>
         </div>
 
-        {{-- ================= MODAL DETAIL BERITA ================= --}}
+        {{-- MODAL DETAIL BERITA --}}
         <div x-show="openModal" x-transition.opacity.duration.300ms x-cloak
             class="fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-50 p-6"
             @click.self="closeNewsModal()">
@@ -260,31 +256,116 @@
         </div>
     </section>
 
-    {{-- ================= SCRIPT ALPINE.JS ================= --}}
+    {{-- ================= STYLE & SCRIPT ================= --}}
+    <style>
+        /* Fade-in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 700ms cubic-bezier(.22,.9,.3,1), transform 700ms cubic-bezier(.22,.9,.3,1);
+        }
+        .fade-in.visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* Mobile center adjustments */
+        @media (max-width: 768px) {
+            /* make hero text centered on mobile */
+            .hero-text {
+                text-align: center !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+            /* for section 2 on mobile, make elements stacked with spacing */
+            .s2-text {
+                border-radius: 0 !important;
+                padding-left: 1.5rem !important;
+                padding-right: 1.5rem !important;
+                margin-bottom: 1.25rem;
+            }
+            .s2-image {
+                margin-top: 0 !important;
+            }
+        }
+    </style>
+
     <script>
         document.addEventListener('alpine:init', () => {
 
-            // HERO PARALLAX
+            // Utility: check mobile (matches Tailwind md breakpoint)
+            const mq = window.matchMedia('(max-width: 768px)');
+
+            // Intersection-observer helper: fade-in once when visible
+            function observeFadeOnce(el) {
+                if (!el) return;
+                // Add baseline class
+                el.classList.add('fade-in');
+                const io = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.15 });
+                io.observe(el);
+            }
+
+            // HERO PARALLAX (desktop) & fade-in on mobile
             Alpine.data('heroParallax', () => ({
                 textOffset: 0,
                 imageOffset: 0,
+                isMobile: mq.matches,
                 init() {
+                    const section = this.$el;
+                    const textEl = section.querySelector('.hero-text');
+
+                    // Observe fade-in on mobile only
+                    if (this.isMobile) {
+                        // ensure layout center via CSS and animate
+                        observeFadeOnce(textEl);
+                        // disable any transforms on the section/text to avoid parallax artifacts
+                        section.style.transform = 'none';
+                        return;
+                    }
+
+                    // Desktop parallax behavior (unchanged)
                     window.addEventListener('scroll', () => {
                         const scrollPos = window.scrollY;
                         const limit = Math.min(scrollPos, 1000);
                         this.textOffset = -limit * 0.85;
                         this.imageOffset = limit * 0.85;
+                        // Apply transform directly (Alpine binding on :style not used here to reduce markup changes)
+                        if (textEl) textEl.style.transform = `translateX(${this.textOffset}px)`;
                     });
+
+                    // On resize, update isMobile flag
+                    mq.addEventListener ? mq.addEventListener('change', e => this.isMobile = e.matches) : mq.addListener(e => this.isMobile = e.matches);
                 }
             }));
 
-            // SECTION 2 PARALLAX
+            // SECTION 2: parallax on desktop, fade-in on mobile
             Alpine.data('sectionTwoParallax', () => ({
                 textOffset: -300,
                 imageOffset: 300,
+                isMobile: mq.matches,
                 init() {
                     const section = this.$el;
-                    window.addEventListener('scroll', () => {
+                    const textEl = section.querySelector('.s2-text');
+                    const imageEl = section.querySelector('.s2-image');
+
+                    if (this.isMobile) {
+                        // stack layout already handled by CSS; just observe fade-in for both blocks
+                        observeFadeOnce(textEl);
+                        observeFadeOnce(imageEl);
+                        // ensure transforms off
+                        section.style.transform = 'none';
+                        return;
+                    }
+
+                    // desktop parallax
+                    const onScroll = () => {
                         const rect = section.getBoundingClientRect();
                         const windowHeight = window.innerHeight;
                         if (rect.top < windowHeight && rect.bottom > 0) {
@@ -292,8 +373,18 @@
                             progress = Math.min(Math.max(progress, 0), 1);
                             this.textOffset = -300 * (1 - progress);
                             this.imageOffset = 300 * (1 - progress);
+
+                            if (textEl) textEl.style.transform = `translateX(${this.textOffset}px)`;
+                            if (imageEl) imageEl.style.transform = `translateX(${this.imageOffset}px)`;
                         }
-                    });
+                    };
+
+                    window.addEventListener('scroll', onScroll);
+                    window.addEventListener('load', onScroll);
+                    window.addEventListener('resize', onScroll);
+
+                    // keep responsive flag updated
+                    mq.addEventListener ? mq.addEventListener('change', e => this.isMobile = e.matches) : mq.addListener(e => this.isMobile = e.matches);
                 }
             }));
 
@@ -315,9 +406,20 @@
                     this.newsList = [...this.originalNews, ...this.originalNews, ...this.originalNews];
                     this.currentIndex = this.originalNews.length;
                     this.$nextTick(() => {
-                        this.slideWidth = this.$el.querySelector('.flex > div').offsetWidth + 24;
+                        const firstCard = this.$el.querySelector('.flex > div');
+                        if (firstCard) {
+                            this.slideWidth = firstCard.offsetWidth + 24;
+                        } else {
+                            this.slideWidth = 320;
+                        }
                         this.offset = -this.slideWidth * this.currentIndex;
                         this.startAutoSlide();
+
+                        window.addEventListener('resize', () => {
+                            const fc = this.$el.querySelector('.flex > div');
+                            if (fc) this.slideWidth = fc.offsetWidth + 24;
+                            this.offset = -this.slideWidth * this.currentIndex;
+                        });
                     });
                 },
 
@@ -378,6 +480,7 @@
                     this.isOpen = false;
                 }
             }));
+
         });
     </script>
 
