@@ -29,6 +29,11 @@
 
         body {
             overflow-x: hidden;
+            background-image: url('{{ asset('images/background.png') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
     </style>
 </head>

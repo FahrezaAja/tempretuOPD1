@@ -5,13 +5,13 @@
 @section('content')
 
     <section x-data="{ show: false }" x-init="setTimeout(() => show = true, 200)"
-        class="relative bg-gradient-to-br from-indigo-50 via-white to-indigo-100 overflow-hidden px-8 md:px-20 py-20">
+        class="relative overflow-hidden px-8 md:px-20 py-20">
 
         {{-- ===================== HEADER SECTION ===================== --}}
         <div class="text-center mb-16">
             <h1 class="text-4xl md:text-5xl font-extrabold text-indigo-700 tracking-tight transition-all duration-1000"
                 :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
-                Bidang Politik
+                Bidang Kesatuan Bangsa
             </h1>
         </div>
 

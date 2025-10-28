@@ -17,7 +17,7 @@
 
             <div class="text-gray-400 leading-relaxed text-sm not-italic text-justify w-full max-w-full overflow-hidden break-words whitespace-pre-line"
                 style="word-break: break-word; white-space: pre-wrap;">
-                {!! $sampul->deskripsi ?? 'Dinas Komunikasi dan Informatika Papua Selatan berkomitmen untuk membangun sistem informasi yang aman, transparan, dan mendukung tata kelola pemerintahan digital.' !!}
+                {!! $sampul->deskripsi ?? 'belum ada penjelasan' !!}
             </div>
 
         </div>

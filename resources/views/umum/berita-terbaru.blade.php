@@ -3,7 +3,7 @@
 @section('title', 'Berita Terbaru')
 
 @section('content')
-<section class="bg-gradient-to-br from-indigo-50 via-white to-indigo-100 py-20">
+<section class="py-20">
     <div class="max-w-[1600px] mx-auto px-6 lg:px-20">
 
         {{-- 🔹 Judul Halaman --}}

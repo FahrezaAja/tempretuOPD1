@@ -4,17 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     {{-- Favicon Dinamis --}}
     <link rel="icon" type="image/png" href="{{ $logo && $logo->image && file_exists(public_path('storage/' . $logo->image))
-        ? asset('storage/' . $logo->image)
-        : asset('images/logoPPS.png') }}">
+    ? asset('storage/' . $logo->image)
+    : asset('images/logoPPS.png') }}">
 
     <title>@yield('title')</title>
 
     {{-- Tailwind / CSS --}}
     @vite('resources/css/app.css')
-    
+
     {{-- Alpine.js --}}
     <script defer src="//unpkg.com/alpinejs"></script>
 
@@ -38,13 +38,19 @@
 
         /* 🔹 Loader Styles */
         .loader {
-            border-top-color: #3490dc; /* Sesuaikan warna */
+            border-top-color: #3490dc;
+            /* Sesuaikan warna */
             animation: spin 1s linear infinite;
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         #loader {
@@ -63,6 +69,15 @@
 
         .fade-active {
             opacity: 1;
+        }
+
+        body {
+            background-image: url('{{ asset('images/background.png') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
         }
     </style>
 </head>
@@ -87,7 +102,7 @@
 
     {{-- 🔹 Script Loader & Page Fade --}}
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const loader = document.getElementById('loader');
 
             // 🔹 Page fade
@@ -104,11 +119,11 @@
 
             // 🔹 Loader hanya untuk navigasi internal (tidak untuk download atau target _blank)
             document.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', function(e) {
+                link.addEventListener('click', function (e) {
                     const href = link.getAttribute('href');
                     const isDownload = link.hasAttribute('download') || link.getAttribute('target') === '_blank';
 
-                    if(href && !href.startsWith('#') && !isDownload) {
+                    if (href && !href.startsWith('#') && !isDownload) {
                         loader.classList.add('active');
                     }
                 });
@@ -116,17 +131,18 @@
 
             // 🔹 Loader saat submit form
             document.querySelectorAll('form').forEach(form => {
-                form.addEventListener('submit', function() {
+                form.addEventListener('submit', function () {
                     loader.classList.add('active');
                 });
             });
 
             // 🔹 Loader otomatis hilang setelah halaman load (fallback)
-            window.addEventListener('pageshow', function() {
+            window.addEventListener('pageshow', function () {
                 loader.classList.remove('active');
             });
         });
     </script>
 
 </body>
+
 </html>

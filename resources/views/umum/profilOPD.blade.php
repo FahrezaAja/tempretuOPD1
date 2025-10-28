@@ -5,7 +5,7 @@
 @section('content')
 
     <section x-data="{ show: false }" x-init="setTimeout(() => show = true, 200)"
-        class="relative bg-gradient-to-br from-indigo-50 via-white to-indigo-100 overflow-hidden">
+        class="relative overflow-hidden">
 
         {{-- ===================== HERO SECTION ===================== --}}
         <div class="relative flex flex-col items-center justify-center text-center py-24 md:py-32 overflow-hidden">

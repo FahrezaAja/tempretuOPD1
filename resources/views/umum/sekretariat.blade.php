@@ -5,7 +5,7 @@
 @section('content')
 
     <section x-data="{ show: false }" x-init="setTimeout(() => show = true, 200)"
-        class="relative bg-gradient-to-br from-indigo-50 via-white to-indigo-100 overflow-hidden px-8 md:px-20 py-20">
+        class="relative overflow-hidden px-8 md:px-20 py-20">
 
         {{-- ===================== HEADER SECTION ===================== --}}
         <div class="text-center mb-16">
