@@ -23,14 +23,14 @@
                 :class="show ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'">
 
                 <h2 class="text-2xl font-bold text-indigo-700 mb-4">Tugas Pokok Bidang Politik</h2>
-                <p class="text-gray-700 leading-relaxed text-lg">
+                <div class="text-gray-700 leading-relaxed text-lg ck-content">
                     {!! $bidangpolitik->tugas_pokok ?? 'Belum ada tugas pokok.' !!}
-                </p>
+                </div>
             </div>
 
             {{-- FUNGSI --}}
             <div class="bg-white/80 backdrop-blur-lg rounded-[30px] p-8 shadow-xl transition-all duration-1000 ease-out transform hover:scale-[1.02] delay-200"
-                :class="show ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'">
+                :class="show ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10' ck-content">
 
                 <h2 class="text-2xl font-bold text-indigo-700 mb-4">Fungsi Bidang Politik</h2>
                 {!! $bidangpolitik->fungsi ?? 'Belum ada fungsi.' !!}
