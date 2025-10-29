@@ -59,49 +59,60 @@
                     </article>
 
                     {{-- ===================== MODAL DETAIL BERITA ===================== --}}
-                    <div id="viewModal{{ $item->id }}"
-                        class="hidden fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-50 p-6">
-                        <div
-                            class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto transition-all transform scale-95 opacity-0 animate-fadeIn">
+<div id="viewModal{{ $item->id }}"
+    class="hidden fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-50 p-6">
+    <div
+        class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto transition-all transform scale-95 opacity-0 animate-fadeIn">
 
-                            <!-- Header Modal -->
-                            <div
-                                class="flex justify-between items-center py-4 border-b bg-indigo-600 text-white rounded-t-2xl px-8">
-                                <h5 class="font-semibold text-lg">{{ $item->judul }}</h5>
-                                <button onclick="closeModal('viewModal{{ $item->id }}')" class="text-white text-2xl">&times;</button>
-                            </div>
+        {{-- 🔹 HEADER MODAL --}}
+        <div
+            class="flex justify-between items-center py-4 border-b bg-indigo-600 text-white rounded-t-2xl px-8">
+            <h5 class="font-semibold text-lg">{{ $item->judul }}</h5>
+            <button onclick="closeModal('viewModal{{ $item->id }}')" class="text-white text-2xl">&times;</button>
+        </div>
 
-                            <!-- Isi Modal -->
-                            <div class="p-8 space-y-6">
-                                @if($item->foto_sampul)
-                                    <img src="{{ asset('storage/' . $item->foto_sampul) }}" alt="Foto Sampul"
-                                        class="w-full h-64 object-cover rounded-lg shadow">
-                                @endif
+        {{-- 🔧 FOTO SAMPUL FULL WIDTH --}}
+        @if($item->foto_sampul)
+            <div class="relative">
+                <img src="{{ asset('storage/' . $item->foto_sampul) }}" 
+                    alt="Foto Sampul" 
+                    class="w-full h-[350px] object-cover rounded-none">
+                {{-- Opsional: Overlay judul di atas gambar --}}
+                <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent p-6">
+                    <h3 class="text-white text-2xl font-bold">{{ $item->judul }}</h3>
+                </div>
+            </div>
+        @endif
 
-                                {{-- Foto Tambahan --}}
-                                @if($item->foto_berita)
-                                    <div class="grid grid-cols-3 gap-3 mt-4">
-                                        @foreach($item->foto_berita as $foto)
-                                            <img src="{{ asset('storage/' . $foto) }}" alt="Foto Berita"
-                                                class="w-full h-32 object-cover rounded border border-gray-200">
-                                        @endforeach
-                                    </div>
-                                @endif
+        {{-- 🔹 ISI MODAL --}}
+        <div class="p-8 space-y-6">
 
-                                {{-- Informasi Tanggal, Kategori, Status dalam satu baris --}}
-                                <div class="flex flex-wrap gap-4 text-sm text-gray-600 mt-3 items-center">
-                                    <span><strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($item->tanggal)->format('d F Y') }}</span>
-                                    <span><strong>Kategori:</strong> {{ $item->kategori->nama }}</span>
-                                </div>
+            {{-- Foto Tambahan --}}
+            @if($item->foto_berita)
+                <div class="grid grid-cols-3 gap-3 mt-4">
+                    @foreach($item->foto_berita as $foto)
+                        <img src="{{ asset('storage/' . $foto) }}" alt="Foto Berita"
+                            class="w-full h-32 object-cover rounded border border-gray-200">
+                    @endforeach
+                </div>
+            @endif
 
-                                <hr class="border-gray-300">
+            {{-- Informasi Tambahan --}}
+            <div class="flex flex-wrap gap-4 text-sm text-gray-600 mt-3 items-center">
+                <span><strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($item->tanggal)->format('d F Y') }}</span>
+                <span><strong>Kategori:</strong> {{ $item->kategori->nama }}</span>
+            </div>
 
-                                <div class="prose max-w-none text-gray-800 leading-relaxed ck-content">
-                                    {!! $item->deskripsi !!}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <hr class="border-gray-300">
+
+            {{-- Deskripsi --}}
+            <div class="prose max-w-none text-gray-800 leading-relaxed ck-content">
+                {!! $item->deskripsi !!}
+            </div>
+        </div>
+    </div>
+</div>
+
                 @empty
                     <div class="col-span-full text-center text-gray-500 text-lg py-10">
                         Belum ada berita yang tersedia.
