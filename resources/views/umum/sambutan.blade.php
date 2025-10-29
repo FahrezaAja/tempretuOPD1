@@ -31,9 +31,9 @@
             {{ $katasambutan?->judul ?? 'Kata Sambutan' }}
         </h1>
 
-        <p class="text-lg leading-relaxed text-gray-600 ck-content">
+        <div class="text-lg leading-relaxed text-gray-600 ck-content">
             {!! $katasambutan?->deskripsi ?? 'Deskripsi sambutan belum tersedia.' !!}
-        </p>
+        </div>
 
         <div class="pt-4">
             <p class="font-bold text-lg text-indigo-700">Kepala {{ $katasambutan?->nama_opd ?? 'Nama OPD' }}</p>
