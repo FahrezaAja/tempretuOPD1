@@ -51,7 +51,7 @@
                 <div class="relative flex justify-center items-center"
                     :style="'transform: translate3d(' + imageOffset + 'px, 0, 0);'">
                     <div class="absolute inset-0 bg-indigo-500/20 blur-[100px] rounded-full scale-125"></div>
-                    <div class="relative z-10 overflow-hidden rounded-[40px] shadow-2xl">
+                    <div class="relative z-10 overflow-hidden rounded-[40px]">
                         <img src="{{ $sampul && $sampul->foto_pemimpin && \Illuminate\Support\Facades\Storage::disk('public')->exists($sampul->foto_pemimpin) ? asset('storage/' . $sampul->foto_pemimpin) : asset('images/depan-kanan-orang.jpg') }}"
                             alt="Ilustrasi Forensik"
                             class="object-contain w-[280px] md:w-[350px] lg:w-[420px] transition-transform duration-700 ease-in-out hover:scale-[1.03]"
