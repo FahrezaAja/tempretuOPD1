@@ -18,6 +18,11 @@ class LogoController extends Controller
 
     public function store(Request $request)
     {
+
+        if (!$request->hasFile('image')) {
+            return back()->withErrors(['image' => 'Wajib Unggah Logo'])->withInput();
+        }
+
         $request->validate([
             'image' => 'required|image|mimes:png,jpg,jpeg|max:10048',
         ]);
@@ -42,6 +47,10 @@ class LogoController extends Controller
     {
         $logo = Logo::findOrFail($id);
 
+        if (!$request->hasFile('image')) {
+            return back()->withErrors(['image' => 'Wajib mengubah sesuatu'])->withInput();
+
+        }
         $request->validate([
             'image' => 'required|image|mimes:png,jpg,jpeg|max:10048',
         ]);

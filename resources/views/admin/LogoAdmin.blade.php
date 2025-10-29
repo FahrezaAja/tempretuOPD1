@@ -25,8 +25,12 @@
 
                     <div>
                         <label class="block font-medium text-gray-700 mb-1">Logo (wajib png)</label>
-                        <input type="file" name="image"
-                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                        <input type="file" name="image" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+
+                        @error('image')
+                            <p class="text-red-700 mt-2 text-sm">{{ $message }}</p>
+                        @enderror
+                        
                         @if($logo->image)
                             <img src="{{ asset('storage/' . $logo->image) }}" alt="Gambar"
                                 class="mt-3 w-48 h-48 object-cover rounded-lg shadow-md border">
@@ -68,8 +72,11 @@
 
                     <div>
                         <label class="block font-medium text-gray-700 mb-1">Gambar</label>
-                        <input type="file" name="image"
-                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                        <input type="file" name="image" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+
+                        @error('image')
+                            <p class="text-red-700 mt-2 text-sm">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div class="flex justify-end pt-4 border-t mt-4">
