@@ -110,7 +110,7 @@
 
   <div class="w-full px-6 lg:px-10 py-4 flex items-center justify-between">
 
-    {{-- LOGO --}}
+    
     <a href="/" class="flex items-center space-x-3">
       <img src="{{ $logo && $logo->image && file_exists(public_path('storage/' . $logo->image))
           ? asset('storage/' . $logo->image)

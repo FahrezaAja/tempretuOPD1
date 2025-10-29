@@ -38,12 +38,12 @@
 </div>
 
 <script>
-    // Client-side countdown 10 detik untuk tombol resend
+    
     (function() {
         let countdown = 10;
         const button = document.getElementById('resendButton');
 
-        // Pastikan button mulai disable
+        
         button.disabled = true;
         button.innerText = `Kirim Ulang OTP (${countdown})`;
 

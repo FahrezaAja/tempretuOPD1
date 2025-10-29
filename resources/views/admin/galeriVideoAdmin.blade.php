@@ -6,7 +6,7 @@
     <div class="container mx-auto px-4 py-6">
         <h1 class="text-3xl font-bold mb-6 text-indigo-600">Kelola Galeri Video</h1>
 
-        {{-- Form tambah link YouTube --}}
+        
         @if(session('success'))
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6 shadow">
                 {{ session('success') }}
@@ -41,7 +41,7 @@
                         <p class="text-red-500 p-4">Link YouTube tidak valid</p>
                     @endif
 
-                    {{-- Tombol hapus --}}
+                    
                     <form action="{{ route('galeriVideoAdmin.destroy', $video->id) }}" method="POST" class="p-4">
                         @csrf
                         @method('DELETE')

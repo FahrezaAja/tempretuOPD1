@@ -57,7 +57,7 @@
                         <div id="editModal{{ $item->id }}"
                             class="hidden fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-50 p-6">
                             <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-                                <!-- Header -->
+                                
                                 <div
                                     class="flex justify-between items-center px-6 py-4 border-b bg-indigo-600 text-white rounded-t-2xl">
                                     <h5 class="font-semibold text-lg">Edit Kategori</h5>
@@ -65,20 +65,20 @@
                                         class="text-white hover:text-gray-200 text-2xl">&times;</button>
                                 </div>
 
-                                <!-- Form -->
+                               
                                 <form action="{{ route('kategoriAdmin.update', $item->id) }}" method="POST"
                                     class="p-8 space-y-5">
                                     @csrf
                                     @method('PUT')
 
-                                    <!-- Input Nama -->
+                                    
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Nama Kategori</label>
                                         <input type="text" name="nama" value="{{ $item->nama }}" required
                                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none transition duration-200">
                                     </div>
 
-                                    <!-- Pilih Icon -->
+                                    
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Icon</label>
                                         <div class="relative">
@@ -92,12 +92,12 @@
                                                 value="{{ $item->icon }}">
                                             <div id="editIconPicker{{ $item->id }}"
                                                 class="hidden absolute z-50 bg-white border rounded-lg mt-2 shadow-lg p-3 grid grid-cols-8 gap-3 max-h-72 overflow-y-auto">
-                                                <!-- Ikon dimuat lewat JS -->
+                                                
                                             </div>
                                         </div>
                                     </div>
 
-                                    <!-- Tombol Aksi -->
+                                    
                                     <div class="flex justify-end space-x-3 pt-4 border-t mt-4">
                                         <button type="button" onclick="closeModal('editModal{{ $item->id }}')"
                                             class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition">Batal</button>
@@ -139,7 +139,7 @@
                         <input type="hidden" name="icon" id="iconInputCreate">
                         <div id="createIconPicker"
                             class="hidden absolute z-50 bg-white border rounded-lg mt-2 shadow-lg p-3 grid grid-cols-8 gap-3 max-h-72 overflow-y-auto">
-                            <!-- Ikon dimuat lewat JS -->
+                            
                         </div>
                     </div>
                 </div>
@@ -153,13 +153,13 @@
         </div>
     </div>
 
-    <!-- Script Modal & Icon Picker -->
+    
     <script>
         function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
         function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
         function togglePicker(id) { document.getElementById(id).classList.toggle('hidden'); }
 
-        // Ikon Font Awesome Free
+        
         const icons = [
             "fa-solid fa-user", "fa-solid fa-home", "fa-solid fa-star", "fa-solid fa-heart",
             "fa-solid fa-newspaper", "fa-solid fa-book", "fa-solid fa-gear", "fa-solid fa-envelope",
@@ -171,7 +171,7 @@
         ];
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Modal Tambah
+           
             const createPicker = document.getElementById('createIconPicker');
             icons.forEach(icon => {
                 const btn = document.createElement('button');
@@ -186,7 +186,7 @@
                 createPicker.appendChild(btn);
             });
 
-            // Modal Edit
+            
             @foreach($kategori as $item)
                 const editPicker{{ $item->id }} = document.getElementById('editIconPicker{{ $item->id }}');
                 icons.forEach(icon => {

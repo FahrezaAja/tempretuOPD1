@@ -1,10 +1,10 @@
 <footer class="bg-gray-900 text-gray-300 pt-14 pb-8 mt-20">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
 
-        {{-- 🔹 Kolom 1: Logo & Deskripsi --}}
+        
         <div class="flex flex-col justify-start max-w-md">
             <div class="flex items-center space-x-3 mb-4">
-                {{-- Logo dinamis dari admin --}}
+                
                 <img src="{{ $logo && $logo->image && file_exists(public_path('storage/' . $logo->image))
     ? asset('storage/' . $logo->image)
     : asset('images/logoPPS.png') }}" alt="{{ $sampul->nama_opd ?? 'Logo Instansi' }}"
@@ -22,7 +22,7 @@
 
         </div>
 
-        {{-- 🔹 Kolom 2: Aplikasi Kami --}}
+        
         <div class="flex flex-col justify-start mt-3">
             <h2 class="text-white font-semibold text-lg mb-4 not-italic">Aplikasi Kami</h2>
             <ul class="space-y-2 text-sm">
@@ -40,7 +40,7 @@
             </ul>
         </div>
 
-        {{-- 🔹 Kolom 3: Kontak & Sosial Media --}}
+        
         <div class="flex flex-col justify-start mt-3">
             <h2 class="text-white font-semibold text-lg mb-4 not-italic">Hubungi Kami</h2>
             <ul class="space-y-2 text-sm mb-5">
@@ -58,7 +58,7 @@
                 </li>
             </ul>
 
-            {{-- 🔹 Sosial Media Dinamis --}}
+            
             <div class="flex space-x-4 mt-4">
                 @if(!empty($sosmed->facebook))
                     <a href="{{ $sosmed->facebook }}" target="_blank" rel="noopener noreferrer"
@@ -91,7 +91,7 @@
         </div>
     </div>
 
-    {{-- 🔹 Garis Pemisah --}}
+    
     <div class="border-t border-gray-700 mt-10 pt-6 text-center text-sm text-gray-500">
         &copy; {{ date('Y') }}
         <span class="text-white font-semibold not-italic">

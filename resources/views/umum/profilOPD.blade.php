@@ -7,7 +7,7 @@
     <section x-data="{ show: false }" x-init="setTimeout(() => show = true, 200)"
         class="relative overflow-hidden">
 
-        {{-- ===================== HERO SECTION ===================== --}}
+        
         <div class="relative flex flex-col items-center justify-center text-center py-24 md:py-32 overflow-hidden">
             <h1 class="text-5xl md:text-6xl font-extrabold text-indigo-700 tracking-tight transition-all duration-1000"
                 :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
@@ -15,11 +15,11 @@
             </h1>
         </div>
 
-        {{-- ===================== ABOUT SECTION ===================== --}}
+        
         <div
             class="relative flex flex-col md:flex-row items-center justify-between px-8 md:px-20 py-16 space-y-10 md:space-y-0 md:space-x-12">
 
-            {{-- Gambar OPD --}}
+            
             <div class="w-full md:w-1/2 flex justify-center transition-all duration-1000 ease-out transform"
                 :class="show ? 'opacity-100 -translate-y-0' : 'opacity-0 translate-y-10'">
                 <div class="relative w-[420px] md:w-[520px] lg:w-[600px] rounded-[40px] overflow-hidden shadow-2xl">
@@ -33,7 +33,7 @@
                 </div>
             </div>
 
-            {{-- Tentang OPD --}}
+            
             <div class="w-full md:w-1/2 text-gray-700 leading-relaxed transition-all duration-1000 ease-out transform delay-200"
                 :class="show ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'">
 
@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        {{-- ===================== VISI MISI SECTION ===================== --}}
+        
         <div class="relative bg-indigo-700 text-white py-16 px-6 md:px-20 rounded-3xl md:rounded-[40px] shadow-lg">
 
             <div class="text-center mb-12">
@@ -63,7 +63,7 @@
 
             <div class="grid md:grid-cols-2 gap-8">
 
-                {{-- VISI --}}
+                
                 <div class="bg-indigo-600 text-white p-8 rounded-2xl shadow-lg transition-all duration-700 transform hover:scale-[1.03]"
                     :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
                     <h3 class="text-2xl font-bold mb-4">Visi</h3>
@@ -76,7 +76,7 @@
                     @endif
                 </div>
 
-                {{-- MISI --}}
+                
                 <div class="bg-indigo-600 text-white p-8 rounded-2xl shadow-lg transition-all duration-700 transform delay-200 hover:scale-[1.03]"
                     :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
                     <h3 class="text-2xl font-bold mb-4">Misi</h3>

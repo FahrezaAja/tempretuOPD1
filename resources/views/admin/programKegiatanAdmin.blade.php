@@ -7,13 +7,13 @@
     <div class="container mx-auto px-4">
         <h1 class="text-3xl font-bold mb-6 text-indigo-700">Kelola Program Kegiatan</h1>
 
-        <!-- Tombol Tambah -->
+        
         <button onclick="openModal('createModal')"
             class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded mb-4 transition duration-200">
             + Tambah Dokumen
         </button>
 
-        <!-- Tabel Dokumen -->
+        
         <div class="overflow-x-auto bg-white rounded-lg shadow">
             <table class="min-w-full border border-gray-200">
                 <thead class="bg-gradient-to-r from-indigo-600 to-indigo-700 text-white">

@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        {{-- Judul Aksi Cepat --}}
+        
         <div class="mb-4">
             <h2 class="text-2xl font-semibold text-gray-700 uppercase">Aksi Cepat</h2>
             <hr class="mt-2 border-gray-300">

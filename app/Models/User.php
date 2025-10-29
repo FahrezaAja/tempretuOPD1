@@ -12,9 +12,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    /**
-     * Kolom yang bisa diisi mass-assignment (fillable).
-     */
+    
     protected $fillable = [
         'name',
         'username',
@@ -28,27 +26,21 @@ class User extends Authenticatable
         'otp_resend_count',
     ];
 
-    /**
-     * Kolom yang harus disembunyikan saat model dikonversi ke array/json.
-     */
+    
     protected $hidden = [
         'password',
         'remember_token',
         'otp_code',
     ];
 
-    /**
-     * Casting tipe data otomatis ke tipe yang sesuai.
-     */
+   
     protected $casts = [
         'email_verified_at' => 'datetime',
         'otp_expires_at' => 'datetime',
         'otp_last_sent_at' => 'datetime',
     ];
 
-    /**
-     * Setter otomatis untuk password (hashing).
-     */
+   
     public function setPasswordAttribute($value)
     {
         if ($value && !password_get_info($value)['algo']) {

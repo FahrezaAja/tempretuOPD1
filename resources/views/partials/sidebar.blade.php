@@ -167,7 +167,7 @@
         </ul>
     </nav>
 
-    {{-- 🔹 Logout di bawah --}}
+    
     <div class="px-4 py-4 border-t border-gray-700 mt-auto">
         <form action="{{ route('admin.logout') }}" method="POST">
             @csrf

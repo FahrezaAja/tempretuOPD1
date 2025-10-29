@@ -8,7 +8,7 @@
     <section x-data="heroSection()" x-init="init()"
         class="relative h-screen flex items-center justify-center overflow-hidden">
 
-        {{-- Background Video atau Gambar --}}
+
         @if($sampul && $sampul->media && \Illuminate\Support\Facades\Storage::disk('public')->exists($sampul->media))
             @php $ext = pathinfo($sampul->media, PATHINFO_EXTENSION); @endphp
 
@@ -27,13 +27,13 @@
             </div>
         @endif
 
-        {{-- Overlay Gelap --}}
+
         <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-transparent"></div>
 
-        {{-- Hero Content --}}
+
         <div
             class="relative z-30 flex flex-col-reverse md:flex-row items-center justify-between w-full px-6 sm:px-10 lg:px-24 text-white">
-            {{-- TEXT --}}
+
             <div :class="mobile ? 'flex flex-col justify-center items-center text-center opacity-0 transition-opacity duration-700 fade-in' : ''"
                 class="max-w-xl text-left space-y-6 mt-10 md:mt-0"
                 :style="'transform: translate3d(' + textOffset + 'px, 0, 0);'">
@@ -46,7 +46,7 @@
                 </div>
             </div>
 
-            {{-- IMAGE PEMIMPIN HANYA UNTUK DESKTOP --}}
+
             <template x-if="desktop">
                 <div class="relative flex justify-center items-center"
                     :style="'transform: translate3d(' + imageOffset + 'px, 0, 0);'">
@@ -65,15 +65,16 @@
     <section x-data="sectionTwoParallax()"
         class="relative w-full flex flex-col md:flex-row items-center justify-between overflow-hidden bg-gray-100 py-20 px-6 md:px-0">
 
-        {{-- KOTAK TEKS --}}
+
         <div class="relative w-full md:w-1/2 bg-black text-white py-16 px-8 md:px-12 flex flex-col justify-center rounded-[40px] z-10 shadow-2xl"
             :style="!isMobile ? 'transform: translateX(' + textOffset + 'px);' : ''">
 
-            {{-- Segitiga dekoratif tetap desktop --}}
-            <div x-show="!isMobile" class="absolute right-[-120px] top-1/2 transform -translate-y-1/2 
-                             w-0 h-0 border-t-[100px] border-t-transparent 
-                             border-b-[100px] border-b-transparent 
-                             border-l-[130px] border-l-black rounded-tr-[40px] drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
+
+            <div x-show="!isMobile"
+                class="absolute right-[-120px] top-1/2 transform -translate-y-1/2 
+                                 w-0 h-0 border-t-[100px] border-t-transparent 
+                                 border-b-[100px] border-b-transparent 
+                                 border-l-[130px] border-l-black rounded-tr-[40px] drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
             </div>
 
             <p class="text-sm tracking-widest text-gray-400 uppercase font-bold">
@@ -101,7 +102,7 @@
             </a>
         </div>
 
-        {{-- GAMBAR --}}
+
         <div class="relative w-full md:w-1/2 flex justify-center items-center mt-16 md:mt-0 z-20 px-4"
             :style="!isMobile ? 'transform: translateX(' + imageOffset + 'px);' : ''">
             <div class="absolute inset-0 blur-[100px] rounded-full scale-125"></div>
@@ -237,18 +238,18 @@
                     </svg>
                 </button>
 
-                {{-- FOTO --}}
+
                 <div class="w-full h-[450px] overflow-hidden bg-gray-100 flex items-center justify-center">
                     <img :src="selectedImage" alt="Foto" class="max-w-full max-h-full object-contain">
                 </div>
 
-                {{-- TANGGAL --}}
+
                 <div class="px-6 pt-4 text-sm text-gray-500 font-medium border-t border-gray-200 flex items-center gap-2">
                     <i class="fas fa-calendar"></i>
                     <span x-text="selectedDate"></span>
                 </div>
 
-                {{-- DESKRIPSI --}}
+
                 <div
                     class="font-normal p-6 text-gray-700 text-base leading-relaxed max-h-48 overflow-y-auto whitespace-pre-line break-words border-t border-gray-100">
                     <p x-html="selectedDescription"></p>
@@ -275,8 +276,6 @@
 
                     updateMode();
                     window.addEventListener('resize', updateMode, { passive: true });
-
-                    // Hilangkan loader jika ada
                     const loader = document.getElementById('loader');
                     if (loader) loader.style.display = 'none';
 
@@ -286,7 +285,6 @@
 
                         const onScroll = () => {
                             const scrollY = window.scrollY;
-                            // Batasi update hanya jika scrollY berubah signifikan
                             if (Math.abs(scrollY - lastScroll) > 2) {
                                 lastScroll = scrollY;
                                 if (!this.ticking) {
@@ -311,7 +309,7 @@
             }));
 
 
-            // ================= SECTION 2 PARALLAX =================
+            // ================= SECTION 2 =================
             Alpine.data('sectionTwoParallax', () => ({
                 desktop: window.innerWidth > 768,
                 mobile: window.innerWidth <= 768,
@@ -372,23 +370,21 @@
                 closeTimeout: null,
 
                 init() {
-                    // Pastikan data adalah array
                     if (!Array.isArray(this.originalNews) || this.originalNews.length === 0) {
                         console.warn('Tidak ada data berita untuk carousel.');
                         this.newsList = [];
-                        return; // Stop inisialisasi agar tidak error
+                        return;
                     }
 
-                    // Ambil maksimal 5 berita
+
                     const minItems = 3;
                     let tempNews = [...this.originalNews.slice(0, 5)];
 
-                    // Gandakan jika jumlah item < 3 agar carousel lancar
                     while (tempNews.length < minItems) {
                         tempNews = tempNews.concat(this.originalNews);
                     }
 
-                    // Gandakan agar efek looping mulus
+
                     this.newsList = [...tempNews, ...tempNews, ...tempNews];
                     this.currentIndex = tempNews.length;
 
@@ -401,7 +397,7 @@
                         }
                     });
 
-                    // Hentikan auto-slide saat tab tidak aktif
+
                     document.addEventListener("visibilitychange", () => {
                         if (document.hidden) clearInterval(this.interval);
                         else if (this.newsList.length > 0) this.startAutoSlide();

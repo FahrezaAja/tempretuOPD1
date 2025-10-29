@@ -7,11 +7,11 @@
     <section x-data="documentManager({{ $programKegiatan->toJson() }}, {{ $kategoriList->toJson() }})" x-init="init()"
         class="px-6 md:px-20 py-20">
 
-        {{-- ===================== HEADER ===================== --}}
+        
         <div class="flex flex-col md:flex-row items-center justify-between mb-8">
             <h1 class="text-4xl md:text-5xl font-extrabold text-indigo-700 mb-4 md:mb-0">Dokumen Program Kegiatan</h1>
 
-            {{-- Toggle View --}}
+            
             <div class="flex gap-2">
                 <button @click="view='table'"
                     :class="view==='table' ? 'bg-indigo-700 text-white' : 'bg-white text-indigo-700 border border-indigo-700'"
@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        {{-- ===================== FILTER & SEARCH BAR ===================== --}}
+        
         <div class="flex flex-wrap items-center gap-3 mb-6">
             <input type="search" x-model="search" placeholder="Cari penulis, nomor, tahun, nama file, atau kategori..."
                 class="border border-gray-300 rounded-lg px-4 py-2 flex-1 min-w-[200px] focus:outline-none focus:ring focus:ring-indigo-300">
@@ -48,7 +48,7 @@
                 x-text="`${filteredDocuments.length} dari ${documents.length} dokumen`"></span>
         </div>
 
-        {{-- ===================== CONTENT ===================== --}}
+        
         <div class="relative">
 
             {{-- ===================== TABLE VIEW ===================== --}}
@@ -126,7 +126,7 @@
 
     </section>
 
-    {{-- ===================== SCRIPT LOGIC ===================== --}}
+    
     <script>
         function documentManager(initialDocuments, kategoriData) {
             return {
@@ -154,7 +154,7 @@
                         return matchQ && matchKategori;
                     });
 
-                    // Urutkan berdasarkan penulis
+                    
                     filtered.sort((a, b) => {
                         const nameA = (a.penulis ?? '').toString().toLowerCase();
                         const nameB = (b.penulis ?? '').toString().toLowerCase();

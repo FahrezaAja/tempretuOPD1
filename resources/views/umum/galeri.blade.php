@@ -33,7 +33,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($videos as $vid)
                     @php
-                        // Ambil ID YouTube dari berbagai format URL (watch, youtu.be, embed, shorts)
+
                         preg_match("/(?:youtu.be\/|youtube.com\/(?:watch\\?v=|embed\/|shorts\/))([\\w\\-]+)/", $vid->youtube_link, $matches);
                         $youtube_id = $matches[1] ?? '';
                     @endphp
@@ -41,10 +41,7 @@
                     <div
                         class="bg-white shadow-xl rounded-2xl overflow-hidden relative transition-transform hover:scale-[1.02]">
                         @if($youtube_id)
-                            <iframe
-                                src="https://www.youtube.com/embed/{{ $youtube_id }}"
-                                class="w-full h-[220px]"
-                                frameborder="0"
+                            <iframe src="https://www.youtube.com/embed/{{ $youtube_id }}" class="w-full h-[220px]" frameborder="0"
                                 allowfullscreen>
                             </iframe>
                         @else
@@ -66,10 +63,10 @@
                 @foreach($fotos as $photo)
                     <div class="cursor-pointer overflow-hidden rounded-2xl shadow-lg transition-transform hover:scale-[1.02] bg-white"
                         @click="openModal({ 
-                                file: '{{ asset('storage/' . $photo->image) }}', 
-                                desc: `{!! e($photo->deskripsi ?? '') !!}`, 
-                                tanggal: '{{ \Carbon\Carbon::parse($photo->tanggal)->translatedFormat('d F Y') }}' 
-                            })">
+                                        file: '{{ asset('storage/' . $photo->image) }}', 
+                                        desc: `{!! e($photo->deskripsi ?? '') !!}`, 
+                                        tanggal: '{{ \Carbon\Carbon::parse($photo->tanggal)->translatedFormat('d F Y') }}' 
+                                    })">
                         <img src="{{ asset('storage/' . $photo->image) }}" alt="Foto" class="w-full h-[220px] object-cover">
                     </div>
                 @endforeach
@@ -86,7 +83,7 @@
             <div
                 class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full mx-4 md:mx-0 overflow-hidden flex flex-col relative">
 
-                {{-- Tombol X --}}
+
                 <button @click="closeModal"
                     class="absolute top-3 right-3 text-gray-600 hover:text-red-500 bg-white/80 rounded-full p-2 shadow-md transition">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -95,17 +92,17 @@
                     </svg>
                 </button>
 
-                {{-- Gambar --}}
+
                 <div class="w-full h-[450px] overflow-hidden bg-gray-100 flex items-center justify-center">
                     <img :src="currentPhoto.file" alt="Foto" class="max-w-full max-h-full object-contain">
                 </div>
 
-                {{-- Tanggal --}}
+
                 <div class="px-6 pt-4 text-sm text-gray-500 font-medium border-t border-gray-200">
                     📅 <span x-text="currentPhoto.tanggal"></span>
                 </div>
 
-                {{-- Deskripsi --}}
+
                 <div
                     class="p-6 text-gray-700 text-base leading-relaxed max-h-48 overflow-y-auto whitespace-pre-line break-words border-t border-gray-100">
                     <p x-html="currentPhoto.desc"></p>

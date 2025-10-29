@@ -18,7 +18,7 @@
         {{-- ===================== CONTENT SECTION ===================== --}}
         <div class="grid md:grid-cols-2 gap-10 md:gap-16 mt-12">
 
-            {{-- TUGAS POKOK --}}
+           
             <div class="bg-white/80 backdrop-blur-lg rounded-[30px] p-8 shadow-xl transition-all duration-1000 ease-out transform hover:scale-[1.02]"
                 :class="show ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'">
 
@@ -28,7 +28,7 @@
                 </div>
             </div>
 
-            {{-- FUNGSI --}}
+            
             <div class="bg-white/80 backdrop-blur-lg rounded-[30px] p-8 shadow-xl transition-all duration-1000 ease-out transform hover:scale-[1.02] delay-200 ck-content"
                 :class="show ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'">
 

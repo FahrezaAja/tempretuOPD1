@@ -5,8 +5,6 @@
 @section('content')
 <section class="py-20">
     <div class="max-w-[1600px] mx-auto px-6 lg:px-20">
-
-        {{-- 🔹 Judul Halaman --}}
         <div class="text-center mb-16">
             <h2 class="text-5xl font-extrabold text-gray-800 mb-4 text-indigo-600">Berita Terbaru</h2>
         </div>
@@ -58,27 +56,22 @@
                         </div>
                     </article>
 
-                    {{-- ===================== MODAL DETAIL BERITA ===================== --}}
+                    {{-- ===================== MODAL BERITA ===================== --}}
                     <div id="viewModal{{ $item->id }}"
                         class="hidden fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-50 p-6">
-                        <div
-                            class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto transition-all transform scale-95 opacity-0 animate-fadeIn">
-
-                            <!-- Header Modal -->
+                        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto transition-all transform scale-95 opacity-0 animate-fadeIn">
                             <div
                                 class="flex justify-between items-center py-4 border-b bg-indigo-600 text-white rounded-t-2xl px-8">
                                 <h5 class="font-semibold text-lg">{{ $item->judul }}</h5>
                                 <button onclick="closeModal('viewModal{{ $item->id }}')" class="text-white text-2xl">&times;</button>
                             </div>
 
-                            <!-- Isi Modal -->
                             <div class="p-8 space-y-6">
                                 @if($item->foto_sampul)
                                     <img src="{{ asset('storage/' . $item->foto_sampul) }}" alt="Foto Sampul"
                                         class="w-full h-64 object-cover rounded-lg shadow">
                                 @endif
 
-                                {{-- Foto Tambahan --}}
                                 @if($item->foto_berita)
                                     <div class="grid grid-cols-3 gap-3 mt-4">
                                         @foreach($item->foto_berita as $foto)
@@ -88,7 +81,7 @@
                                     </div>
                                 @endif
 
-                                {{-- Informasi Tanggal, Kategori, Status dalam satu baris --}}
+                                
                                 <div class="flex flex-wrap gap-4 text-sm text-gray-600 mt-3 items-center">
                                     <span><strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($item->tanggal)->format('d F Y') }}</span>
                                     <span><strong>Kategori:</strong> {{ $item->kategori->nama }}</span>
@@ -113,7 +106,7 @@
             <aside class="lg:col-span-2 bg-white rounded-3xl shadow-md p-8 h-fit self-start">
                 <h4 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3">Kategori</h4>
                 <ul class="space-y-4">
-                    {{-- Semua Kategori --}}
+                    
                     <li>
                         <a href="{{ route('berita-terbaru') }}"
                             class="flex justify-between items-center {{ !$kategoriFilter ? 'text-indigo-700 font-bold' : 'text-gray-700 hover:text-indigo-600' }}">
@@ -124,7 +117,7 @@
                         </a>
                     </li>
 
-                    {{-- Kategori Dinamis --}}
+                    
                     @foreach ($kategori as $kat)
                         <li>
                             <a href="{{ route('berita-terbaru', ['kategori' => $kat->nama]) }}"
@@ -143,7 +136,7 @@
     </div>
 </section>
 
-{{-- ===================== SCRIPT MODAL ===================== --}}
+
 <script>
     function openModal(id) {
         const modal = document.getElementById(id);

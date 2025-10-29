@@ -121,7 +121,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- ================== END MODAL LIHAT ================== -->
+                        
 
                         <!-- ================== MODAL EDIT BERITA ================== -->
                         <div id="editModal{{ $item->id }}"
@@ -217,7 +217,7 @@
                                 </form>
                             </div>
                         </div>
-                        <!-- ================== END MODAL EDIT ================== -->
+                        
                     @endforeach
                 </tbody>
             </table>
@@ -295,7 +295,7 @@
         </div>
     </div>
 
-    <!-- ================== SCRIPT MODAL ================== -->
+    
     <script>
         function openModal(id) {
             const modal = document.getElementById(id);
@@ -308,7 +308,7 @@
         }
     </script>
 
-    <!-- Animasi Fade -->
+   
     <style>
         @keyframes fadeIn {
             from {
@@ -327,7 +327,7 @@
         }
     </style>
 
-    <!-- CKEditor -->
+    
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
