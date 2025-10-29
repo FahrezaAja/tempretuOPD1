@@ -105,7 +105,7 @@
         <div class="relative w-full md:w-1/2 flex justify-center items-center mt-16 md:mt-0 z-20 px-4"
             :style="!isMobile ? 'transform: translateX(' + imageOffset + 'px);' : ''">
             <div class="absolute inset-0 blur-[100px] rounded-full scale-125"></div>
-            <div class="relative z-10 overflow-hidden rounded-[40px] shadow-2xl">
+            <div class="relative z-10 overflow-hidden rounded-[40px]">
                 <img src="{{ $sambutan && $sambutan->image ? asset('storage/' . $sambutan->image) : asset('images/depan-kanan-orang.jpg') }}"
                     alt="Ilustrasi Forensik"
                     class="object-contain w-[280px] md:w-[350px] lg:w-[420px] transition-transform duration-700 ease-in-out hover:scale-[1.03]">
