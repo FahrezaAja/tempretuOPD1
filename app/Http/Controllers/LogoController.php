@@ -19,7 +19,7 @@ class LogoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => 'nullable|image|mimes:png|max:10048',
+            'image' => 'required|image|mimes:png,jpg,jpeg|max:10048',
         ]);
 
 
@@ -43,7 +43,7 @@ class LogoController extends Controller
         $logo = Logo::findOrFail($id);
 
         $request->validate([
-            'image' => 'nullable|image|mimes:png|max:10048',
+            'image' => 'required|image|mimes:png,jpg,jpeg|max:10048',
         ]);
 
         $data = $request->only([]);
