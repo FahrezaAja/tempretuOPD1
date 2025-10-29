@@ -23,7 +23,7 @@
                 <div class="bg-white/70 backdrop-blur-lg shadow-xl rounded-[40px] p-10 md:p-14 transition-all duration-1000 ease-out transform"
                     :class="show ? 'opacity-100 -translate-x-0' : 'opacity-0 -translate-x-10'">
                     <h2 class="text-3xl font-bold text-indigo-700 mb-6">Tugas Pokok</h2>
-                    <p class="text-lg text-gray-700 leading-relaxed">
+                    <p class="text-lg text-gray-700 leading-relaxed ck-content">
                         {!! $tupoksi->tugas_pokok ?? 'Belum ada data tugas pokok.' !!}
                     </p>
                 </div>
@@ -32,7 +32,7 @@
                 <div class="bg-indigo-700 text-white shadow-xl rounded-[40px] p-10 md:p-14 transition-all duration-1000 ease-out transform delay-200"
                     :class="show ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'">
                     <h2 class="text-3xl font-bold mb-6">Fungsi</h2>
-                    <p class="text-indigo-100 text-lg leading-relaxed">
+                    <p class="text-indigo-100 text-lg leading-relaxed ck-content">
                         {!! $tupoksi->fungsi ?? 'Belum ada data fungsi.' !!}
                     </p>
                 </div>
