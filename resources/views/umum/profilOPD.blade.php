@@ -87,7 +87,7 @@
                         <div class="space-y-2 text-lg ck-content">
                             @foreach($misiList as $misi)
                                 @if(trim($misi) !== '')
-                                    <li>{!! $misi !!}</li>
+                                    {!! $misi !!}
                                 @endif
                             @endforeach
                         </div>
