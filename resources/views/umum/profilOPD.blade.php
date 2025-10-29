@@ -84,13 +84,13 @@
                         @php
                             $misiList = preg_split("/\r\n|\n|\r/", $profilopd->misi);
                         @endphp
-                        <ul class="space-y-2 text-lg ck-content">
+                        <div class="space-y-2 text-lg ck-content">
                             @foreach($misiList as $misi)
                                 @if(trim($misi) !== '')
                                     <li>{!! $misi !!}</li>
                                 @endif
                             @endforeach
-                        </ul>
+                        </div>
                     @else
                         <p class="italic text-indigo-200">Misi belum diinputkan.</p>
                     @endif
