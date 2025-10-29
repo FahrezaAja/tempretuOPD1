@@ -68,7 +68,7 @@
                     :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
                     <h3 class="text-2xl font-bold mb-4">Visi</h3>
                     @if(!empty($profilopd->visi))
-                        <div class="text-lg leading-relaxed ck-content">
+                        <div class="text-lg ck-content">
                             {!! $profilopd->visi !!}
                         </div>
                     @else
