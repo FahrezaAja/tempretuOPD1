@@ -4,16 +4,18 @@
 
 @section('content')
 
-<section x-data="{ show: false }" x-init="setTimeout(() => show = true, 200)"
-    class="relative min-h-screen flex flex-col md:flex-row items-center justify-between overflow-hidden">
+<section x-data="{ show: false }" 
+    x-init="setTimeout(() => show = true, 200)"
+    class="relative min-h-screen flex flex-col md:flex-row items-start justify-between overflow-hidden">
 
     {{-- Kolom Gambar --}}
-    <div class="relative w-full md:w-1/2 flex justify-center items-center py-16 z-10
-                   transition-all duration-1000 ease-out transform" :class="show 
+    <div class="relative w-full md:w-1/2 flex justify-center md:justify-end items-start py-16 md:py-24 z-10
+                   transition-all duration-1000 ease-out transform" 
+         :class="show 
                 ? 'opacity-100 translate-x-0' 
                 : 'opacity-0 -translate-x-20'">
 
-        <div class="relative z-10 overflow-hidden rounded-[40px] shadow-2xl">
+        <div class="relative z-10 overflow-hidden rounded-[40px] shadow-2xl md:mt-4">
             <img src="{{ $katasambutan?->image ? asset('storage/' . $katasambutan->image) : asset('images/depan-kanan-orang.jpg') }}"
                 alt="Kepala Badan"
                 class="object-cover w-[300px] md:w-[400px] lg:w-[450px] rounded-[40px] transition-all duration-1000 ease-out transform"
@@ -22,8 +24,9 @@
     </div>
 
     {{-- Kolom Teks --}}
-    <div class="relative w-full md:w-1/2 text-gray-800 px-8 md:px-16 py-20 space-y-6 z-10
-                   transition-all duration-1000 ease-out transform delay-300" :class="show 
+    <div class="relative w-full md:w-1/2 text-gray-800 px-8 md:px-16 py-10 md:py-24 space-y-6 z-10
+                   transition-all duration-1000 ease-out transform delay-300" 
+         :class="show 
                 ? 'opacity-100 translate-x-0' 
                 : 'opacity-0 translate-x-20'">
 
@@ -41,7 +44,5 @@
         </div>
     </div>
 </section>
-
-
 
 @endsection
