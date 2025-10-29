@@ -84,7 +84,7 @@
                         @php
                             $misiList = preg_split("/\r\n|\n|\r/", $profilopd->misi);
                         @endphp
-                        <ul class="list-disc list-inside space-y-2 text-lg">
+                        <ul class="list-disc list-inside space-y-2 text-lg ck-content">
                             @foreach($misiList as $misi)
                                 @if(trim($misi) !== '')
                                     <li>{!! $misi !!}</li>
