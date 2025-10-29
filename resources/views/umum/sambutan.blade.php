@@ -31,7 +31,7 @@
             {{ $katasambutan?->judul ?? 'Kata Sambutan' }}
         </h1>
 
-        <p class="text-lg leading-relaxed text-gray-600 ck-content">
+        <p class="text-lg leading-relaxed text-gray-600 ck-content" id="ck-content">
             {!! $katasambutan?->deskripsi ?? 'Deskripsi sambutan belum tersedia.' !!}
         </p>
 
