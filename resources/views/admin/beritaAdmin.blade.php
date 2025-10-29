@@ -115,7 +115,7 @@
 
                                     <hr class="border-gray-300 my-4">
 
-                                    <div class="prose max-w-none text-gray-800 leading-relaxed">
+                                    <div class="prose max-w-none text-gray-800 leading-relaxed ck-content">
                                         {!! $item->deskripsi !!}
                                     </div>
                                 </div>

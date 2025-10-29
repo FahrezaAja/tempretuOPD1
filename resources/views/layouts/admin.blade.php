@@ -35,6 +35,18 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
         }
+
+        .ck-content ul,
+        .ck-content ul li {
+            list-style-type: disc;
+            margin-left: 1.25rem;
+        }
+
+        .ck-content ol,
+        .ck-content ol li {
+            list-style-type: decimal;
+            margin-left: 1.25rem;
+        }
     </style>
 </head>
 
@@ -69,7 +81,7 @@
         window.addEventListener("load", applyFade);
         document.addEventListener("alpine:initialized", applyFade);
     </script>
-
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 </body>
 
 </html>
