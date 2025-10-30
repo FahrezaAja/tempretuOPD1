@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,13 +9,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+
 <body class="bg-indigo-50 font-poppins min-h-screen flex items-center justify-center p-4"
     style="background-image: linear-gradient(to bottom right, rgba(67,56,202,0.1), rgba(165,180,252,0.2));">
 
     <div
         class="flex flex-col md:flex-row w-full max-w-4xl bg-white rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:shadow-indigo-300">
 
-        
+
         <div class="md:w-1/2 bg-indigo-600 p-10 flex justify-center items-center relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-full opacity-20">
                 <div class="absolute top-10 left-10 w-24 h-24 rounded-full bg-indigo-400"></div>
@@ -23,11 +25,14 @@
             </div>
 
             <div class="relative z-10 text-center text-white">
-                <img src="{{ asset('images/logoPPS.png') }}" alt="Logo" class="w-4/5 mx-auto floating drop-shadow-lg">
+                <img src="{{ $logo && $logo->image && file_exists(public_path('storage/' . $logo->image))
+    ? asset('storage/' . $logo->image)
+    : asset('images/logoPPS.png') }}" alt="{{ $sampul->nama_instansi ?? 'Logo Instansi' }}"
+                    class="w-4/5 mx-auto floating drop-shadow-lg">
             </div>
         </div>
 
-       
+
         <div class="md:w-1/2 p-8 md:p-10 flex flex-col justify-center bg-white">
             <div class="text-center md:text-left mb-6">
                 <h2 class="text-3xl font-bold text-indigo-700">Selamat Datang Admin</h2>
@@ -37,7 +42,7 @@
             <form action="{{ route('admin.login.submit') }}" method="POST" class="space-y-5">
                 @csrf
 
-                
+
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Username</label>
                     <div class="relative">
@@ -53,7 +58,7 @@
                     @enderror
                 </div>
 
-                
+
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
                     <div class="relative">
@@ -75,7 +80,7 @@
                     @enderror
                 </div>
 
-                
+
                 <button type="submit"
                     class="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-md hover:shadow-lg">
                     <i class="fas fa-sign-in-alt mr-2"></i> Login
@@ -90,7 +95,7 @@
         </div>
     </div>
 
-    
+
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -161,4 +166,5 @@
         });
     </script>
 </body>
+
 </html>

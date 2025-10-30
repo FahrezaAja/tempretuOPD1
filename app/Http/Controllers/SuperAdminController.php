@@ -81,7 +81,7 @@ class SuperAdminController extends Controller
                     if(!preg_match('/[0-9]/', $value)) {
                         $fail('Password minimal 1 angka.');
                     }
-                    if(!preg_match('/[@$!%*?&]/', $value)) {
+                    if(!preg_match('/[@$!%*_?&]/', $value)) {
                         $fail('Password minimal 1 karakter unik/special (@$!%*?&).');
                     }
                 }
