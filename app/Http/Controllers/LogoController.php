@@ -80,6 +80,6 @@ class LogoController extends Controller
 
         $logo->delete();
 
-        return redirect()->route('admin.logoAdmin')->with('success', 'Kata Sambutan berhasil dihapus.');
+        return redirect()->route('admin.logoAdmin')->with('success', 'Logo berhasil dihapus.');
     }
 }
