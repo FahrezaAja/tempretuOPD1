@@ -17,7 +17,8 @@ class OtpController extends Controller
     public function showForm()
     {
         if (!session('otp_user_id')) {
-            return redirect()->route('admin.login')->withErrors(['username' => 'Sesi login tidak ditemukan. Silakan login kembali.']);
+            return redirect()->route('admin.login')
+                ->withErrors(['username' => 'Sesi login tidak ditemukan. Silakan login kembali.']);
         }
 
         return view('admin.otp');
@@ -25,6 +26,7 @@ class OtpController extends Controller
 
     /**
      * Verifikasi kode OTP dan arahkan ke dashboard sesuai role.
+     * TANPA limit percobaan.
      */
     public function verify(Request $request)
     {
@@ -32,51 +34,35 @@ class OtpController extends Controller
 
         $userId = session('otp_user_id');
         if (!$userId) {
-            return redirect()->route('admin.login')->withErrors(['otp' => 'Sesi OTP tidak ditemukan. Silakan login ulang.']);
+            return redirect()->route('admin.login')
+                ->withErrors(['otp' => 'Sesi OTP tidak ditemukan. Silakan login ulang.']);
         }
 
         $user = User::find($userId);
         if (!$user) {
             session()->forget('otp_user_id');
-            return redirect()->route('admin.login')->withErrors(['otp' => 'User tidak ditemukan.']);
+            return redirect()->route('admin.login')
+                ->withErrors(['otp' => 'User tidak ditemukan.']);
         }
 
-        // Cek lock/attempts
-        if ($user->otp_last_sent_at && $user->otp_attempts >= 5) {
-            $diffLock = Carbon::now()->diffInSeconds($user->otp_last_sent_at);
-            if ($diffLock < 30) {
-                return back()->withErrors(['otp' => 'Terlalu banyak percobaan. Silakan tunggu ' . (30 - $diffLock) . ' detik.']);
-            } else {
-                $user->otp_attempts = 0;
-                $user->save();
-            }
-        }
+        // ❌ Hapus/abaikan semua logika lock & attempts
 
         // Cek expired
         if (!$user->otp_expires_at || Carbon::now()->greaterThan($user->otp_expires_at)) {
             return back()->withErrors(['otp' => 'Kode OTP telah kedaluwarsa. Silakan kirim ulang.']);
         }
 
-        // Cek kode OTP
+        // Cek kode OTP (tanpa nambah attempts / lock)
         if ($user->otp_code !== $request->otp) {
-            $user->otp_attempts = $user->otp_attempts + 1;
-            $user->save();
-
-            if ($user->otp_attempts >= 5) {
-                $user->otp_last_sent_at = Carbon::now();
-                $user->save();
-                return back()->withErrors(['otp' => 'Terlalu banyak percobaan salah. Coba lagi dalam 30 detik.']);
-            }
-
-            return back()->withErrors(['otp' => 'Kode OTP salah atau telah kadaluarsa.']);
+            return back()->withErrors(['otp' => 'Kode OTP salah.']);
         }
 
-        // ✅ OTP valid
-        $user->otp_code = null;
-        $user->otp_expires_at = null;
-        $user->otp_attempts = 0;
-        $user->otp_last_sent_at = null;
-        $user->otp_resend_count = 0;
+        // ✅ OTP valid – reset field OTP
+        $user->otp_code         = null;
+        $user->otp_expires_at   = null;
+        $user->otp_attempts     = 0;      // boleh dibiarkan untuk reset saja
+        $user->otp_last_sent_at = null;   // opsional
+        $user->otp_resend_count = 0;      // opsional
         $user->save();
 
         Auth::login($user);
@@ -84,57 +70,50 @@ class OtpController extends Controller
 
         // 🔹 Arahkan sesuai role
         if ($user->role === 'super') {
-            return redirect()->route('super.dashboard')->with('success', 'Selamat datang, Super Admin!');
+            return redirect()->route('super.dashboard')
+                ->with('success', 'Selamat datang, Super Admin!');
         }
 
         if ($user->role === 'admin') {
-            return redirect()->route('admin.dashboard')->with('success', 'Selamat datang, Admin!');
+            return redirect()->route('admin.dashboard')
+                ->with('success', 'Selamat datang, Admin!');
         }
 
         Auth::logout();
-        return redirect()->route('admin.login')->withErrors(['otp' => 'Role tidak dikenali.']);
+        return redirect()->route('admin.login')
+            ->withErrors(['otp' => 'Role tidak dikenali.']);
     }
 
     /**
-     * Kirim ulang OTP (resend).
+     * Kirim ulang OTP (resend) TANPA limit waktu/jumlah.
      */
     public function resend(Request $request)
     {
         $user = User::where('id', session('otp_user_id'))->first();
 
         if (!$user) {
-            return redirect()->route('admin.login')->with('error', 'Sesi OTP tidak valid.');
+            return redirect()->route('admin.login')
+                ->with('error', 'Sesi OTP tidak valid.');
         }
 
-        $diff = $user->otp_last_sent_at ? $user->otp_last_sent_at->diffInSeconds(Carbon::now()) : 999;
-
-        if ($diff < 10) {
-            return back()->with('error', 'Tunggu ' . (10 - $diff) . ' detik sebelum kirim ulang.');
-        }
-
-        if ($user->otp_resend_count >= 5 && $diff < 30) {
-            return back()->with('error', 'Anda telah mengirim ulang OTP terlalu sering. Silakan tunggu 30 detik.');
-        }
-
-        if ($diff >= 30) {
-            $user->otp_resend_count = 0;
-        }
+        // ❌ Hilangkan semua perhitungan diff, delay 10 detik, 30 detik, dan resend_count
 
         return $this->sendNewOtp($user);
     }
 
     /**
      * Fungsi kirim OTP baru (baik saat login maupun resend).
+     * Sudah tanpa logika limit.
      */
     private function sendNewOtp(User $user)
     {
         $otp = rand(100000, 999999);
 
         $user->update([
-            'otp_code' => $otp,
+            'otp_code'       => $otp,
             'otp_expires_at' => Carbon::now()->addMinutes(5),
-            'otp_last_sent_at' => Carbon::now(),
-            'otp_resend_count' => ($user->otp_resend_count ?? 0) + 1,
+            'otp_last_sent_at' => Carbon::now(),    // boleh tetap diisi, tapi tidak dipakai limit lagi
+            'otp_resend_count' => 0,               // reset / tidak dipakai lagi
         ]);
 
         Mail::to($user->gmail)->send(new OtpMail($otp));

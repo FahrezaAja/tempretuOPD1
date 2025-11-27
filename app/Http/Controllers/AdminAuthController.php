@@ -39,24 +39,14 @@ class AdminAuthController extends Controller
                 return back()->withErrors(['username' => 'Akun ini bukan admin atau super admin.']);
             }
 
-            // Rate limit OTP
-            if ($user->otp_last_sent_at && $user->otp_attempts >= 5) {
-                $diff = Carbon::now()->diffInSeconds($user->otp_last_sent_at);
-                if ($diff < 30) {
-                    Auth::logout();
-                    return back()->withErrors(['username' => 'Terlalu banyak permintaan OTP. Tunggu 30 detik.']);
-                } else {
-                    $user->otp_attempts = 0;
-                }
-            }
+            // ⬇️ Bagian rate limit DIHAPUS
 
             // Generate OTP
             $otp = rand(100000, 999999);
 
             $user->otp_code = $otp;
             $user->otp_expires_at = Carbon::now()->addMinutes(5);
-            $user->otp_attempts = $user->otp_attempts + 1;
-            $user->otp_last_sent_at = Carbon::now();
+
             $user->save();
 
             // Kirim email OTP
@@ -65,8 +55,7 @@ class AdminAuthController extends Controller
             } catch (\Exception $e) {
                 $user->otp_code = null;
                 $user->otp_expires_at = null;
-                $user->otp_attempts = max(0, $user->otp_attempts - 1);
-                $user->otp_last_sent_at = null;
+               
                 $user->save();
 
                 Auth::logout();
@@ -81,6 +70,7 @@ class AdminAuthController extends Controller
 
         return back()->withErrors(['username' => 'Username atau password salah.']);
     }
+
 
     /**
      * Form OTP
@@ -101,14 +91,17 @@ class AdminAuthController extends Controller
 
         $userId = session('otp_user_id');
         if (!$userId) {
-            return redirect()->route('admin.login')->withErrors(['otp_code' => 'Session OTP tidak valid.']);
+            return redirect()->route('admin.login')
+                ->withErrors(['otp_code' => 'Session OTP tidak valid.']);
         }
 
         $user = User::find($userId);
         if (!$user) {
-            return redirect()->route('admin.login')->withErrors(['otp_code' => 'User tidak ditemukan.']);
+            return redirect()->route('admin.login')
+                ->withErrors(['otp_code' => 'User tidak ditemukan.']);
         }
 
+       
         if ($user->otp_code !== $request->otp_code) {
             return back()->withErrors(['otp_code' => 'Kode OTP salah.']);
         }
@@ -117,10 +110,10 @@ class AdminAuthController extends Controller
             return back()->withErrors(['otp_code' => 'Kode OTP sudah kedaluwarsa.']);
         }
 
-        // ✅ OTP valid
+        // ✅ OTP valid, reset field OTP
         $user->otp_code = null;
         $user->otp_expires_at = null;
-        $user->otp_attempts = 0;
+        $user->otp_attempts = 0; 
         $user->save();
 
         Auth::login($user);
@@ -128,16 +121,20 @@ class AdminAuthController extends Controller
 
         // 🔹 Arahkan ke dashboard sesuai role
         if ($user->role === 'super') {
-            return redirect()->route('super.dashboard')->with('success', 'Selamat datang Super Admin!');
+            return redirect()->route('super.dashboard')
+                ->with('success', 'Selamat datang Super Admin!');
         }
 
         if ($user->role === 'admin') {
-            return redirect()->route('admin.dashboard')->with('success', 'Selamat datang Admin!');
+            return redirect()->route('admin.dashboard')
+                ->with('success', 'Selamat datang Admin!');
         }
 
         Auth::logout();
-        return redirect()->route('admin.login')->withErrors(['msg' => 'Role tidak dikenali.']);
+        return redirect()->route('admin.login')
+            ->withErrors(['msg' => 'Role tidak dikenali.']);
     }
+
 
     /**
      * Logout
