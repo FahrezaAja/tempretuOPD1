@@ -10,12 +10,20 @@ class AdminMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        // Cek login dan role admin
-        if (Auth::check() && Auth::user()->role === 'admin') {
+       
+        if (!Auth::check()) {
+            return redirect()->route('admin.login')
+                ->withErrors(['login' => 'Silakan login terlebih dahulu.']);
+        }
+
+       
+        if (Auth::user()->role === 'admin') {
             return $next($request);
         }
 
-        // Redirect ke admin login jika belum login atau bukan admin
-        return redirect()->route('admin.login')->with('error', 'Hanya admin yang boleh masuk.');
+     
+        Auth::logout();
+        return redirect()->route('admin.login')
+            ->withErrors(['role' => 'Akses ditolak. Hanya admin yang boleh masuk.']);
     }
 }
